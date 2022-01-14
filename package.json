@@ -1,0 +1,38 @@
+{
+  "name": "odd-giants",
+  "version": "0.0.1",
+  "description": "Utilities for interacting with the Odd Giants public API.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Jason Kleinberg",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.16.7",
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
+    "@babel/plugin-transform-runtime": "^7.16.8",
+    "@babel/preset-env": "^7.16.8",
+    "@babel/preset-typescript": "^7.16.7",
+    "@jest/types": "^27.4.2",
+    "@types/aws-lambda": "^8.10.89",
+    "@types/jest": "^27.4.0",
+    "@types/node": "^17.0.8",
+    "@types/webpack-env": "^1.16.3",
+    "@typescript-eslint/eslint-plugin": "^5.9.1",
+    "@typescript-eslint/parser": "^5.9.1",
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "clean-webpack-plugin": "^4.0.0",
+    "eslint": "^8.6.0",
+    "jest": "^27.4.7",
+    "node-fetch": "^3.1.0",
+    "ts-jest": "^27.1.2",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.5.4",
+    "webpack": "^5.66.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-merge": "^5.8.0",
+    "webpack-node-externals": "^3.0.0"
+  }
+}

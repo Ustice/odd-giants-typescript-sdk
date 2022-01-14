@@ -1,0 +1,250 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: ustice@gmail.com
+  description: Odd Giants Public API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Odd Giants Public API
+  version: 0.0.1
+components:
+  schemas:
+    AuthenticationCredentials:
+      properties:
+        email:
+          example: user@domain.tld
+          format: email
+          type: string
+        password:
+          example: THIS_IS_A_BAD_PASSWORD
+          type: string
+        remember:
+          example: true
+          type: boolean
+      required:
+        - email
+        - password
+      type: object
+    Category:
+      description: achievements, giants, inhabitants, items, locations, skills, and upgrades
+      properties:
+        category_id:
+          example: exploring
+          pattern: ^[a-z-]*$
+          type: string
+        id:
+          example: junior_ok_explorer
+          pattern: ^[a-z_]$
+          type: string
+        name:
+          example: Junior OK Explorer
+          pattern: ^[A-Za-z]$
+          type: string
+        totalCount:
+          example: 174
+          format: int32
+          type: number
+      required:
+        - category_id
+        - id
+        - name
+      type: object
+    ErrorResponse:
+      properties:
+        error:
+          example: Something went wrong
+          type: string
+      required:
+        - error
+      type: object
+    SessionInfo:
+      properties:
+        access_token:
+          example: >-
+            fzK1fYBjPjKLW2RjMDKicHdjPjKTV{J2OjK:/fzKieXRjPjJzJjxjboSqJkpjZnJ3NEJzPHGlO{JxOUd1PXJx[ESmZ3Gl[HVzNUVzOER5N{Vy[kinN3Z{ZkV3ZXJ4PXV1PXNx[nR2N{ByNUVy[kZ6ZUB{[Uh2O{hy[URyN3RjMDKqZYRjPjJyOkRzNUJzOUN3MkF{O{Z3OTJtJn6j[jJ7JkF3OEJyNkJ2N{ZvNUN4OkdyJjxj[YixJkpjNUZ1NkFzOkF{Oj5xPEhzPEFjMDK{eXJjPjJ2O{JjMDK{Z3:x[YNjPmuegR/URlwbjFzQyzcXx9fVES6LJdv.dIL{i`Ebc2cd6`CJ3mc9lBlsRRDtNdZ9HY6Rg583k[lF4XJZL`[bGb`UNm`TBFVfPkjeE85Bmhdo.zHJtW8DBHJB46:Isw4{reXgp9BUz1gH77qCttH.DSW1xguLV4Lf`zDqSmt6d`SnZrX{BqpQqXFfZLomrQB[gpu:e6DFp1{nWIsSECszPiPH{VeDIjmz5g1wxxx71OH73MjBl.DdX7j9FZbRyigDDCwxSeQ`f7ITJFowPLJKy.wvSNHufOLkjmfED7rsHI8[y:e[51I33j3VLzbph7vjbStqH`1u1V6YDZcq:4f{Wyf{ZIxSo3Tu5jHJhTb2KLhv2XhWIMfzrbhFLURlGK9POJmOoOZXdhB8DF:3OC4UmJBi2YtukXsH[7VQ6sDl`MBGEpwFDjub2Wv[I2cRez[qWEpOUtI2WrKq:KgXt2[VXZ962l[T:7p4Y61SvhCpsN62GIm1hV6JBKOxuXu3q9E2T{92cIGsL8f:JhwEjvpRFzLR8ExDKHyrU{PkUUJt82IdTWNnUdY.VQ8DN4YuujHVbuxRue:Mvr`SO1Gd5eZgZ8jqts2XsmfXCLd4zgEMrP[eLT1DHlfw3XoMxKzxjQw[3U29uf8JGpWol1vPBv`yyEZeU7RLke9pNEMEY4eZ2hv1si4XGt
+          type: string
+        expires_in:
+          example: 3600
+          type: string
+        refresh_token:
+          example: >-
+            efg6131142g0gc459d02d43ed4c115g17cgeg7824970621c3602d9490ee45g855685b123130gc8012cgc5cdfc2g347fb52d60301df2g982549440028487175c9bbefb0b440gb9bg886ee92999d0893c9g321384b1f0482c5c1d8dgg7d2b98450ed66f7640d74f3ef67gf5gg9dcdcfb10f650e3bdde68ed87b171ccbb89bd3g2c19171e538e5464bd1gf8gf31b8e1c8703552c809204ff619870346c985024115bb3435begge6805e2696356g219f30355662bcff7302bc6893c358ebd3545f15g6dg40d21b8bg1697g0923fd2c69ceb9be0g31c405f6814973635b5445d2ccbfe2bd487379e6e3468g10c1ge1b9e3fb5e8959g96eb5d13gfff976ee7ge478173g205d0276g0105397cf2g55cb33d1ebb5c6gc90db526d11e8506ff05185d71dg67b32dg022f18gfgc0b033cbb928gbg7c10e93561499d8cd9b8d5051ecb9e2562f912506ee55g8e16b0dg74g51b377g4134f496ce8b233fedd1g489fe40e21b0808f16
+          type: string
+        remember:
+          example: true
+          type: boolean
+      required:
+        - access_token
+        - refresh_token
+        - expires_in
+        - remember
+      type: object
+    User:
+      properties:
+        avatarImage:
+          example: avatars/avatar-572.png
+          format: url
+          pattern: ^avatars\/avatar-\d+$
+          type: string
+        created_at:
+          example: '2021-09-17 18:44:00'
+          format: date-time
+          type: string
+        energy:
+          example: 176
+          format: int32
+          type: number
+        id:
+          example: 572
+          format: int32
+          type: number
+        last_achievement:
+          $ref: '#/components/schemas/Category'
+        last_location:
+          $ref: '#/components/schemas/Location'
+        last_login:
+          example: '2021-09-17 18:44:00'
+          format: date-time
+          type: string
+        last_seen_social:
+          example: 771-upgrade-10725 2022-01-14 00:58:17
+          pattern: ' \d{4}-\d\d-\d\d \d\d:\d\d:\d\d$'
+          type: string
+        last_skill:
+          $ref: '#/components/schemas/Category'
+        last_upgrate:
+          $ref: '#/components/schemas/Category'
+        level:
+          example: 8
+          format: int32
+          type: number
+        location_id:
+          example: GLI2HHRC84F1TJ6
+          pattern: ^[A-Z0-9]{15}$
+          type: string
+        mood:
+          example: 82
+          format: int32
+          type: number
+        name:
+          example: Ustice
+          type: string
+        registered:
+          example: '2022-01-11 06:11:43'
+          format: date-time
+          type: string
+      required:
+        - avatarImage
+        - created_at
+        - energy
+        - id
+        - last_login
+        - last_seen_social
+        - level
+        - location_id
+        - mood
+        - name
+      type: object
+    Condition:
+      description: Requirements before something is available
+      type: object
+      properties:
+        achievement_id:
+          nullable: true
+          type: string
+          pattern: '^[a-z_]+$'
+        imagination_id:
+          nullable: true
+          type: string
+          pattern: '^[a-z_]+$'
+        level:
+          type: number
+          format: int32
+          nullable: true
+        max_energy:
+          type: number
+          format: int32
+          nullable: true
+        quest_id:
+          nullable: true
+          type: string
+          pattern: '^[a-z_]+$'
+        skill_id:
+          nullable: true
+          type: string
+          pattern: '^[a-z_]+$'
+        type:
+          type: number
+          format: int32
+          nullable: true
+
+      
+paths:
+  /login:
+    post:
+      description: |
+        User's provide an email address and password to gain access to authenticated routes.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthenticationCredentials'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionInfo'
+          description: The user has sucessfully authenticated
+        '302':
+          description: The user failed to log in successfully
+      summary: Logs in a user
+  /login/refresh:
+    post:
+      description: By sending the refresh_token, the user is able to refresh their session.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionInfo'
+          description: The user has successfully refreshed their session.
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Something went wrong.
+      summary: Refreshes the user's session
+  /users:
+    get:
+      description: Gets the authenticated user
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: Hey, it's you!
+      summary: Gets the authenticated user
+      tags:
+        - authenticated
+  /users/{id}:
+    get:
+      description: Gets a specific user
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: We found someone.
+servers:
+  - description: Odd Giants Public API
+    url: https://api.oddgiants.com/public
+tags:
+  - description: Requires that the user is authenticated
+    name: authenticated
+  - description: Does not require authentication
+    name: unauthenticated
