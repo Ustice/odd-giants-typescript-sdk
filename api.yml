@@ -4,12 +4,73 @@ info:
     email: ustice@gmail.com
   description: Odd Giants Public API
   license:
-    name: Apache 2.0
+    name: MIT
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Odd Giants Public API
   version: 0.0.1
+
 components:
   schemas:
+    # -----------------------------------
+    # Nominal Types
+    # -----------------------------------
+    achievement_id:
+      type: string
+      pattern: '^[a-z][a-z_0-9]*$'
+    category_id:
+      type: string
+      pattern: '^[a-z][a-z_0-9]*$'
+    giant_id:
+      type: string
+      enum:
+        - alph
+        - cosma
+        - friendly
+        - grendaline
+        - humbaba
+        - lem
+        - mab
+        - pot
+        - spriggan
+        - tii
+        - zille
+    inhabitant_id:
+      type: string
+      pattern: '^npc_[a-z_0-9]+$'
+    item_id:
+      type: string
+      pattern: '^[a-z][a-z_0-9]*$'
+    location_id:
+      description: Identifier for the Location Model
+      type: string
+      format: '^[0-9A-Z]{15}$'
+      example: GCR105E77812AEF
+    quest_id:
+      type: string
+      pattern: '^[a-z][a-z_0-9]*$'
+    recipe_id:
+      type: number
+      format: int32
+    region_id:
+      type: string
+      pattern: '^[a-z][a-z_0-9]*$'
+    skill_id:
+      type: string
+      pattern: '^[a-z][a-z_0-9]+$'
+    upgrade_id:
+      type: string
+      pattern: '^[a-z][a-z_0-9]*$'
+    user_id:
+      description: Identifier for the User Model
+      example: 572
+      format: int32
+      type: number
+    datetime:
+      type: string
+      format: datetime
+    # -----------------------------------
+    # Models
+    # -----------------------------------
     AuthenticationCredentials:
       properties:
         email:
@@ -27,29 +88,147 @@ components:
         - password
       type: object
     Category:
-      description: achievements, giants, inhabitants, items, locations, skills, and upgrades
-      properties:
-        category_id:
-          example: exploring
-          pattern: ^[a-z-]*$
-          type: string
-        id:
-          example: junior_ok_explorer
-          pattern: ^[a-z_]$
-          type: string
-        name:
-          example: Junior OK Explorer
-          pattern: ^[A-Za-z]$
-          type: string
-        totalCount:
-          example: 174
-          format: int32
-          type: number
+      description: Categories of entries in the encyclopedia
       required:
-        - category_id
+        - created_at
+        - description
         - id
         - name
+      properties:
+        created_at:
+          type: string
+          format: date
+        description:
+          type: string
+        id:
+          $ref: '#/components/schemas/category_id'
+        name:
+          type: string
+    CategoryIndex:
+      description: Index of the Encyclopedia
+      required:
+        - achievements
+        - giants
+        - inhabitants
+        - items
+        - locations
+        - skills
+        - upgrades
+      properties:
+        achievements:
+          type: object
+          properties:
+            categories:
+              type: array
+              items:
+                $ref: '#/components/schemas/Category'
+        giants:
+          type: object
+          properties:
+            categories:
+              type: array
+              items:
+                $ref: '#/components/schemas/Giant'
+        inhabitants:
+          type: object
+          properties:
+            categories:
+              type: array
+              items:
+                $ref: '#/components/schemas/Category'
+        items:
+          type: object
+          properties:
+            categories:
+              type: array
+              items:
+                $ref: '#/components/schemas/Category'
+        locations:
+          type: object
+          properties:
+            categories:
+              type: array
+              items:
+                $ref: '#/components/schemas/Region'
+        skills:
+          type: object
+          properties:
+            categories:
+              type: array
+              items:
+                $ref: '#/components/schemas/Category'
+        upgrades:
+          type: object
+          properties:
+            categories:
+              type: array
+              items:
+                $ref: '#/components/schemas/Category'
+    GiantDetails:
+      allOf:
+        - $ref: '#/components/schemas/Giant'
+        - type: object
+          required:
+            - skills
+          properties:
+            skills:
+              type: array
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/Skill'
+                  - type: object
+                    required:
+                      - pivot
+                    properties:
+                      pivot:
+                        type: object
+                        required:
+                          - giant_id
+                          - skill_id
+                          - primary
+                        properties:
+                          giant_id:
+                            $ref: '#/components/schemas/giant_id'
+                          skill_id:
+                            $ref: '#/components/schemas/skill_id'
+                          primary:
+                            type: integer
+                            enum:
+                              - 0
+                              - 1
+    Giant:
       type: object
+      required:
+        - description
+        - followers_name
+        - gender
+        - id
+        - name
+        - qualities
+        - type
+        - updated_at
+        - created_at
+      properties:
+        description:
+          type: string
+        followers_name:
+          type: string
+        gender:
+          type: string
+        id:
+          $ref: '#/components/schemas/giant_id'
+        name:
+          type: string
+        qualities:
+          type: string
+        type:
+          type: string
+        updated_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
     ErrorResponse:
       properties:
         error:
@@ -58,6 +237,610 @@ components:
       required:
         - error
       type: object
+    InhabitantCategory:
+      type: array
+      items:
+        $ref: '#/components/schemas/Inhabitant'
+    InhabitantDetails:
+      allOf:
+        - $ref: '#/components/schemas/Inhabitant'
+        - type: object
+          required:
+            - items
+          properties:
+            items:
+              type: array
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/Item'
+                  - type: object
+                    required:
+                      - pivot
+                    properties:
+                      pivot:
+                        type: object
+                        required:
+                          - inhabitant_id
+                          - item_id
+                        properties:
+                          inhabitant_id:
+                            $ref: '#/components/schemas/inhabitant_id'
+                          item_id:
+                            $ref: '#/components/schemas/item_id'
+    Inhabitant:
+      required:
+        - article
+        - category_id
+        - created_at
+        - description
+        - has_infopage
+        - id
+        - items
+        - name
+        - name_plural
+        - updated_at
+      properties:
+        article:
+          type: string
+        category_id:
+          $ref: '#/components/schemas/category_id'
+        created_at:
+          type: string
+          format: date-time
+        description:
+          type: string
+        has_infopage:
+          type: number
+          format: int32
+          example: 1
+        id:
+          $ref: '#/components/schemas/inhabitant_id'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        name:
+          type: string
+        name_plural:
+          type: string
+        updated_at:
+          type: string
+          format: date-time
+    ItemDetails:
+      allOf:
+        - $ref: '#/components/schemas/Item'
+        - type: object
+
+          properties:
+            
+            recipes_tool:
+              type: array
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/Recipe'
+                  - type: object
+                    required:
+                      - pivot
+                    properties:
+                      pivot:
+                        type: object
+                        required:
+                          - item_id
+                          - recipe_id
+                          - type
+                          - quantity
+                        properties:
+                          item_id:
+                            $ref: '#/components/schemas/item_id'
+                          recipe_id:
+                            $ref: '#/components/schemas/recipe_id'
+                          type:
+                            type: string
+                            enum:
+                              - tool
+                          quantity:
+                            type: integer
+
+            recipes_input:
+              type: array
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/Recipe'
+                  - type: object
+                    required:
+                      - pivot
+                    properties:
+                      pivot:
+                        type: object
+                        required:
+                          - item_id
+                          - recipe_id
+                          - type
+                        properties:
+                          item_id:
+                            $ref: '#/components/schemas/item_id'
+                          recipe_id:
+                            $ref: '#/components/schemas/recipe_id'
+                          type:
+                            type: string
+                            enum:
+                              - input
+            recipes_output:
+              type: array
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/Recipe'
+                  - type: object
+                    required:
+                    - pivot
+                    properties:
+                      pivot:
+                        type: object
+                        required:
+                          - item_id
+                          - recipe_id
+                          - type
+                        properties:
+                          item_id:
+                            $ref: '#/components/schemas/item_id'
+                          recipe_id:
+                            $ref: '#/components/schemas/recipe_id'
+                          type:
+                            type: string
+                            enum:
+                              - output
+            npcs:
+              type: array
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/Inhabitant'
+                  - type: object
+                    required:
+                      - pivot
+                    properties:
+                      pivot:
+                        type: object
+                        required:
+                          - item_id
+                          - npc_id
+                        properties:
+                          item_id:
+                            $ref: '#/components/schemas/item_id'
+                          npc_id:
+                            $ref: '#/components/schemas/inhabitant_id'
+            achievements:
+              type: array
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/Achievement'
+                  - type: object
+                    required:
+                      - pivot
+                    properties:
+                      pivot:
+                        type: object
+                        required:
+                          - achievement_id
+                          - item_id
+                          - count
+                        properties:
+                          achievement_id:
+                            $ref: '#/components/schemas/achievement_id'
+                          item_id:
+                            $ref: '#/components/schemas/item_id'
+                          count:
+                            type: integer
+    ItemCategory:
+      type: array
+      items:
+        $ref: '#/components/schemas/Item'
+    Item:
+      required:
+        - id
+        - category_id
+        - label
+        - name_single
+        - name_plural
+        - article
+        - description
+        - has_info
+        - has_infopage
+        - is_routable
+        - adjuested_scale
+        - stackmax
+        - capacity
+        - base_cost
+        - parent_classes
+        - created_at
+        - updated_at
+        - name
+        - recipes_tool
+        - recipes_input
+        - npcs
+        - achievements
+      properties:
+        id:
+          $ref: '#/components/schemas/item_id'
+        category_id:
+          $ref: '#/components/schemas/category_id'
+        label:
+          type: string
+        name_single:
+          type: string
+        name_plural:
+          type: string
+        article:
+          type: string
+          enum:
+            - a
+            - the
+        description:
+          type: string
+        has_info:
+          type: integer
+          example: 1
+        has_infopage:
+          type: integer
+          example: 1
+        is_routable:
+          type: integer
+          example: 1
+        adjusted_scale:
+          type: number
+        stackmax: 
+          type: integer
+          example: 1
+        capacity:
+          type: integer
+          example: 1
+        base_cost:
+          type: integer
+          example: 1
+        parent_classes:
+          type: array
+          items:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        name:
+          type: string
+    LocationDetails:
+      allOf:
+        - $ref: '#/components/schemas/Location'
+        - type: object
+          required:
+            - items
+            - npcs
+            - connections_from
+            - connections_to
+          properties:
+            items:
+              type: array
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/Item'
+                  - type: object
+                    required:
+                      - pivot
+                    properties:
+                      pivot:
+                        type: object
+                        required:
+                          - location_id
+                          - item_id
+                          - quantity
+                        properties:
+                          location_id:
+                            $ref: '#/components/schemas/location_id'
+                          item_id:
+                            $ref: '#/components/schemas/item_id'
+                          quantity:
+                            type: integer
+            npcs:
+              type: array
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/Inhabitant'
+                  - type: object
+                    required:
+                      - pivot
+                    properties:
+                      pivot:
+                        type: object
+                        required:
+                          - location_id
+                          - npc_id
+                          - quantity
+                        properties:
+                          location_id:
+                            $ref: '#/components/schemas/location_id'
+                          npc_id:
+                            $ref: '#/components/schemas/inhabitant_id'
+                          quantity:
+                            type: integer
+            connections_from:
+                allOf:
+                  - $ref: '#/components/schemas/Location'
+                  - type: object
+                    required:
+                      - pivot
+                    properties:
+                      pivot:
+                        type: object
+                        required:
+                          - location_id
+                          - connection_id
+                        properties:
+                          location_id:
+                            $ref: '#/components/schemas/location_id'
+                          connection_id:
+                            $ref: '#/components/schemas/location_id'
+            connections_to:
+                allOf:
+                  - $ref: '#/components/schemas/Location'
+                  - type: object
+                    required:
+                      - pivot
+                    properties:
+                      pivot:
+                        type: object
+                        required:
+                          - location_id
+                          - connection_id
+                        properties:
+                          location_id:
+                            $ref: '#/components/schemas/location_id'
+                          connection_id:
+                            $ref: '#/components/schemas/location_id'
+    Location:
+      required:
+        - contents
+        - id
+        - label
+        - region_id
+        - updated_id
+        - user_id
+      properties:
+        contents:
+          type: object
+          additionalProperties:
+            oneOf:
+              - type: number
+                description: Permenant resident population
+              - type: string
+                pattern: "^[0-9]+$"
+                description: Current resident population
+        created_at:
+          $ref: '#/components/schemas/datetime'
+        id:
+          $ref: '#/components/schemas/location_id'
+        label:
+          type: string
+          description: the name of the location
+        region_id:
+          $ref: '#/components/schemas/region_id'
+        updated_at:
+          type: string
+          format: date-time
+        user_id:
+          $ref: '#/components/schemas/user_id'
+    Recipe:
+      required:
+        - id
+        - name
+        - tool_wear
+        - leanrt
+        - energy_cost
+        - xp_reward
+        - wait_ms
+        - task_limit
+        - created_at
+        - updated_at
+        - pivot
+        - items_tool
+        - items_input
+        - items_output
+        - npcs
+        - required_achievements
+      properties:
+        id:
+          $ref: '#/components/schemas/recipe_id'
+        name:
+          type: string
+        tool_wear:
+          type: integer
+        learnt:
+          description: Whether the recipe is accessable to the player
+          type: integer
+          enum:
+            - 0
+            - 1
+        energy_cost:
+          type: integer
+        xp_reward:
+          type: integer
+        wait_ms:
+          description: How long the recipe takes to make
+          type: integer
+        task_limit:
+          description: How many of the recipe can be made at once
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        tool:
+          $ref: '#/components/schemas/item_id'
+        pivot:
+          type: object
+          required:
+            - item_id
+            - recipe_id
+            - type
+          properties:
+            item_id:
+              $ref: '#/components/schemas/item_id'
+            recipe_id:
+              $ref: '#/components/schemas/recipe_id'
+            type:
+              type: string
+              enum:
+                - input
+                - output
+        items_tool:
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/Item'
+              - type: object
+                required:
+                  - pivot
+                properties:
+                  pivot:
+                    type: object
+                    required:
+                      - recipe_id
+                      - item_id
+                      - type
+                      - quantity
+                    properties:
+                      recipe_id:
+                        $ref: '#/components/schemas/recipe_id'
+                      item_id:
+                        $ref: '#/components/schemas/item_id'
+                      type:
+                        type: string
+                        enum:
+                          - tool
+                      quantity:
+                        type: integer
+        items_input:
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/Item'
+              - type: object
+                required:
+                  - pivot
+                properties:
+                  pivot:
+                    type: object
+                    required:
+                      - recipie_id
+                      - item_id
+                      - type
+                      - quantity
+                    properties:
+                      recipe_id:
+                        $ref: '#/components/schemas/recipe_id'
+                      item_id:
+                        $ref: '#/components/schemas/item_id'
+                      type:
+                        type: string
+                        enum:
+                          - input
+                      quantity:
+                        type: integer
+        items_output:
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/Item'
+              - type: object
+                required:
+                  - pivot
+                properties:
+                  pivot:
+                    type: object
+                    required:
+                      - recipie_id
+                      - item_id
+                      - type
+                      - quantity
+                    properties:
+                      recipe_id:
+                        $ref: '#/components/schemas/recipe_id'
+                      item_id:
+                        $ref: '#/components/schemas/item_id'
+                      type:
+                        type: string
+                        enum:
+                          - output
+                      quantity:
+                        type: integer
+        npcs:
+          type: array
+          items: 
+            $ref: '#/components/schemas/SkillDetails'
+        required_achievements:
+          type: array
+          items:
+            $ref: '#/components/schemas/AchievementDetails'
+    Region:
+      properties:
+        created_at:
+          $ref: '#/components/schemas/datetime'
+        id:
+          $ref: '#/components/schemas/region_id'
+    Reward:
+      properties:
+        xp:
+          type: integer
+        currants:
+          type: integer
+        mood:
+          type: integer
+        energy:
+          type: integer
+        giant:
+          $ref: '#/components/schemas/giant_id'
+        giant_favor:
+          type: integer
+    SearchResults:
+      type: object
+      required:
+        - skills
+        - achievements
+        - locations
+        - regions
+        - giants
+        - items
+        - inhabitants
+      properties:
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/Skill'
+        achievements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Achievement'
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Location'
+        regions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Region'
+        giants:
+          type: array
+          items:
+            $ref: '#/components/schemas/Giant'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        inhabitants: 
+          type: array
+          items:
+            $ref: '#/components/schemas/Inhabitant'
     SessionInfo:
       properties:
         access_token:
@@ -96,9 +879,7 @@ components:
           format: int32
           type: number
         id:
-          example: 572
-          format: int32
-          type: number
+          $ref: '#/components/schemas/user_id'
         last_achievement:
           $ref: '#/components/schemas/Category'
         last_location:
@@ -112,13 +893,12 @@ components:
           pattern: ' \d{4}-\d\d-\d\d \d\d:\d\d:\d\d$'
           type: string
         last_skill:
-          $ref: '#/components/schemas/Category'
-        last_upgrate:
-          $ref: '#/components/schemas/Category'
+          $ref: '#/components/schemas/Skill'
+        last_upgrade:
+          $ref: '#/components/schemas/Upgrade'
         level:
           example: 8
-          format: int32
-          type: number
+          type: integer
         location_id:
           example: GLI2HHRC84F1TJ6
           pattern: ^[A-Z0-9]{15}$
@@ -146,42 +926,950 @@ components:
         - mood
         - name
       type: object
-    Condition:
-      description: Requirements before something is available
+    AchievementCategory:
+      type: array
+      items:
+        $ref: '#/components/schemas/Achievement'
+    Achievement:
       type: object
+      required:
+        - id
+        - category_id
+        - name
+        - description
+        - status_text
+        - conditions
+        - reward_xp
+        - reward_currants
+        - reward_mood
+        - reward_energy
+        - reward_giant
+        - reward_giant_favor
+        - created_at
+        - updated_at
+        - reward
+        - category
       properties:
-        achievement_id:
-          nullable: true
+        id:
+          example: junior_ok_explorer
+          $ref: '#/components/schemas/achievement_id'
+        category_id:
+          example: exploring
+          $ref: '#/components/schemas/category_id'
+        name:
           type: string
-          pattern: '^[a-z_]+$'
-        imagination_id:
-          nullable: true
+          example: Junior OK Explorer
+        description: 
           type: string
-          pattern: '^[a-z_]+$'
+          example: Visited 5 new locations.
+        status_text:
+          type: string
+          example: >-
+            Hey! You're getting pretty good at finding your way around. 
+            You've earned a Junior OK Explorer badge.
+        conditions:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                enum:
+                  - counter
+                  - group_sum
+                  - group_count
+              group:
+                type: string
+              label:
+                type: string
+                nullable: true
+              value:
+                type: string
+        reward_xp:
+          example: 125
+          type: integer
+        reward_currants:
+          type: integer
+          example: 0
+        reward_mood:
+          type: integer
+          example: 0
+        reward energy:
+          type: integer
+          example: 0
+        reward_giant:
+          example: lem
+          $ref: '#/components/schemas/giant_id'
+        reward_giant_favor:
+          type: integer
+          example: 10
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        reward:
+          $ref: '#/components/schemas/Reward'
+        category:
+          $ref: '#/components/schemas/category_id'
+    UserAchievment:
+      allOf:
+        - $ref: '#/components/schemas/Achievement'
+        - type: object
+          required:
+            - pivot
+          properties:
+            pivot:
+              type: object
+              required:
+                - user_id
+                - achievement_id
+              properties:
+                user_id:
+                  $ref: '#/components/schemas/user_id'
+                achievement_id:
+                  $ref: '#/components/schemas/achievement_id'
+    AchievementDetails:
+      allOf:
+        - $ref: '#/components/schemas/Achievement'
+        - type: object
+          required:
+            - connections_from
+            - connections_to
+            - required_for_upgrades
+            - required_for_recipes
+            - items
+          properties:
+            connections_from:
+              type: array
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/Achievement'
+                  - type: object
+                    properties:
+                      achievement_id:
+                        $ref: '#/components/schemas/Achievement'
+                      connection_id:
+                        $ref: '#/components/schemas/Achievement'
+                        connections_from:
+            connections_to:
+              type: array
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/Achievement'
+                  - type: object
+                    properties:
+                      achievement_id:
+                        $ref: '#/components/schemas/Achievement'
+                      connection_id:
+                        $ref: '#/components/schemas/Achievement'
+            required_for_upgrades:
+              type: array
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/Upgrade'
+                  - type: object
+                    properties:
+                      pivot:
+                        type: object
+                        properties:
+                          achievement_id:
+                            $ref: '#/components/schemas/achievement_id'
+                          upgrade_id:
+                            $ref: '#/components/schemas/upgrade_id'
+            required_for_recipes:
+              type: array
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/Recipe'
+                  - type: object
+                    properties:
+                      pivot:
+                        type: object
+                        properties:
+                          achievement_id:
+                            $ref: '#/components/schemas/achievement_id'
+                          recipe_id:
+                            $ref: '#/components/schemas/Recipe'
+            items:
+              type: array
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/Item'
+                  - type: object
+                    required:
+                      - achievement_id
+                      - item_id
+                    properties:
+                      achievement_id:
+                        $ref: '#/components/schemas/achievement_id'
+                      item_id:
+                        $ref: '#/components/schemas/item_id'
+    Skill:
+      required:
+        - id
+        - category_id
+        - name
+        - group
+        - level
+        - description
+        - point_cost
+        - requires_level
+        - quest_id
+        - req_quests
+        - created_at
+        - updated_at
+      properties:
+        id:
+          example: light_green_thumb_1
+          $ref: '#/components/schemas/skill_id'
+        category_id:
+          example: growing
+          $ref: '#/components/schemas/category_id'
+        name:
+          type: string
+          example: Light Green Thumb I
+        group:
+          example: light
+          type: string
         level:
-          type: number
-          format: int32
-          nullable: true
-        max_energy:
-          type: number
-          format: int32
-          nullable: true
+          example: 1
+          type: integer
+        description:
+          example: >-
+            This is the first step towards a better relationship with plant life of all kinds. 
+            It ensures success when watering and petting trees and plants, halves the time 
+            required to water and gives some modest imagination rewards.
+          type: string
+        point_cost:
+          example: 600
+          type: integer
+        requires_level:
+          example: 0
+          type: integer
         quest_id:
-          nullable: true
+          example: lightgreenthumb_water_trees
+          $ref: '#/components/schemas/quest_id'
+        req_quests:
+          type: array
+          items:
+            $ref: '#/components/schemas/quest_id'
+        created_at:
+          example: '2021-06-14T18:00:25.000000Z'
+          $ref: '#/components/schemas/datetime'
+        updated_at:
+          example: '2021-06-14T18:00:25.000000Z'
+          $ref: '#/components/schemas/datetime'
+    SkillCategory:
+      type: array
+      items:
+        $ref: '#/components/schemas/Skill'
+    SkillDetails:
+      type: object
+      required:
+        - learned
+        - required_skills
+        - required_achievements
+        - required_upgrades
+        - required_for_skills
+        - required_for_achievements
+        - required_for_upgrades
+        - required_for_recipes
+        - giants
+      properties:
+        learned:
+          example: >-
+            With Light Green Thumb, you've just taken a step into a bigger world.
+            A world where you grok plants, and they grok you right back. Armed
+            with your trusty Watering Can, you will now enjoy some modest rewards
+            now that you know how to water and pet the veg properly, and at twice
+            the speed to boot. 
           type: string
-          pattern: '^[a-z_]+$'
+        required_skills: 
+          type: array
+          items:
+            $ref: '#/components/schemas/SkillDetails'
+        required_achievements:
+          type: array
+          items:
+            $ref: '#/components/schemas/AchievementDetails'
+        required_upgrades:
+          type: array
+          items:
+            $ref: '#/components/schemas/UpgradeDetails'
+        required_for_skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/SkillDetails'
+        required_for_achievements:
+          type: array
+          items:
+            $ref: '#/components/schemas/AchievementDetails'
+        required_for_upgrades:
+          type: array
+          items:
+            $ref: '#/components/schemas/UpgradeDetails'
+        required_for_recipes:
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/Recipe'
+
+        giants:
+          type: array
+          items:
+            allOf:
+              - $ref: "#/components/schemas/Giant"
+              - type: object
+                properties:
+                  pivot:
+                    type: object
+                    properties:
+                      skill_id:
+                        $ref: '#/components/schemas/skill_id'
+                      giant_id:
+                        $ref: '#/components/schemas/giant_id'
+                      primary:
+                        type: integer
+                        enum:
+                          - 0
+                          - 1
+    UserSkill:
+      allOf:
+        - $ref: '#/components/schemas/Skill'
+        - type: object
+          required:
+            - pivot
+            - learned
+            - starts
+            - ends
+          properties:
+            pivot:
+              type: object
+              required:
+                - user_id
+                - skill_id
+              properties:
+                user_id:
+                  $ref: '#/components/schemas/user_id'
+                skill_id:
+                  $ref: '#/components/schemas/skill_id'
+            learned:
+              description: Indicates whether a user has learned the skill.
+              type: integer
+              enum:
+                - 0
+                - 1
+            starts:
+              example: '2022-07-10 19:28:02'
+              $ref: '#/components/schemas/datetime'
+            ends:
+              example: '2022-07-10 20:46:26'
+              $ref: '#/components/schemas/datetime'
+
+      properties:
+        id:
+          example: light_green_thumb_1
+          $ref: '#/components/schemas/skill_id'
+        category_id:
+          example: growing
+          $ref: '#/components/schemas/category_id'
+        name:
+          type: string
+          example: Light Green Thumb I
+        group:
+          example: light
+          type: string
+        level:
+          example: 1
+          type: integer
+        description:
+          example: >-
+            This is the first step towards a better relationship with plant life of all kinds. 
+            It ensures success when watering and petting trees and plants, halves the time 
+            required to water and gives some modest imagination rewards.
+          type: string
+        learned:
+          type: integer
+          example: 1
+        point_cost:
+          example: 600
+          type: integer
+        requires_level:
+          example: 0
+          type: integer
+        quest_id:
+          example: lightgreenthumb_water_trees
+          $ref: '#/components/schemas/quest_id'
+        req_quests:
+          type: array
+          items:
+            $ref: '#/components/schemas/quest_id'
+        created_at:
+          example: '2021-06-14T18:00:25.000000Z'
+          $ref: '#/components/schemas/datetime'
+        updated_at:
+          example: '2021-06-14T18:00:25.000000Z'
+          $ref: '#/components/schemas/datetime'
+
         skill_id:
-          nullable: true
+          example: light_green_thumb_1
+          $ref: '#/components/schemas/skill_id'
+        pivot:
+          type: object
+          properties:
+            user_id:
+              example: 572
+              $ref: '#/components/schemas/user_id'
+            skill_id:
+              example: light_green_thumb_1
+              $ref: '#/components/schemas/skill_id'
+    Upgrade:
+      required:
+        - id
+        - category_id
+        - name
+        - display_name
+        - description
+        - cost
+        - max_uses
+        - chance
+        - conditions
+        - rewards
+        - requires_level
+        - requires_max_energy
+        - created_at
+        - updated_at
+        - value
+        - upgrade_id
+        - desc
+      properties:
+        id:
+          $ref: '#/components/schemas/upgrade_id'
+        category_id:
+          $ref: '#/components/schemas/category_id'
+        name:
+          example: Energy Tank +{amount}
           type: string
-          pattern: '^[a-z_]+$'
+        display_name:
+          type: string
+          example: Energy Tank Increase
+        description:
+          type: string
+          example: "Life's a lot less fun on an empty tank: make yours bigger!"
+        cost:
+          type: integer
+        max_uses:
+          type: integer
+        chance:
+          type: integer
+        conditions:
+          type: array
+          discriminator:
+            propertyName: type
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/UpgradeConditionNull'
+              - $ref: '#/components/schemas/UpgradeConditionLevel'
+              - $ref: '#/components/schemas/UpgradeConditionUpgrade'
+              - $ref: '#/components/schemas/UpgradeConditionSkill'
+              - $ref: '#/components/schemas/UpgradeConditionAchievement'
+              - $ref: '#/components/schemas/UpgradeConditionQuest'
+              - $ref: '#/components/schemas/UpgradeConditionMaxEnergy'
+        rewards:
+          type: array
+          discriminator:
+            propertyName: type
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/UpgradeRewardMovement'
+              - $ref: '#/components/schemas/UpgradeRewardKeepable'
+              - $ref: '#/components/schemas/UpgradeRewardLearning'
+        requires_level:
+          type: integer
+        requires_max_energy:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        value:
+          type: string
+          example: "190"
+        upgrade_id:
+          $ref: '#/components/schemas/upgrade_id'
+        desc:
+          type: string
+          example: "Life's a lot less fun on an empty tank: make yours bigger!"
+    UpgradeConditionNull:
+      type: object
+      required:
+        - type
+      properties:
         type:
           type: number
-          format: int32
+          enum:
+            - 1
+    UpgradeConditionLevel:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: number
+          enum:
+            - 2
+        level:
+          type: integer
+    UpgradeConditionUpgrade:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: number
+          enum:
+            - 3
+        imagination_id:
+          type: string
+    UpgradeConditionSkill:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: number
+          enum:
+            - 4
+        skill_id:
+          type: string
+    UpgradeConditionAchievement:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: number
+          enum:
+            - 5
+        achievement_id:
+          type: string
+    UpgradeConditionQuest:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: number
+          enum:
+            - 6
+        quest_id:
+          type: string
+    UpgradeConditionMaxEnergy:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: number
+          enum:
+            - 7
+        max_energy:
+          type: string
+    UpgradeDetails:
+      allOf:
+        - $ref: '#/components/schemas/Upgrade'
+        - type: object
+          required:
+            - required_skills
+            - required_achievements
+            - required_upgrades
+            - required_for_skills
+          properties:
+            required_skills:
+              type: array
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/Skill'
+                  - type: object
+                    required:
+                      - upgrade_id
+                      - skill_id
+                    properties:
+                      pivot:
+                        type: object
+                        properties:
+                          upgrade_id:
+                            $ref: '#/components/schemas/upgrade_id'
+                          skill_id:
+                            $ref: '#/components/schemas/skill_id'
+            required_achievements:
+              type: array
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/Achievement'
+                  - type: object
+                    required:
+                      - upgrade_id
+                      - achievement_id
+                    properties:
+                      upgrade_id:
+                        $ref: '#/components/schemas/upgrade_id'
+                      achievement_id:
+                        $ref: '#/components/schemas/achievement_id'
+            required_upgrades:
+              type: array
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/Upgrade'
+                  - type: object
+                    required:
+                      - pivot
+                    properties:
+                      pivot:
+                        type: object
+                        required:
+                          - upgrade_id
+                          - required_for_upgrade
+                        properties:
+                          upgrade_id:
+                            $ref: '#/components/schemas/upgrade_id'
+                          required_upgrade_id:
+                            $ref: '#/components/schemas/upgrade_id'
+            required_for_skills:
+              type: array
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/Skill'
+                  - type: object
+                    required:
+                      - pivot
+                    properties:
+                      pivot:
+                        type: object
+                        required:
+                          - upgrade_id
+                          - skill_id
+                        properties:
+                          upgrade_id:
+                            $ref: '#/components/schemas/upgrade_id'
+                          skill_id:
+                            $ref: '#/components/schemas/skill_id'
+    UserUpgrade:
+      allOf:
+        - $ref: '#/components/schemas/Upgrade'
+        - type: object
+          required:
+             - pivot
+          properties:
+            pivot:
+              type: object
+              required:
+                - user_id
+                - upgrade_id
+              properties:
+                user_id:
+                  $ref: '#/components/schemas/user_id'
+                upgrade_id:
+                  $ref: '#/components/schemas/upgrade_id'
+    UpgradeRewardMovement:
+      type: object
+      required:
+        - type
+        - vx_max
+        - gravity
+        - vy_jump
+        - can_3_jump
+        - can_wall_jump
+        - multiplier_3_jump
+      properties:
+        type:
+          type: integer
+          enum:
+            - 1
+        vx_max:
+          description: Represents walking speed
+          type: number
           nullable: true
+        gravity:
+          type: number
+          nullable: true
+        vy_jump:
+          example: 0.907
+          type: number
+          nullable: true
+        can_3_jump:
+          type: boolean
+          nullable: true
+        can_wall_jump:
+          type: boolean
+          nullable: true
+        multiplier_3_jump:
+          type: number
+          nullable: true
+    UpgradeRewardKeepable:
+      type: object
+      required:
+        - num
+        - type
+        - class_id
+      properties:
+        num:
+          type: integer
+          description: number of keepables rewarded
+          nullable: true
+        type:
+          type: integer
+          enum:
+            - 8
+        class_id:
+          description: item_id of keepable
+          $ref: '#/components/schemas/item_id'
+    UpgradeRewardLearning:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: integer
+          enum:
+            - 9
 
-      
+    Configs:
+      properties:
+        players_count:
+          type: integer
+          example: 771
+        version:
+          type: string
+          example: "0.9.3"
+      required:
+        - players_count
+        - version
 paths:
-  /login:
+  "/configs":
+    get:
+      description: ''
+      operationId: getConfigs
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              examples:
+                example-0001:
+                  value:
+                    players_count: 771
+                    version: "0.9.3"
+              schema:
+                $ref: "#/components/schemas/Configs"
+                type: object
+          description: Success
+      summary: 'List '
+      tags:
+      - Miscellaneous
+    parameters: []
+  '/encyclopedia/achievments/{category}':
+    get:
+      description: Get Achievements by category
+      operationId: getAchievementCategory
+      parameters:
+        - in: path
+          name: category
+          required: true
+          schema:
+            $ref: '#/components/schemas/AchievementCategory'
+      responses:
+        '200':
+          description: Successfully loaded Achievement category
+          content:
+            'application/json':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Achievement'
+  '/encyclopedia/achievement/{id}':
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          $ref: '#/components/schemas/achievement_id'
+  '/encyclepedia/categories':
+    get:
+      operationId: getEncyclopediaCategories
+      description: Categories of information available within the encyclopedia/api
+      responses:
+        '200':
+          description: CategoryIndex
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryIndex'
+  '/encyclopedia/inhabitant/{id}':
+    parameters:
+      - in: path
+        name: user_id
+        required: true
+        schema:
+          $ref: '#/components/schemas/inhabitant_id'
+
+    get:
+      operationId: getInhabitant
+      responses:
+        '200':
+          description: Inhabitant loaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inhabitant'
+  '/encyclopedia/inhabitants/{category}': 
+    parameters:
+      - in: path
+        name: category
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: getInhabitantsByCategory
+      responses:
+        '200':
+          description: Inhabitants loaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InhabitantCategory'
+  '/encyclopedia/locations/{id}':
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          $ref: '#/components/schemas/region_id'
+    get:
+      operationId: getLocation
+      description: Locations around Ur
+      responses:
+        '200':
+          description: Location loaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+  '/encyclopedia/location/{id}':
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          $ref: '#/components/schemas/location_id'
+    get:
+      operationId: getLocationDetails
+      description: Locations around Ur
+      responses:
+        '200':
+          description: Location loaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+  '/encyclopedia/upgrades/{category}':
+    parameters:
+      - in: path
+        name: category
+        required: true
+        schema:
+          $ref: '#/components/schemas/category_id'
+    get:
+      operationId: getUpgradeCategory
+      description: Get upgrade category
+      responses:
+        '200':
+          description: Upgrade category loaded
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Upgrade'
+  '/encyclopedia/upgrade/{id}':
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          $ref: '#/components/schemas/upgrade_id'
+    get:
+      operationId: getUpgrade
+      description: Gets the details of an Upgrade
+      responses:
+        '200':
+          description: Successfully loaded Upgrade details
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UpgradeDetails'
+  '/encyclopedia/search':
+    parameters:
+      - in: query
+        name: q
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: searchEncyclopedia
+      description: Search encyclopedia
+      responses:
+        '200':
+          description: Successfully loaded search results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SearchResults'
+  '/encyclopedia/skills/{category}':
+    parameters:
+      - in: path
+        name: category
+        required: true
+        schema:
+          $ref: '#/components/schemas/category_id'
+    get:
+      operationId: getSkillCategory
+      description: Get Skill Category
+      responses:
+        '200':
+          description: Skill category loaded
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SkillCategory'
+  '/encyclopedia/skill/{id}':
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          $ref: '#/components/schemas/skill_id'
+    get:
+      operationId: getSkill
+      description: Get Skill
+      responses:
+        '200':
+          description: Skill loaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SkillDetails'
+  "/login":
     post:
       description: |
         User's provide an email address and password to gain access to authenticated routes.
@@ -200,7 +1888,7 @@ paths:
         '302':
           description: The user failed to log in successfully
       summary: Logs in a user
-  /login/refresh:
+  "/login/refresh":
     post:
       description: By sending the refresh_token, the user is able to refresh their session.
       responses:
@@ -217,7 +1905,8 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
           description: Something went wrong.
       summary: Refreshes the user's session
-  /users:
+
+  "/users":
     get:
       description: Gets the authenticated user
       responses:
@@ -230,16 +1919,86 @@ paths:
       summary: Gets the authenticated user
       tags:
         - authenticated
-  /users/{id}:
+  "/users/{user_id}":
+    parameters:
+      - in: path
+        name: user_id
+        required: true
+        schema:
+          $ref: '#/components/schemas/user_id'
     get:
-      description: Gets a specific user
+      operationId: getUser
+      description: Gets information about a specific user
       responses:
         '200':
+          description: Successfully loaded user info
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-          description: We found someone.
+  "/users/{user_id}/skills":
+    parameters:
+      - in: path
+        name: user_id
+        required: true
+        schema:
+          type: array
+
+          $ref: '#/components/schemas/user_id'
+    get:
+      operationId: getUserSkills
+      description: Gets the skills for a given user
+      responses:
+        '200':
+          description: Sucessfully loaded the given user's skills
+          content:
+            'application/json':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserSkill'
+  "/users/{user_id}/upgrades":
+    parameters:
+      - in: path
+        name: user_id
+        required: true
+        schema:
+          type: array
+
+          $ref: '#/components/schemas/user_id'
+    get:
+      operationId: getUserUpgrades
+      description: Gets the upgrades for a given user
+      responses:
+        '200':
+          description: Sucessfully loaded the given user's upgrades
+          content:
+            'application/json':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Upgrade'
+  "/users/{user_id}/achievments":
+    parameters:
+      - in: path
+        name: user_id
+        required: true
+        schema:
+          type: array
+
+          $ref: '#/components/schemas/user_id'
+    get:
+      operationId: getUserAchievments
+      description: Gets the achievments for a given user
+      responses:
+        '200':
+          description: Sucessfully loaded the given user's achievments
+          content:
+            'application/json':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserAchievment'
 servers:
   - description: Odd Giants Public API
     url: https://api.oddgiants.com/public

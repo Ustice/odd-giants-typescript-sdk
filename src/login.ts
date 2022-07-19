@@ -2,7 +2,7 @@ import { apiBaseUrl } from './config'
 interface LoginArgs {
   email: string
   password: string
-  remember: boolean
+  remember?: boolean
 }
 
 type LoginResponse = {
@@ -12,8 +12,7 @@ type LoginResponse = {
   remember: boolean
 }
 
-export async function login({ email, password, remember }: LoginArgs): Promise<LoginResponse> {
-  const response = await fetch(`${ apiBaseUrl }/login`).then((n) => n.json())
-
-
+export async function login(args: LoginArgs): Promise<LoginResponse> {
+  return fetch(`${ apiBaseUrl }/login`).then((n) => n.json())
 }
+
