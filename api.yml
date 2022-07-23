@@ -49,8 +49,7 @@ components:
       type: string
       pattern: '^[a-z][a-z_0-9]*$'
     recipe_id:
-      type: number
-      format: int32
+      type: integer
     region_id:
       type: string
       pattern: '^[a-z][a-z_0-9]*$'
@@ -63,8 +62,7 @@ components:
     user_id:
       description: Identifier for the User Model
       example: 572
-      format: int32
-      type: number
+      type: integer
     datetime:
       type: string
       format: datetime
@@ -117,6 +115,7 @@ components:
       properties:
         achievements:
           type: object
+          title: CategoryAchievements
           properties:
             categories:
               type: array
@@ -124,6 +123,7 @@ components:
                 $ref: '#/components/schemas/Category'
         giants:
           type: object
+          title: GiantList
           properties:
             categories:
               type: array
@@ -131,6 +131,7 @@ components:
                 $ref: '#/components/schemas/Giant'
         inhabitants:
           type: object
+          title: CategoryInhabitants
           properties:
             categories:
               type: array
@@ -138,6 +139,7 @@ components:
                 $ref: '#/components/schemas/Category'
         items:
           type: object
+          title: CategoryItems
           properties:
             categories:
               type: array
@@ -145,6 +147,7 @@ components:
                 $ref: '#/components/schemas/Category'
         locations:
           type: object
+          title: CategoryLocations
           properties:
             categories:
               type: array
@@ -152,6 +155,7 @@ components:
                 $ref: '#/components/schemas/Region'
         skills:
           type: object
+          title: CategorySkills
           properties:
             categories:
               type: array
@@ -159,6 +163,7 @@ components:
                 $ref: '#/components/schemas/Category'
         upgrades:
           type: object
+          title: CategoryUpgrades
           properties:
             categories:
               type: array
@@ -237,10 +242,6 @@ components:
       required:
         - error
       type: object
-    InhabitantCategory:
-      type: array
-      items:
-        $ref: '#/components/schemas/Inhabitant'
     InhabitantDetails:
       allOf:
         - $ref: '#/components/schemas/Inhabitant'
@@ -290,8 +291,7 @@ components:
         description:
           type: string
         has_infopage:
-          type: number
-          format: int32
+          type: integer
           example: 1
         id:
           $ref: '#/components/schemas/inhabitant_id'
@@ -430,10 +430,6 @@ components:
                             $ref: '#/components/schemas/item_id'
                           count:
                             type: integer
-    ItemCategory:
-      type: array
-      items:
-        $ref: '#/components/schemas/Item'
     Item:
       required:
         - id
@@ -876,8 +872,7 @@ components:
           type: string
         energy:
           example: 176
-          format: int32
-          type: number
+          type: integer
         id:
           $ref: '#/components/schemas/user_id'
         last_achievement:
@@ -905,8 +900,7 @@ components:
           type: string
         mood:
           example: 82
-          format: int32
-          type: number
+          type: integer
         name:
           example: Ustice
           type: string
@@ -926,10 +920,6 @@ components:
         - mood
         - name
       type: object
-    AchievementCategory:
-      type: array
-      items:
-        $ref: '#/components/schemas/Achievement'
     Achievement:
       type: object
       required:
@@ -994,7 +984,7 @@ components:
         reward_mood:
           type: integer
           example: 0
-        reward energy:
+        reward_energy:
           type: integer
           example: 0
         reward_giant:
@@ -1052,7 +1042,6 @@ components:
                         $ref: '#/components/schemas/Achievement'
                       connection_id:
                         $ref: '#/components/schemas/Achievement'
-                        connections_from:
             connections_to:
               type: array
               items:
@@ -1161,10 +1150,6 @@ components:
         updated_at:
           example: '2021-06-14T18:00:25.000000Z'
           $ref: '#/components/schemas/datetime'
-    SkillCategory:
-      type: array
-      items:
-        $ref: '#/components/schemas/Skill'
     SkillDetails:
       type: object
       required:
@@ -1637,8 +1622,7 @@ components:
           type: integer
           enum:
             - 9
-
-    Configs:
+    ServerStats:
       properties:
         players_count:
           type: integer
@@ -1649,11 +1633,72 @@ components:
       required:
         - players_count
         - version
+
+    # -----------------------------------
+    # API Responses
+    # -----------------------------------
+    GetServerStatsResponse:
+      $ref: "#/components/schemas/ServerStats"
+    GetAchievementsByCategoryResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/Achievement'
+    GetAchievementResponse:
+      $ref: '#/components/schemas/AchievementDetails'
+    GetCategoriesResponse:
+      $ref: '#/components/schemas/CategoryIndex'
+    GetInhabitantResponse:
+      $ref: '#/components/schemas/Inhabitant'
+    GetInhabitantsByCategoryResponse:  
+      type: array
+      items:
+        $ref: '#/components/schemas/Inhabitant'
+    GetRegionResponse:
+      $ref: '#/components/schemas/Location'
+    GetLocationResponse:
+      $ref: '#/components/schemas/Location'
+    GetUpgradesByCategoryResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/Upgrade'
+    GetUpgradeDetailsResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/UpgradeDetails'
+    SearchResponse:
+      $ref: '#/components/schemas/SearchResults'
+    GetSkillsByCategoryResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/Skill'
+    GetSkillResponse:
+      $ref: '#/components/schemas/SkillDetails'
+    LoginResponse:
+      $ref: '#/components/schemas/SessionInfo'
+    LoginRefreshResponse:
+      $ref: '#/components/schemas/SessionInfo'
+    GetMeResponse:
+      $ref: '#/components/schemas/User'
+    GetUserResponse:
+      $ref: '#/components/schemas/User'
+    GetUserSkillsResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/UserSkill'
+    GetUserUpgradesResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/Upgrade'
+    GetUserAchievementsResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/UserAchievment'
+
 paths:
   "/configs":
     get:
       description: ''
-      operationId: getConfigs
+      operationId: serverStats
       parameters: []
       responses:
         '200':
@@ -1665,42 +1710,53 @@ paths:
                     players_count: 771
                     version: "0.9.3"
               schema:
-                $ref: "#/components/schemas/Configs"
-                type: object
+                $ref: '#/components/schemas/GetServerStatsResponse'
           description: Success
       summary: 'List '
       tags:
-      - Miscellaneous
+        - OddGiants
     parameters: []
   '/encyclopedia/achievments/{category}':
     get:
       description: Get Achievements by category
-      operationId: getAchievementCategory
+      operationId: achievementsByCategory
       parameters:
         - in: path
           name: category
           required: true
           schema:
-            $ref: '#/components/schemas/AchievementCategory'
+            $ref: '#/components/schemas/category_id'
       responses:
         '200':
           description: Successfully loaded Achievement category
           content:
             'application/json':
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Achievement'
-  '/encyclopedia/achievement/{id}':
+                $ref: '#/components/schemas/GetAchievementsByCategoryResponse'
+      tags:
+        - OddGiants
+  '/encyclopedia/achievement/{achievement_id}':
     parameters:
       - in: path
-        name: id
+        name: achievement_id
         required: true
         schema:
           $ref: '#/components/schemas/achievement_id'
+    get:
+      operationId: achievement
+      description: Gets Achievement details
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAchievementResponse'
+      tags:
+        - OddGiants
   '/encyclepedia/categories':
     get:
-      operationId: getEncyclopediaCategories
+      operationId: categories
       description: Categories of information available within the encyclopedia/api
       responses:
         '200':
@@ -1708,24 +1764,28 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CategoryIndex'
-  '/encyclopedia/inhabitant/{id}':
+                $ref: '#/components/schemas/GetCategoriesResponse'
+      tags:
+        - OddGiants
+  '/encyclopedia/inhabitant/{inhabitant_id}':
     parameters:
       - in: path
-        name: user_id
+        name: inhabitant_id
         required: true
         schema:
           $ref: '#/components/schemas/inhabitant_id'
 
     get:
-      operationId: getInhabitant
+      operationId: inhabitant
       responses:
         '200':
           description: Inhabitant loaded
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Inhabitant'
+                $ref: '#/components/schemas/GetInhabitantResponse'
+      tags:
+        - OddGiants
   '/encyclopedia/inhabitants/{category}': 
     parameters:
       - in: path
@@ -1734,23 +1794,25 @@ paths:
         schema:
           type: string
     get:
-      operationId: getInhabitantsByCategory
+      operationId: inhabitantsByCategory
       responses:
         '200':
           description: Inhabitants loaded
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/InhabitantCategory'
-  '/encyclopedia/locations/{id}':
+                $ref: '#/components/schemas/GetInhabitantsByCategoryResponse'
+      tags:
+        - OddGiants
+  '/encyclopedia/locations/{region_id}':
     parameters:
       - in: path
-        name: id
+        name: region_id
         required: true
         schema:
           $ref: '#/components/schemas/region_id'
     get:
-      operationId: getLocation
+      operationId: region
       description: Locations around Ur
       responses:
         '200':
@@ -1758,16 +1820,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Location'
-  '/encyclopedia/location/{id}':
+                $ref: '#/components/schemas/GetRegionResponse'
+      tags:
+        - OddGiants
+  '/encyclopedia/location/{location_id}':
     parameters:
       - in: path
-        name: id
+        name: location_id
         required: true
         schema:
           $ref: '#/components/schemas/location_id'
     get:
-      operationId: getLocationDetails
+      operationId: location
       description: Locations around Ur
       responses:
         '200':
@@ -1775,7 +1839,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Location'
+                $ref: '#/components/schemas/GetLocationResponse'
+      tags:
+        - OddGiants
   '/encyclopedia/upgrades/{category}':
     parameters:
       - in: path
@@ -1784,7 +1850,7 @@ paths:
         schema:
           $ref: '#/components/schemas/category_id'
     get:
-      operationId: getUpgradeCategory
+      operationId: upgradesByCategory
       description: Get upgrade category
       responses:
         '200':
@@ -1792,18 +1858,18 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Upgrade'
-  '/encyclopedia/upgrade/{id}':
+                $ref: '#/components/schemas/GetUpgradesByCategoryResponse'
+      tags:
+        - OddGiants
+  '/encyclopedia/upgrade/{upgrade_id}':
     parameters:
       - in: path
-        name: id
+        name: upgrade_id
         required: true
         schema:
           $ref: '#/components/schemas/upgrade_id'
     get:
-      operationId: getUpgrade
+      operationId: upgrade
       description: Gets the details of an Upgrade
       responses:
         '200':
@@ -1811,9 +1877,9 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/UpgradeDetails'
+                $ref: '#/components/schemas/GetUpgradeDetailsResponse'
+      tags:
+        - OddGiants
   '/encyclopedia/search':
     parameters:
       - in: query
@@ -1822,17 +1888,17 @@ paths:
         schema:
           type: string
     get:
-      operationId: searchEncyclopedia
-      description: Search encyclopedia
+      operationId: search
+      description: Search
       responses:
         '200':
           description: Successfully loaded search results
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/SearchResults'
+                $ref: '#/components/schemas/SearchResponse'
+      tags:
+        - OddGiants
   '/encyclopedia/skills/{category}':
     parameters:
       - in: path
@@ -1841,7 +1907,7 @@ paths:
         schema:
           $ref: '#/components/schemas/category_id'
     get:
-      operationId: getSkillCategory
+      operationId: skillsByCategory
       description: Get Skill Category
       responses:
         '200':
@@ -1849,18 +1915,18 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/SkillCategory'
-  '/encyclopedia/skill/{id}':
+                $ref: '#/components/schemas/GetSkillsByCategoryResponse'
+      tags:
+        - OddGiants
+  '/encyclopedia/skill/{skill_id}':
     parameters:
       - in: path
-        name: id
+        name: skill_id
         required: true
         schema:
           $ref: '#/components/schemas/skill_id'
     get:
-      operationId: getSkill
+      operationId: skill
       description: Get Skill
       responses:
         '200':
@@ -1868,9 +1934,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SkillDetails'
+                $ref: '#/components/schemas/GetSkillResponse'
+      tags:
+        - OddGiants
   "/login":
     post:
+      operationId: login
       description: |
         User's provide an email address and password to gain access to authenticated routes.
       requestBody:
@@ -1883,20 +1952,23 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SessionInfo'
+                $ref: '#/components/schemas/LoginResponse'
           description: The user has sucessfully authenticated
         '302':
           description: The user failed to log in successfully
       summary: Logs in a user
+      tags:
+        - OddGiants
   "/login/refresh":
     post:
+      operationId: loginRefresh
       description: By sending the refresh_token, the user is able to refresh their session.
       responses:
         '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SessionInfo'
+                $ref: '#/components/schemas/LoginRefreshResponse'
           description: The user has successfully refreshed their session.
         '400':
           content:
@@ -1905,20 +1977,22 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
           description: Something went wrong.
       summary: Refreshes the user's session
-
+      tags:
+        - OddGiants
   "/users":
     get:
+      operationId: me
       description: Gets the authenticated user
       responses:
         '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/GetMeResponse'
           description: Hey, it's you!
       summary: Gets the authenticated user
       tags:
-        - authenticated
+        - OddGiants
   "/users/{user_id}":
     parameters:
       - in: path
@@ -1927,7 +2001,7 @@ paths:
         schema:
           $ref: '#/components/schemas/user_id'
     get:
-      operationId: getUser
+      operationId: user
       description: Gets information about a specific user
       responses:
         '200':
@@ -1935,18 +2009,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/GetUserResponse'
+      tags:
+        - OddGiants
   "/users/{user_id}/skills":
     parameters:
       - in: path
         name: user_id
         required: true
         schema:
-          type: array
-
           $ref: '#/components/schemas/user_id'
     get:
-      operationId: getUserSkills
+      operationId: userSkills
       description: Gets the skills for a given user
       responses:
         '200':
@@ -1954,20 +2028,18 @@ paths:
           content:
             'application/json':
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/UserSkill'
+                $ref: '#/components/schemas/GetUserSkillsResponse'
+      tags:
+        - OddGiants
   "/users/{user_id}/upgrades":
     parameters:
       - in: path
         name: user_id
         required: true
         schema:
-          type: array
-
           $ref: '#/components/schemas/user_id'
     get:
-      operationId: getUserUpgrades
+      operationId: userUpgrades
       description: Gets the upgrades for a given user
       responses:
         '200':
@@ -1975,20 +2047,18 @@ paths:
           content:
             'application/json':
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Upgrade'
+                $ref: '#/components/schemas/GetUserUpgradesResponse'
+      tags:
+        - OddGiants
   "/users/{user_id}/achievments":
     parameters:
       - in: path
         name: user_id
         required: true
         schema:
-          type: array
-
           $ref: '#/components/schemas/user_id'
     get:
-      operationId: getUserAchievments
+      operationId: userAchievements
       description: Gets the achievments for a given user
       responses:
         '200':
@@ -1996,14 +2066,15 @@ paths:
           content:
             'application/json':
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/UserAchievment'
+                $ref: '#/components/schemas/GetUserAchievementsResponse'
+      tags:
+        - OddGiants
+
 servers:
   - description: Odd Giants Public API
     url: https://api.oddgiants.com/public
 tags:
   - description: Requires that the user is authenticated
-    name: authenticated
+    name: Authenticated
   - description: Does not require authentication
-    name: unauthenticated
+    name: Unauthenticated
