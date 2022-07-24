@@ -10,10 +10,10 @@
  * Do not edit the class manually.
  */
 
-import { Inhabitant } from './Inhabitant';
-import { Item } from './Item';
-import { Location } from './Location';
 import { LocationContentsValue } from './LocationContentsValue';
+import { LocationInhabitant } from './LocationInhabitant';
+import { LocationItem } from './LocationItem';
+import { LocationLocation } from './LocationLocation';
 import { HttpFile } from '../http/http';
 
 export class LocationDetails {
@@ -33,10 +33,10 @@ export class LocationDetails {
     * Identifier for the User Model
     */
     'userId': number;
-    'items': Array<Item & any>;
-    'npcs': Array<Inhabitant & any>;
-    'connectionsFrom': Location & any;
-    'connectionsTo': Location & any;
+    'items': Array<LocationItem>;
+    'npcs': Array<LocationInhabitant>;
+    'connectionsFrom': LocationLocation;
+    'connectionsTo': LocationLocation;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -86,25 +86,25 @@ export class LocationDetails {
         {
             "name": "items",
             "baseName": "items",
-            "type": "Array<Item & any>",
+            "type": "Array<LocationItem>",
             "format": ""
         },
         {
             "name": "npcs",
             "baseName": "npcs",
-            "type": "Array<Inhabitant & any>",
+            "type": "Array<LocationInhabitant>",
             "format": ""
         },
         {
             "name": "connectionsFrom",
             "baseName": "connections_from",
-            "type": "Location & any",
+            "type": "LocationLocation",
             "format": ""
         },
         {
             "name": "connectionsTo",
             "baseName": "connections_to",
-            "type": "Location & any",
+            "type": "LocationLocation",
             "format": ""
         }    ];
 

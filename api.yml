@@ -10,6 +10,75 @@ info:
   version: 0.0.1
 
 components:
+  parameters:
+    achievement_id:
+      in: path
+      name: achievement_id
+      required: true
+      schema:
+        $ref: '#/components/schemas/achievement_id'
+    category_id:
+      in: path
+      name: category_id
+      required: true
+      schema:
+        $ref: '#/components/schemas/category_id'
+    giant_id:
+      in: path
+      name: giant_id
+      required: true
+      schema:
+        $ref: '#/components/schemas/giant_id'
+    inhabitant_id:
+      in: path
+      name: inhabitant_id
+      required: true
+      schema:
+        $ref: '#/components/schemas/inhabitant_id'
+    item_id:
+      in: path
+      name: item_id
+      required: true
+      schema:
+        $ref: '#/components/schemas/item_id'
+    location_id:
+      in: path
+      name: location_id
+      required: true
+      schema:
+        $ref: '#/components/schemas/location_id'
+      example: GCR105E77812AEF
+    region_id:
+      in: path
+      name: region_id
+      required: true
+      schema:
+        $ref: '#/components/schemas/region_id'
+    search_query:
+      in: query
+      name: search_query
+      required: true
+      schema:
+        type: string
+        format: uri-encoded
+    skill_id:
+      in: path
+      name: skill_id
+      required: true
+      schema:
+        $ref: '#/components/schemas/skill_id'
+    upgrade_id:
+      in: path
+      name: upgrade_id
+      required: true
+      schema:
+        $ref: '#/components/schemas/upgrade_id'
+    user_id:
+      in: path
+      name: user_id
+      required: true
+      schema:
+        $ref: '#/components/schemas/user_id'
   schemas:
     # -----------------------------------
     # Nominal Types
@@ -170,37 +239,46 @@ components:
               items:
                 $ref: '#/components/schemas/Category'
     GiantDetails:
+      title: GiantDetails
       allOf:
         - $ref: '#/components/schemas/Giant'
-        - type: object
+        - $ref: '#/components/schemas/GiantConnections'
+    GiantConnections:
+      type: object
+      required:
+        - skills
+      properties:
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/GiantSkill'
+    GiantSkill:
+      title: GiantSkill
+      allOf:
+        - $ref: '#/components/schemas/Skill'
+        - $ref: '#/components/schemas/GiantSkillConnection'
+    GiantSkillConnection:
+      type: object
+      required:
+        - pivot
+      properties:
+        pivot:
+          title: GiantSkillPivot
+          type: object
           required:
-            - skills
+            - giant_id
+            - skill_id
+            - primary
           properties:
-            skills:
-              type: array
-              items:
-                allOf:
-                  - $ref: '#/components/schemas/Skill'
-                  - type: object
-                    required:
-                      - pivot
-                    properties:
-                      pivot:
-                        type: object
-                        required:
-                          - giant_id
-                          - skill_id
-                          - primary
-                        properties:
-                          giant_id:
-                            $ref: '#/components/schemas/giant_id'
-                          skill_id:
-                            $ref: '#/components/schemas/skill_id'
-                          primary:
-                            type: integer
-                            enum:
-                              - 0
-                              - 1
+            giant_id:
+              $ref: '#/components/schemas/giant_id'
+            skill_id:
+              $ref: '#/components/schemas/skill_id'
+            primary:
+              type: integer
+              enum:
+                - 0
+                - 1
     Giant:
       type: object
       required:
@@ -234,40 +312,41 @@ components:
         created_at:
           type: string
           format: date-time
-    ErrorResponse:
-      properties:
-        error:
-          example: Something went wrong
-          type: string
-      required:
-        - error
-      type: object
     InhabitantDetails:
+      title: InhabitantDetails
       allOf:
         - $ref: '#/components/schemas/Inhabitant'
-        - type: object
+        - $ref: '#/components/schemas/InhabitantConnections'
+    InhabitantConnections:
+      type: object
+      required:
+        - items
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/InhabitantItem'
+    InhabitantItem:
+      title: InhabitantItem
+      allOf:
+        - $ref: '#/components/schemas/Item'
+        - $ref: '#/components/schemas/InhabitantItemConnection'
+    InhabitantItemConnection:
+      type: object
+      required:
+        - pivot
+      properties:
+        pivot:
+          title: InhabitantItemPivot
+          type: object
           required:
-            - items
+            - inhabitant_id
+            - item_id
           properties:
-            items:
-              type: array
-              items:
-                allOf:
-                  - $ref: '#/components/schemas/Item'
-                  - type: object
-                    required:
-                      - pivot
-                    properties:
-                      pivot:
-                        type: object
-                        required:
-                          - inhabitant_id
-                          - item_id
-                        properties:
-                          inhabitant_id:
-                            $ref: '#/components/schemas/inhabitant_id'
-                          item_id:
-                            $ref: '#/components/schemas/item_id'
+            inhabitant_id:
+              $ref: '#/components/schemas/inhabitant_id'
+            item_id:
+              $ref: '#/components/schemas/item_id'
     Inhabitant:
       required:
         - article
@@ -307,129 +386,78 @@ components:
           type: string
           format: date-time
     ItemDetails:
+      title: ItemDetails
       allOf:
         - $ref: '#/components/schemas/Item'
-        - type: object
-
+        - $ref: '#/components/schemas/ItemConnections'
+    ItemConnections:
+      type: object
+      properties:
+        recipes_tool:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeItem'
+        recipes_input:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeItem'
+        recipes_output:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeItem'
+        npcs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemInhabitant'
+        achievements:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemAchievement'
+    ItemInhabitant:
+      title: ItemInhabitant
+      allOf:
+        - $ref: '#/components/schemas/Inhabitant'
+        - $ref: '#/components/schemas/ItemInhabitantConnection'
+    ItemInhabitantConnection:
+      type: object
+      required:
+        - pivot
+      properties:
+        pivot:
+          title: ItemInhabitant
+          type: object
+          required:
+            - item_id
+            - npc_id
           properties:
-            
-            recipes_tool:
-              type: array
-              items:
-                allOf:
-                  - $ref: '#/components/schemas/Recipe'
-                  - type: object
-                    required:
-                      - pivot
-                    properties:
-                      pivot:
-                        type: object
-                        required:
-                          - item_id
-                          - recipe_id
-                          - type
-                          - quantity
-                        properties:
-                          item_id:
-                            $ref: '#/components/schemas/item_id'
-                          recipe_id:
-                            $ref: '#/components/schemas/recipe_id'
-                          type:
-                            type: string
-                            enum:
-                              - tool
-                          quantity:
-                            type: integer
-
-            recipes_input:
-              type: array
-              items:
-                allOf:
-                  - $ref: '#/components/schemas/Recipe'
-                  - type: object
-                    required:
-                      - pivot
-                    properties:
-                      pivot:
-                        type: object
-                        required:
-                          - item_id
-                          - recipe_id
-                          - type
-                        properties:
-                          item_id:
-                            $ref: '#/components/schemas/item_id'
-                          recipe_id:
-                            $ref: '#/components/schemas/recipe_id'
-                          type:
-                            type: string
-                            enum:
-                              - input
-            recipes_output:
-              type: array
-              items:
-                allOf:
-                  - $ref: '#/components/schemas/Recipe'
-                  - type: object
-                    required:
-                    - pivot
-                    properties:
-                      pivot:
-                        type: object
-                        required:
-                          - item_id
-                          - recipe_id
-                          - type
-                        properties:
-                          item_id:
-                            $ref: '#/components/schemas/item_id'
-                          recipe_id:
-                            $ref: '#/components/schemas/recipe_id'
-                          type:
-                            type: string
-                            enum:
-                              - output
-            npcs:
-              type: array
-              items:
-                allOf:
-                  - $ref: '#/components/schemas/Inhabitant'
-                  - type: object
-                    required:
-                      - pivot
-                    properties:
-                      pivot:
-                        type: object
-                        required:
-                          - item_id
-                          - npc_id
-                        properties:
-                          item_id:
-                            $ref: '#/components/schemas/item_id'
-                          npc_id:
-                            $ref: '#/components/schemas/inhabitant_id'
-            achievements:
-              type: array
-              items:
-                allOf:
-                  - $ref: '#/components/schemas/Achievement'
-                  - type: object
-                    required:
-                      - pivot
-                    properties:
-                      pivot:
-                        type: object
-                        required:
-                          - achievement_id
-                          - item_id
-                          - count
-                        properties:
-                          achievement_id:
-                            $ref: '#/components/schemas/achievement_id'
-                          item_id:
-                            $ref: '#/components/schemas/item_id'
-                          count:
-                            type: integer
+            item_id:
+              $ref: '#/components/schemas/item_id'
+            npc_id:
+              $ref: '#/components/schemas/inhabitant_id'
+    ItemAchievement:
+      title: ItemAchievement
+      allOf:
+        - $ref: '#/components/schemas/Achievement'
+        - $ref: '#/components/schemas/ItemAchievementConnection'
+    ItemAchievementConnection:
+      type: object
+      required:
+        - pivot
+      properties:
+        pivot:
+          title: ItemAchievementPivot
+          type: object
+          required:
+            - achievement_id
+            - item_id
+            - count
+          properties:
+            achievement_id:
+              $ref: '#/components/schemas/achievement_id'
+            item_id:
+              $ref: '#/components/schemas/item_id'
+            count:
+              type: integer
     Item:
       required:
         - id
@@ -505,93 +533,108 @@ components:
         name:
           type: string
     LocationDetails:
+      title: LocationDetails
       allOf:
         - $ref: '#/components/schemas/Location'
-        - type: object
+        - $ref: '#/components/schemas/LocationConnections'
+    LocationConnections:
+      type: object
+      required:
+        - items
+        - npcs
+        - connections_from
+        - connections_to
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationItem'
+        npcs:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationInhabitant'
+        connections_from:
+          $ref: '#/components/schemas/LocationLocation'
+        connections_to:
+          $ref: '#/components/schemas/LocationLocation'
+    LocationItem:
+      title: LocationItem
+      allOf:
+        - $ref: '#/components/schemas/Item'
+        - $ref: '#/components/schemas/LocationItemConnection'
+    LocationItemConnection:
+      type: object
+      required:
+        - pivot
+      properties:
+        pivot:
+          title: LocationItemPivot
+          type: object
           required:
-            - items
-            - npcs
-            - connections_from
-            - connections_to
+            - location_id
+            - item_id
+            - quantity
           properties:
-            items:
-              type: array
-              items:
-                allOf:
-                  - $ref: '#/components/schemas/Item'
-                  - type: object
-                    required:
-                      - pivot
-                    properties:
-                      pivot:
-                        type: object
-                        required:
-                          - location_id
-                          - item_id
-                          - quantity
-                        properties:
-                          location_id:
-                            $ref: '#/components/schemas/location_id'
-                          item_id:
-                            $ref: '#/components/schemas/item_id'
-                          quantity:
-                            type: integer
-            npcs:
-              type: array
-              items:
-                allOf:
-                  - $ref: '#/components/schemas/Inhabitant'
-                  - type: object
-                    required:
-                      - pivot
-                    properties:
-                      pivot:
-                        type: object
-                        required:
-                          - location_id
-                          - npc_id
-                          - quantity
-                        properties:
-                          location_id:
-                            $ref: '#/components/schemas/location_id'
-                          npc_id:
-                            $ref: '#/components/schemas/inhabitant_id'
-                          quantity:
-                            type: integer
-            connections_from:
-                allOf:
-                  - $ref: '#/components/schemas/Location'
-                  - type: object
-                    required:
-                      - pivot
-                    properties:
-                      pivot:
-                        type: object
-                        required:
-                          - location_id
-                          - connection_id
-                        properties:
-                          location_id:
-                            $ref: '#/components/schemas/location_id'
-                          connection_id:
-                            $ref: '#/components/schemas/location_id'
-            connections_to:
-                allOf:
-                  - $ref: '#/components/schemas/Location'
-                  - type: object
-                    required:
-                      - pivot
-                    properties:
-                      pivot:
-                        type: object
-                        required:
-                          - location_id
-                          - connection_id
-                        properties:
-                          location_id:
-                            $ref: '#/components/schemas/location_id'
-                          connection_id:
-                            $ref: '#/components/schemas/location_id'
+            location_id:
+              $ref: '#/components/schemas/location_id'
+            item_id:
+              $ref: '#/components/schemas/item_id'
+            quantity:
+              type: integer
+    LocationInhabitant:
+      title: LocationInhabitant
+      allOf:
+        - $ref: '#/components/schemas/Inhabitant'
+        - $ref: '#/components/schemas/LocationInhabitantConnection'
+    LocationInhabitantConnection:
+      type: object
+      required:
+        - pivot
+      properties:
+        pivot:
+          title: LocationInhabitantPivot
+          type: object
+          required:
+            - location_id
+            - npc_id
+            - quantity
+          properties:
+            location_id:
+              $ref: '#/components/schemas/location_id'
+            npc_id:
+              $ref: '#/components/schemas/inhabitant_id'
+            quantity:
+              type: integer
+    LocationLocation:
+      title: LocationLocation
+      allOf:
+        - $ref: '#/components/schemas/Location'
+        - $ref: '#/components/schemas/LocationConnection'
+    LocationConnection:
+      type: object
+      required:
+        - pivot
+      properties:
+        pivot:
+          title: LocationLocationPivot
+          type: object
+          required:
+            - location_id
+            - connection_id
+          properties:
+            location_id:
+              $ref: '#/components/schemas/location_id'
+            connection_id:
+              $ref: '#/components/schemas/location_id'
+    LocationContents:
+      type: object
+      additionalProperties:
+        oneOf:
+          - type: number
+            description: Permenant resident population
+          - type: string
+            pattern: "^[0-9]+$"
+            description: Current resident population
     Location:
       required:
         - contents
@@ -602,14 +645,7 @@ components:
         - user_id
       properties:
         contents:
-          type: object
-          additionalProperties:
-            oneOf:
-              - type: number
-                description: Permenant resident population
-              - type: string
-                pattern: "^[0-9]+$"
-                description: Current resident population
+          $ref: '#/components/schemas/LocationContents'
         created_at:
           $ref: '#/components/schemas/datetime'
         id:
@@ -674,102 +710,19 @@ components:
         tool:
           $ref: '#/components/schemas/item_id'
         pivot:
-          type: object
-          required:
-            - item_id
-            - recipe_id
-            - type
-          properties:
-            item_id:
-              $ref: '#/components/schemas/item_id'
-            recipe_id:
-              $ref: '#/components/schemas/recipe_id'
-            type:
-              type: string
-              enum:
-                - input
-                - output
+          $ref: '#/components/schemas/RecipeItemConnection'
         items_tool:
           type: array
           items:
-            allOf:
-              - $ref: '#/components/schemas/Item'
-              - type: object
-                required:
-                  - pivot
-                properties:
-                  pivot:
-                    type: object
-                    required:
-                      - recipe_id
-                      - item_id
-                      - type
-                      - quantity
-                    properties:
-                      recipe_id:
-                        $ref: '#/components/schemas/recipe_id'
-                      item_id:
-                        $ref: '#/components/schemas/item_id'
-                      type:
-                        type: string
-                        enum:
-                          - tool
-                      quantity:
-                        type: integer
+            $ref: '#/components/schemas/RecipeItem'
         items_input:
           type: array
           items:
-            allOf:
-              - $ref: '#/components/schemas/Item'
-              - type: object
-                required:
-                  - pivot
-                properties:
-                  pivot:
-                    type: object
-                    required:
-                      - recipie_id
-                      - item_id
-                      - type
-                      - quantity
-                    properties:
-                      recipe_id:
-                        $ref: '#/components/schemas/recipe_id'
-                      item_id:
-                        $ref: '#/components/schemas/item_id'
-                      type:
-                        type: string
-                        enum:
-                          - input
-                      quantity:
-                        type: integer
+            $ref: '#/components/schemas/RecipeItem'
         items_output:
           type: array
           items:
-            allOf:
-              - $ref: '#/components/schemas/Item'
-              - type: object
-                required:
-                  - pivot
-                properties:
-                  pivot:
-                    type: object
-                    required:
-                      - recipie_id
-                      - item_id
-                      - type
-                      - quantity
-                    properties:
-                      recipe_id:
-                        $ref: '#/components/schemas/recipe_id'
-                      item_id:
-                        $ref: '#/components/schemas/item_id'
-                      type:
-                        type: string
-                        enum:
-                          - output
-                      quantity:
-                        type: integer
+            $ref: '#/components/schemas/RecipeItem'
         npcs:
           type: array
           items: 
@@ -778,6 +731,35 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AchievementDetails'
+    RecipeItem:
+      title: RecipeItem
+      allOf:
+        - $ref: '#/components/schemas/Item'
+        - $ref: '#/components/schemas/RecipeItemConnection'
+    RecipeItemConnection:
+      type: object
+      required:
+        - pivot
+      properties:
+        pivot:
+          title: RecipeItemPivot
+          type: object
+          required:
+            - recipie_id
+            - item_id
+            - type
+            - quantity
+          properties:
+            recipe_id:
+              $ref: '#/components/schemas/recipe_id'
+            item_id:
+              $ref: '#/components/schemas/item_id'
+            type:
+              type: string
+              enum:
+                - input
+            quantity:
+              type: integer
     Region:
       properties:
         created_at:
@@ -941,10 +923,8 @@ components:
         - category
       properties:
         id:
-          example: junior_ok_explorer
           $ref: '#/components/schemas/achievement_id'
         category_id:
-          example: exploring
           $ref: '#/components/schemas/category_id'
         name:
           type: string
@@ -960,6 +940,7 @@ components:
         conditions:
           type: array
           items:
+            title: AchievementCondition
             type: object
             properties:
               type:
@@ -988,7 +969,6 @@ components:
           type: integer
           example: 0
         reward_giant:
-          example: lem
           $ref: '#/components/schemas/giant_id'
         reward_giant_favor:
           type: integer
@@ -1004,97 +984,119 @@ components:
         category:
           $ref: '#/components/schemas/category_id'
     UserAchievment:
+      title: UserAchievment
       allOf:
         - $ref: '#/components/schemas/Achievement'
-        - type: object
+        - $ref: '#/components/schemas/UserAchievementConnections'
+    UserAchievementConnections:
+      type: object
+      required:
+        - pivot
+      properties:
+        pivot:
+          title: UserAchievementPivot
+          type: object
           required:
-            - pivot
+            - user_id
+            - achievement_id
           properties:
-            pivot:
-              type: object
-              required:
-                - user_id
-                - achievement_id
-              properties:
-                user_id:
-                  $ref: '#/components/schemas/user_id'
-                achievement_id:
-                  $ref: '#/components/schemas/achievement_id'
+            user_id:
+              $ref: '#/components/schemas/user_id'
+            achievement_id:
+              $ref: '#/components/schemas/achievement_id'
+    AchievementConnections:
+      type: object
+      required:
+        - connections_from
+        - connections_to
+        - required_for_upgrades
+        - required_for_recipes
+        - items
+      properties:
+        connections_from:
+          type: array
+          items:
+            $ref: '#/components/schemas/AchievementAchievement'
+        connections_to:
+          type: array
+          items:
+            $ref: '#/components/schemas/AchievementAchievement'
+        required_for_upgrades:
+          type: array
+          items:
+            $ref: '#/components/schemas/AchievementUpgrade'
+        required_for_recipes:
+          type: array
+          items:
+            $ref: '#/components/schemas/AchievementRecipe'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AchievementItem'
+    AchievementAchievement:
+      title: AchievementAchievement
+      allOf:
+        - $ref: '#/components/schemas/Achievement'
+        - $ref: '#/components/schemas/AchievementAchievementConnection'
+    AchievementUpgrade:
+      title: AchievementUpgrade
+      allOf:
+        - $ref: '#/components/schemas/Upgrade'
+        - $ref: '#/components/schemas/AchievementUpgradeConnections'
+    AchievementRecipe:
+      title: AchievementRecipe
+      allOf:
+        - $ref: '#/components/schemas/Recipe'
+        - $ref: '#/components/schemas/AchievementRecipeConnection'
+    AchievementItem:
+      title: AchievementItem
+      allOf:
+        - $ref: '#/components/schemas/Item'
+        - $ref: '#/components/schemas/AchievementItemConnections'
+    AchievementAchievementConnection:
+      type: object
+      properties:
+        achievement_id:
+          $ref: '#/components/schemas/Achievement'
+        connection_id:
+          $ref: '#/components/schemas/Achievement'
+    AchievementUpgradeConnections:
+      type: object
+      properties:
+        pivot:
+          title: AchievementUpgradePivot
+          type: object
+          properties:
+            achievement_id:
+              $ref: '#/components/schemas/achievement_id'
+            upgrade_id:
+              $ref: '#/components/schemas/upgrade_id'
+    AchievementRecipeConnection:
+      type: object
+      properties:
+        pivot:
+          title: AchievementRecipePivot
+          type: object
+          properties:
+            achievement_id:
+              $ref: '#/components/schemas/achievement_id'
+            recipe_id:
+              $ref: '#/components/schemas/Recipe'
+    AchievementItemConnections:
+      type: object
+      required:
+        - achievement_id
+        - item_id
+      properties:
+        achievement_id:
+          $ref: '#/components/schemas/achievement_id'
+        item_id:
+          $ref: '#/components/schemas/item_id'
     AchievementDetails:
+      title: AchievementDetails
       allOf:
         - $ref: '#/components/schemas/Achievement'
-        - type: object
-          required:
-            - connections_from
-            - connections_to
-            - required_for_upgrades
-            - required_for_recipes
-            - items
-          properties:
-            connections_from:
-              type: array
-              items:
-                allOf:
-                  - $ref: '#/components/schemas/Achievement'
-                  - type: object
-                    properties:
-                      achievement_id:
-                        $ref: '#/components/schemas/Achievement'
-                      connection_id:
-                        $ref: '#/components/schemas/Achievement'
-            connections_to:
-              type: array
-              items:
-                allOf:
-                  - $ref: '#/components/schemas/Achievement'
-                  - type: object
-                    properties:
-                      achievement_id:
-                        $ref: '#/components/schemas/Achievement'
-                      connection_id:
-                        $ref: '#/components/schemas/Achievement'
-            required_for_upgrades:
-              type: array
-              items:
-                allOf:
-                  - $ref: '#/components/schemas/Upgrade'
-                  - type: object
-                    properties:
-                      pivot:
-                        type: object
-                        properties:
-                          achievement_id:
-                            $ref: '#/components/schemas/achievement_id'
-                          upgrade_id:
-                            $ref: '#/components/schemas/upgrade_id'
-            required_for_recipes:
-              type: array
-              items:
-                allOf:
-                  - $ref: '#/components/schemas/Recipe'
-                  - type: object
-                    properties:
-                      pivot:
-                        type: object
-                        properties:
-                          achievement_id:
-                            $ref: '#/components/schemas/achievement_id'
-                          recipe_id:
-                            $ref: '#/components/schemas/Recipe'
-            items:
-              type: array
-              items:
-                allOf:
-                  - $ref: '#/components/schemas/Item'
-                  - type: object
-                    required:
-                      - achievement_id
-                      - item_id
-                    properties:
-                      achievement_id:
-                        $ref: '#/components/schemas/achievement_id'
-                      item_id:
-                        $ref: '#/components/schemas/item_id'
+        - $ref: '#/components/schemas/AchievementConnections'
     Skill:
       required:
         - id
@@ -1111,10 +1113,8 @@ components:
         - updated_at
       properties:
         id:
-          example: light_green_thumb_1
           $ref: '#/components/schemas/skill_id'
         category_id:
-          example: growing
           $ref: '#/components/schemas/category_id'
         name:
           type: string
@@ -1138,19 +1138,21 @@ components:
           example: 0
           type: integer
         quest_id:
-          example: lightgreenthumb_water_trees
           $ref: '#/components/schemas/quest_id'
         req_quests:
           type: array
           items:
             $ref: '#/components/schemas/quest_id'
         created_at:
-          example: '2021-06-14T18:00:25.000000Z'
           $ref: '#/components/schemas/datetime'
         updated_at:
-          example: '2021-06-14T18:00:25.000000Z'
           $ref: '#/components/schemas/datetime'
     SkillDetails:
+      title: SkillDetails
+      allOf:
+        - $ref: '#/components/schemas/Skill'
+        - $ref: '#/components/schemas/SkillConnections'
+    SkillConnections:
       type: object
       required:
         - learned
@@ -1198,67 +1200,70 @@ components:
         required_for_recipes:
           type: array
           items:
-            allOf:
-              - $ref: '#/components/schemas/Recipe'
-
+            $ref: '#/components/schemas/Recipe'
         giants:
           type: array
           items:
-            allOf:
-              - $ref: "#/components/schemas/Giant"
-              - type: object
-                properties:
-                  pivot:
-                    type: object
-                    properties:
-                      skill_id:
-                        $ref: '#/components/schemas/skill_id'
-                      giant_id:
-                        $ref: '#/components/schemas/giant_id'
-                      primary:
-                        type: integer
-                        enum:
-                          - 0
-                          - 1
-    UserSkill:
+            $ref: '#/components/schemas/SkillGiant'
+    SkillGiant:
+      title: SkillGiant
       allOf:
-        - $ref: '#/components/schemas/Skill'
-        - type: object
-          required:
-            - pivot
-            - learned
-            - starts
-            - ends
+        - $ref: "#/components/schemas/Giant"
+        - $ref: '#/components/schemas/SkillGiantConnections'
+    SkillGiantConnections:
+      type: object
+      properties:
+        pivot:
+          title: SkillGiantPivot
+          type: object
           properties:
-            pivot:
-              type: object
-              required:
-                - user_id
-                - skill_id
-              properties:
-                user_id:
-                  $ref: '#/components/schemas/user_id'
-                skill_id:
-                  $ref: '#/components/schemas/skill_id'
-            learned:
-              description: Indicates whether a user has learned the skill.
+            skill_id:
+              $ref: '#/components/schemas/skill_id'
+            giant_id:
+              $ref: '#/components/schemas/giant_id'
+            primary:
               type: integer
               enum:
                 - 0
                 - 1
-            starts:
-              example: '2022-07-10 19:28:02'
-              $ref: '#/components/schemas/datetime'
-            ends:
-              example: '2022-07-10 20:46:26'
-              $ref: '#/components/schemas/datetime'
-
+    UserSkillConnections:
+      type: object
+      required:
+        - pivot
+        - learned
+        - starts
+        - ends
+      properties:
+        pivot:
+          title: UserSkillPivot
+          type: object
+          required:
+            - user_id
+            - skill_id
+          properties:
+            user_id:
+              $ref: '#/components/schemas/user_id'
+            skill_id:
+              $ref: '#/components/schemas/skill_id'
+        learned:
+          description: Indicates whether a user has learned the skill.
+          type: integer
+          enum:
+            - 0
+            - 1
+        starts:
+          $ref: '#/components/schemas/datetime'
+        ends:
+          $ref: '#/components/schemas/datetime'
+    UserSkill:
+      title: UserSkill
+      allOf:
+        - $ref: '#/components/schemas/Skill'
+        - $ref: '#/components/schemas/UserSkillConnections'
       properties:
         id:
-          example: light_green_thumb_1
           $ref: '#/components/schemas/skill_id'
         category_id:
-          example: growing
           $ref: '#/components/schemas/category_id'
         name:
           type: string
@@ -1285,31 +1290,26 @@ components:
           example: 0
           type: integer
         quest_id:
-          example: lightgreenthumb_water_trees
           $ref: '#/components/schemas/quest_id'
         req_quests:
           type: array
           items:
             $ref: '#/components/schemas/quest_id'
         created_at:
-          example: '2021-06-14T18:00:25.000000Z'
           $ref: '#/components/schemas/datetime'
         updated_at:
-          example: '2021-06-14T18:00:25.000000Z'
           $ref: '#/components/schemas/datetime'
-
         skill_id:
-          example: light_green_thumb_1
           $ref: '#/components/schemas/skill_id'
         pivot:
-          type: object
-          properties:
-            user_id:
-              example: 572
-              $ref: '#/components/schemas/user_id'
-            skill_id:
-              example: light_green_thumb_1
-              $ref: '#/components/schemas/skill_id'
+          $ref: '#/components/schemas/UserSkillConnection'
+    UserSkillConnection:
+      type: object
+      properties:
+        user_id:
+          $ref: '#/components/schemas/user_id'
+        skill_id:
+          $ref: '#/components/schemas/skill_id'
     Upgrade:
       required:
         - id
@@ -1351,26 +1351,12 @@ components:
           type: integer
         conditions:
           type: array
-          discriminator:
-            propertyName: type
           items:
-            oneOf:
-              - $ref: '#/components/schemas/UpgradeConditionNull'
-              - $ref: '#/components/schemas/UpgradeConditionLevel'
-              - $ref: '#/components/schemas/UpgradeConditionUpgrade'
-              - $ref: '#/components/schemas/UpgradeConditionSkill'
-              - $ref: '#/components/schemas/UpgradeConditionAchievement'
-              - $ref: '#/components/schemas/UpgradeConditionQuest'
-              - $ref: '#/components/schemas/UpgradeConditionMaxEnergy'
+            $ref: '#/components/schemas/UpgradeCondition'
         rewards:
           type: array
-          discriminator:
-            propertyName: type
           items:
-            oneOf:
-              - $ref: '#/components/schemas/UpgradeRewardMovement'
-              - $ref: '#/components/schemas/UpgradeRewardKeepable'
-              - $ref: '#/components/schemas/UpgradeRewardLearning'
+            $ref: '#/components/schemas/UpgradeReward'
         requires_level:
           type: integer
         requires_max_energy:
@@ -1389,6 +1375,25 @@ components:
         desc:
           type: string
           example: "Life's a lot less fun on an empty tank: make yours bigger!"
+    UpgradeCondition:
+      discriminator:
+        propertyName: type
+        mapping:
+          1: '#/components/schemas/UpgradeConditionNull'
+          2: '#/components/schemas/UpgradeConditionLevel'
+          3: '#/components/schemas/UpgradeConditionUpgrade'
+          4: '#/components/schemas/UpgradeConditionSkill'
+          5: '#/components/schemas/UpgradeConditionAchievement'
+          6: '#/components/schemas/UpgradeConditionQuest'
+          7: '#/components/schemas/UpgradeConditionMaxEnergy'
+      oneOf:
+        - $ref: '#/components/schemas/UpgradeConditionNull'
+        - $ref: '#/components/schemas/UpgradeConditionLevel'
+        - $ref: '#/components/schemas/UpgradeConditionUpgrade'
+        - $ref: '#/components/schemas/UpgradeConditionSkill'
+        - $ref: '#/components/schemas/UpgradeConditionAchievement'
+        - $ref: '#/components/schemas/UpgradeConditionQuest'
+        - $ref: '#/components/schemas/UpgradeConditionMaxEnergy'
     UpgradeConditionNull:
       type: object
       required:
@@ -1465,101 +1470,123 @@ components:
         max_energy:
           type: string
     UpgradeDetails:
+      title: UpgradeDetails
       allOf:
         - $ref: '#/components/schemas/Upgrade'
-        - type: object
+        - $ref: '#/components/schemas/UpgradeConnections'
+    UpgradeConnections:
+      type: object
+      required:
+        - required_skills
+        - required_achievements
+        - required_upgrades
+        - required_for_skills
+      properties:
+        required_skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/UpgradeSkill'
+        required_achievements:
+          type: array
+          items:
+            $ref: '#/components/schemas/UpgradeAchievement'
+        required_upgrades:
+          type: array
+          items:
+            $ref: '#/components/schemas/UpgradeUpgrade'
+        required_for_skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/UpgradeSkill'
+    UpgradeUpgrade:
+      title: UpgradeUpgrade
+      allOf:
+        - $ref: '#/components/schemas/Upgrade'
+        - $ref: '#/components/schemas/UpgradeUpgradeConnection'
+    UpgradeAchievement:
+      title: UpgradeAchievement
+      allOf:
+        - $ref: '#/components/schemas/Achievement'
+        - $ref: '#/components/schemas/UpgradeAchievementConnection'
+    UpgradeSkill:
+      title: UpgradeSkill
+      allOf:
+        - $ref: '#/components/schemas/Skill'
+        - $ref: '#/components/schemas/UpgradeSkillConnection'
+    UpgradeAchievementConnection:
+      type: object
+      required:
+        - upgrade_id
+        - achievement_id
+      properties:
+        upgrade_id:
+          $ref: '#/components/schemas/upgrade_id'
+        achievement_id:
+          $ref: '#/components/schemas/achievement_id'
+    UpgradeUpgradeConnection:
+      type: object
+      required:
+        - pivot
+      properties:
+        pivot:
+          title: UpgradeUpgradePivot
+          type: object
           required:
-            - required_skills
-            - required_achievements
-            - required_upgrades
-            - required_for_skills
+            - upgrade_id
+            - required_for_upgrade
           properties:
-            required_skills:
-              type: array
-              items:
-                allOf:
-                  - $ref: '#/components/schemas/Skill'
-                  - type: object
-                    required:
-                      - upgrade_id
-                      - skill_id
-                    properties:
-                      pivot:
-                        type: object
-                        properties:
-                          upgrade_id:
-                            $ref: '#/components/schemas/upgrade_id'
-                          skill_id:
-                            $ref: '#/components/schemas/skill_id'
-            required_achievements:
-              type: array
-              items:
-                allOf:
-                  - $ref: '#/components/schemas/Achievement'
-                  - type: object
-                    required:
-                      - upgrade_id
-                      - achievement_id
-                    properties:
-                      upgrade_id:
-                        $ref: '#/components/schemas/upgrade_id'
-                      achievement_id:
-                        $ref: '#/components/schemas/achievement_id'
-            required_upgrades:
-              type: array
-              items:
-                allOf:
-                  - $ref: '#/components/schemas/Upgrade'
-                  - type: object
-                    required:
-                      - pivot
-                    properties:
-                      pivot:
-                        type: object
-                        required:
-                          - upgrade_id
-                          - required_for_upgrade
-                        properties:
-                          upgrade_id:
-                            $ref: '#/components/schemas/upgrade_id'
-                          required_upgrade_id:
-                            $ref: '#/components/schemas/upgrade_id'
-            required_for_skills:
-              type: array
-              items:
-                allOf:
-                  - $ref: '#/components/schemas/Skill'
-                  - type: object
-                    required:
-                      - pivot
-                    properties:
-                      pivot:
-                        type: object
-                        required:
-                          - upgrade_id
-                          - skill_id
-                        properties:
-                          upgrade_id:
-                            $ref: '#/components/schemas/upgrade_id'
-                          skill_id:
-                            $ref: '#/components/schemas/skill_id'
+            upgrade_id:
+              $ref: '#/components/schemas/upgrade_id'
+            required_upgrade_id:
+              $ref: '#/components/schemas/upgrade_id'
+    UpgradeSkillConnection:
+      type: object
+      required:
+        - pivot
+      properties:
+        pivot:
+          title: UpgradeSkillPivot
+          type: object
+          required:
+            - upgrade_id
+            - skill_id
+          properties:
+            upgrade_id:
+              $ref: '#/components/schemas/upgrade_id'
+            skill_id:
+              $ref: '#/components/schemas/skill_id'
     UserUpgrade:
+      title: UserUpgrade
       allOf:
         - $ref: '#/components/schemas/Upgrade'
-        - type: object
+        - $ref: '#/components/schemas/UserUpgradeConnection'
+    UserUpgradeConnection:
+      type: object
+      required:
+          - pivot
+      properties:
+        pivot:
+          title: UserUpgradePivot
+          type: object
           required:
-             - pivot
+            - user_id
+            - upgrade_id
           properties:
-            pivot:
-              type: object
-              required:
-                - user_id
-                - upgrade_id
-              properties:
-                user_id:
-                  $ref: '#/components/schemas/user_id'
-                upgrade_id:
-                  $ref: '#/components/schemas/upgrade_id'
+            user_id:
+              $ref: '#/components/schemas/user_id'
+            upgrade_id:
+              $ref: '#/components/schemas/upgrade_id'
+    UpgradeReward:
+      discriminator:
+        propertyName: type
+        mapping:
+          1: '#/components/schemas/UpgradeRewardMovement'
+          2: '#/components/schemas/UpgradeRewardKeepable'
+          3: '#/components/schemas/UpgradeRewardLearning'
+      oneOf:
+        - $ref: '#/components/schemas/UpgradeRewardMovement'
+        - $ref: '#/components/schemas/UpgradeRewardKeepable'
+        - $ref: '#/components/schemas/UpgradeRewardLearning'
     UpgradeRewardMovement:
       type: object
       required:
@@ -1611,7 +1638,6 @@ components:
           enum:
             - 8
         class_id:
-          description: item_id of keepable
           $ref: '#/components/schemas/item_id'
     UpgradeRewardLearning:
       type: object
@@ -1635,8 +1661,16 @@ components:
         - version
 
     # -----------------------------------
-    # API Responses
+    # API Response Schemas
     # -----------------------------------
+    ErrorResponse:
+      properties:
+        error:
+          example: Something went wrong
+          type: string
+      required:
+        - error
+      type: object
     GetServerStatsResponse:
       $ref: "#/components/schemas/ServerStats"
     GetAchievementsByCategoryResponse:
@@ -1648,24 +1682,30 @@ components:
     GetCategoriesResponse:
       $ref: '#/components/schemas/CategoryIndex'
     GetInhabitantResponse:
-      $ref: '#/components/schemas/Inhabitant'
+      $ref: '#/components/schemas/InhabitantDetails'
     GetInhabitantsByCategoryResponse:  
       type: array
       items:
         $ref: '#/components/schemas/Inhabitant'
+    GetItemResponse:
+      $ref: '#/components/schemas/ItemDetails'
+    GetItemsByCategoryResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/Item'
     GetRegionResponse:
       $ref: '#/components/schemas/Location'
     GetLocationResponse:
-      $ref: '#/components/schemas/Location'
+      $ref: '#/components/schemas/LocationDetails'
     GetUpgradesByCategoryResponse:
       type: array
       items:
         $ref: '#/components/schemas/Upgrade'
-    GetUpgradeDetailsResponse:
+    GetUpgradeResponse:
       type: array
       items:
         $ref: '#/components/schemas/UpgradeDetails'
-    SearchResponse:
+    GetSearchResponse:
       $ref: '#/components/schemas/SearchResults'
     GetSkillsByCategoryResponse:
       type: array
@@ -1688,12 +1728,162 @@ components:
     GetUserUpgradesResponse:
       type: array
       items:
-        $ref: '#/components/schemas/Upgrade'
+        $ref: '#/components/schemas/UserUpgrade'
     GetUserAchievementsResponse:
       type: array
       items:
         $ref: '#/components/schemas/UserAchievment'
-
+  requestBodies:
+    Login:
+      description: Authentication credentials
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AuthenticationCredentials'
+  responses:
+    Error:
+      description: Something went wrong
+      content:
+        'application/json':
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    GetServerStats:
+      description: Successfully loaded server stats
+      content:
+        'application/json':
+          examples:
+            example-0001:
+              value:
+                players_count: 771
+                version: "0.9.3"
+          schema:
+            $ref: '#/components/schemas/GetServerStatsResponse'
+    GetAchievementsByCategory:
+      description: Successfully loaded Achievement by category
+      content:
+        'application/json':
+          schema:
+            $ref: '#/components/schemas/GetAchievementsByCategoryResponse'
+    GetAchievement:
+      description: Successfully loaded Achievement
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetAchievementResponse'
+    GetCategories:
+      description: CategoryIndex
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetCategoriesResponse'
+    GetGiant:
+      description: Successfully loaded Giant
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GiantDetails'
+    GetInhabitant:
+      description: Successfully loaded Inhabitant
+      content:
+        'application/json':
+          schema:
+            $ref: '#/components/schemas/GetInhabitantResponse'
+    GetInhabitantsByCategory:
+      description: Sucessfully loaded Inhabitants by category
+      content:
+        'application/json':
+          schema:
+            $ref: '#/components/schemas/GetInhabitantsByCategoryResponse'
+    GetItem:
+      description: Successfully loaded Item
+      content:
+        'application/json':
+          schema:
+            $ref: '#/components/schemas/GetItemResponse'
+    GetItemsByCategory:
+      description: Sucessfully loaded Items by category
+      content:
+        'application/json':
+          schema:
+            $ref: '#/components/schemas/GetItemsByCategoryResponse'
+    GetRegion:
+      description: Successfully loaded Region
+      content:
+        'application/json':
+          schema:
+            $ref: '#/components/schemas/GetRegionResponse'
+    GetUpgradesByCategory:
+      description: Sucessfully loaded Inhabitants by category
+      content:
+        'application/json':
+          schema:
+            $ref: '#/components/schemas/GetUpgradesByCategoryResponse'
+    GetUpgrade:
+      description: Sucessfully loaded Inhabitants by category
+      content:
+        'application/json':
+          schema:
+            $ref: '#/components/schemas/GetUpgradeResponse'
+    GetSearch:
+      description: Successfully loaded search results
+      content:
+        'application/json':
+          schema:
+            $ref: '#/components/schemas/GetSearchResponse'
+    GetSkillsByCategory:
+      description: Sucessfully loaded Inhabitants by category
+      content:
+        'application/json':
+          schema:
+            $ref: '#/components/schemas/GetSkillsByCategoryResponse'
+    GetSkill:
+      description: Sucessfully loaded Inhabitants by category
+      content:
+        'application/json':
+          schema:
+            $ref: '#/components/schemas/GetSkillResponse'
+    PostLogin:
+      description: Successful authentication
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LoginResponse'
+    PostLoginRefresh:
+      description: The user has successfully refreshed their session
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LoginRefreshResponse'
+    GetMe:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetMeResponse'
+      description: Hey, it's you!
+    GetUser:
+      description: Successfully loaded user info
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetUserResponse'
+    GetUserSkills:
+      description: Sucessfully loaded the User's Skills
+      content:
+        'application/json':
+          schema:
+            $ref: '#/components/schemas/GetUserSkillsResponse'
+    GetUserUpgrades:
+      description: Sucessfully loaded the User's Upgrades
+      content:
+        'application/json':
+          schema:
+            $ref: '#/components/schemas/GetUserUpgradesResponse'
+    GetUserAchievements:
+      description: Sucessfully loaded the given user's achievments
+      content:
+        'application/json':
+          schema:
+            $ref: '#/components/schemas/GetUserAchievementsResponse'
 paths:
   "/configs":
     get:
@@ -1702,56 +1892,31 @@ paths:
       parameters: []
       responses:
         '200':
-          content:
-            application/json:
-              examples:
-                example-0001:
-                  value:
-                    players_count: 771
-                    version: "0.9.3"
-              schema:
-                $ref: '#/components/schemas/GetServerStatsResponse'
-          description: Success
+          $ref: '#/components/responses/GetServerStats'
       summary: 'List '
       tags:
         - OddGiants
     parameters: []
-  '/encyclopedia/achievments/{category}':
+  '/encyclopedia/achievments/{category_id}':
     get:
       description: Get Achievements by category
       operationId: achievementsByCategory
       parameters:
-        - in: path
-          name: category
-          required: true
-          schema:
-            $ref: '#/components/schemas/category_id'
+        - $ref: '#/components/parameters/category_id'
       responses:
         '200':
-          description: Successfully loaded Achievement category
-          content:
-            'application/json':
-              schema:
-                $ref: '#/components/schemas/GetAchievementsByCategoryResponse'
+          $ref: '#/components/responses/GetAchievementsByCategory'
       tags:
         - OddGiants
   '/encyclopedia/achievement/{achievement_id}':
     parameters:
-      - in: path
-        name: achievement_id
-        required: true
-        schema:
-          $ref: '#/components/schemas/achievement_id'
+      - $ref: '#/components/parameters/achievement_id'
     get:
       operationId: achievement
       description: Gets Achievement details
       responses:
         '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetAchievementResponse'
+          $ref: '#/components/responses/GetAchievement'
       tags:
         - OddGiants
   '/encyclepedia/categories':
@@ -1760,67 +1925,70 @@ paths:
       description: Categories of information available within the encyclopedia/api
       responses:
         '200':
-          description: CategoryIndex
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetCategoriesResponse'
+          $ref: '#/components/responses/GetCategories'
+      tags:
+        - OddGiants
+  '/encyclopedia/giants/{giant_id}':
+    parameters:
+      - $ref: '#/components/parameters/giant_id'
+    get:
+      operationId: giant
+      responses:
+        '200':
+          $ref: '#/components/responses/GetGiant'
       tags:
         - OddGiants
   '/encyclopedia/inhabitant/{inhabitant_id}':
     parameters:
-      - in: path
-        name: inhabitant_id
-        required: true
-        schema:
-          $ref: '#/components/schemas/inhabitant_id'
-
+      - $ref: '#/components/parameters/inhabitant_id'
     get:
       operationId: inhabitant
       responses:
         '200':
-          description: Inhabitant loaded
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetInhabitantResponse'
+          $ref: '#/components/responses/GetInhabitant'
       tags:
         - OddGiants
-  '/encyclopedia/inhabitants/{category}': 
+  '/encyclopedia/inhabitants/{category_id}': 
     parameters:
-      - in: path
-        name: category
-        required: true
-        schema:
-          type: string
+      - $ref: '#/components/parameters/category_id'
     get:
       operationId: inhabitantsByCategory
       responses:
         '200':
-          description: Inhabitants loaded
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetInhabitantsByCategoryResponse'
+          $ref: '#/components/responses/GetInhabitantsByCategory'
+      tags:
+        - OddGiants
+  '/encyclopedia/items/{category_id}':
+    parameters:
+      - $ref: '#/components/parameters/category_id'
+    get:
+      operationId: itemsByCategory
+      description: List items by category
+      responses:
+        '200':
+          $ref: '#/components/responses/GetItemsByCategory'
+      tags:
+        - OddGiants
+  '/encyclopedia/item/{item_id}':
+    parameters:
+      - $ref: '#/components/parameters/item_id'
+    get:
+      operationId: item
+      description: Item information
+      responses:
+        '200':
+          $ref: '#/components/responses/GetItem'
       tags:
         - OddGiants
   '/encyclopedia/locations/{region_id}':
     parameters:
-      - in: path
-        name: region_id
-        required: true
-        schema:
-          $ref: '#/components/schemas/region_id'
+      - $ref: '#/components/parameters/region_id'
     get:
       operationId: region
       description: Locations around Ur
       responses:
         '200':
-          description: Location loaded
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetRegionResponse'
+          $ref: '#/components/responses/GetRegion'
       tags:
         - OddGiants
   '/encyclopedia/location/{location_id}':
@@ -1842,99 +2010,59 @@ paths:
                 $ref: '#/components/schemas/GetLocationResponse'
       tags:
         - OddGiants
-  '/encyclopedia/upgrades/{category}':
+  '/encyclopedia/upgrades/{category_id}':
     parameters:
-      - in: path
-        name: category
-        required: true
-        schema:
-          $ref: '#/components/schemas/category_id'
+      - $ref: '#/components/parameters/category_id'
     get:
       operationId: upgradesByCategory
-      description: Get upgrade category
+      description: Get Upgradse by category
       responses:
         '200':
-          description: Upgrade category loaded
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetUpgradesByCategoryResponse'
+          $ref: '#/components/responses/GetUpgradesByCategory'
       tags:
         - OddGiants
   '/encyclopedia/upgrade/{upgrade_id}':
     parameters:
-      - in: path
-        name: upgrade_id
-        required: true
-        schema:
-          $ref: '#/components/schemas/upgrade_id'
+      - $ref: '#/components/parameters/upgrade_id'
     get:
       operationId: upgrade
       description: Gets the details of an Upgrade
       responses:
         '200':
-          description: Successfully loaded Upgrade details
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetUpgradeDetailsResponse'
+          $ref: '#/components/responses/GetUpgrade'
       tags:
         - OddGiants
   '/encyclopedia/search':
     parameters:
-      - in: query
-        name: q
-        required: true
-        schema:
-          type: string
+      - $ref: '#/components/parameters/search_query'
     get:
       operationId: search
       description: Search
       responses:
         '200':
-          description: Successfully loaded search results
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SearchResponse'
+          $ref: '#/components/responses/GetSearch'
       tags:
         - OddGiants
-  '/encyclopedia/skills/{category}':
+  '/encyclopedia/skills/{category_id}':
     parameters:
-      - in: path
-        name: category
-        required: true
-        schema:
-          $ref: '#/components/schemas/category_id'
+      - $ref: '#/components/parameters/category_id'
     get:
       operationId: skillsByCategory
-      description: Get Skill Category
+      description: Get Skill by category
       responses:
         '200':
-          description: Skill category loaded
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetSkillsByCategoryResponse'
+          $ref: '#/components/responses/GetSkillsByCategory'
       tags:
         - OddGiants
   '/encyclopedia/skill/{skill_id}':
     parameters:
-      - in: path
-        name: skill_id
-        required: true
-        schema:
-          $ref: '#/components/schemas/skill_id'
+      - $ref: '#/components/parameters/skill_id'
     get:
       operationId: skill
       description: Get Skill
       responses:
         '200':
-          description: Skill loaded
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetSkillResponse'
+          $ref: '#/components/responses/GetSkill'
       tags:
         - OddGiants
   "/login":
@@ -1943,17 +2071,10 @@ paths:
       description: |
         User's provide an email address and password to gain access to authenticated routes.
       requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AuthenticationCredentials'
+        $ref: '#/components/requestBodies/Login'
       responses:
         '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LoginResponse'
-          description: The user has sucessfully authenticated
+          $ref: '#/components/responses/PostLogin'
         '302':
           description: The user failed to log in successfully
       summary: Logs in a user
@@ -1965,17 +2086,9 @@ paths:
       description: By sending the refresh_token, the user is able to refresh their session.
       responses:
         '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LoginRefreshResponse'
-          description: The user has successfully refreshed their session.
+          $ref: '#/components/responses/PostLoginRefresh'
         '400':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-          description: Something went wrong.
+          $ref: '#/components/responses/Error'
       summary: Refreshes the user's session
       tags:
         - OddGiants
@@ -1985,88 +2098,52 @@ paths:
       description: Gets the authenticated user
       responses:
         '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetMeResponse'
-          description: Hey, it's you!
+          $ref: '#/components/responses/GetMe'
       summary: Gets the authenticated user
       tags:
         - OddGiants
   "/users/{user_id}":
     parameters:
-      - in: path
-        name: user_id
-        required: true
-        schema:
-          $ref: '#/components/schemas/user_id'
+      - $ref: '#/components/parameters/user_id'
     get:
       operationId: user
       description: Gets information about a specific user
       responses:
         '200':
-          description: Successfully loaded user info
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetUserResponse'
+          $ref: '#/components/responses/GetUser'
       tags:
         - OddGiants
   "/users/{user_id}/skills":
     parameters:
-      - in: path
-        name: user_id
-        required: true
-        schema:
-          $ref: '#/components/schemas/user_id'
+      - $ref: '#/components/parameters/user_id'
     get:
       operationId: userSkills
       description: Gets the skills for a given user
       responses:
         '200':
-          description: Sucessfully loaded the given user's skills
-          content:
-            'application/json':
-              schema:
-                $ref: '#/components/schemas/GetUserSkillsResponse'
+          $ref: '#/components/responses/GetUserSkills'
       tags:
         - OddGiants
   "/users/{user_id}/upgrades":
     parameters:
-      - in: path
-        name: user_id
-        required: true
-        schema:
-          $ref: '#/components/schemas/user_id'
+      - $ref: '#/components/parameters/user_id'
     get:
       operationId: userUpgrades
       description: Gets the upgrades for a given user
       responses:
         '200':
-          description: Sucessfully loaded the given user's upgrades
-          content:
-            'application/json':
-              schema:
-                $ref: '#/components/schemas/GetUserUpgradesResponse'
+          $ref: '#/components/responses/GetUserUpgrades'
       tags:
         - OddGiants
   "/users/{user_id}/achievments":
     parameters:
-      - in: path
-        name: user_id
-        required: true
-        schema:
-          $ref: '#/components/schemas/user_id'
+      - $ref: '#/components/parameters/user_id'
     get:
       operationId: userAchievements
       description: Gets the achievments for a given user
       responses:
         '200':
-          description: Sucessfully loaded the given user's achievments
-          content:
-            'application/json':
-              schema:
-                $ref: '#/components/schemas/GetUserAchievementsResponse'
+          $ref: '#/components/responses/GetUserAchievements'
       tags:
         - OddGiants
 
@@ -2074,7 +2151,5 @@ servers:
   - description: Odd Giants Public API
     url: https://api.oddgiants.com/public
 tags:
-  - description: Requires that the user is authenticated
-    name: Authenticated
-  - description: Does not require authentication
-    name: Unauthenticated
+  - name: OddGiants
+    description: API for game data

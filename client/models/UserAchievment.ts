@@ -10,10 +10,10 @@
  * Do not edit the class manually.
  */
 
-import { AchievementConditionsInner } from './AchievementConditionsInner';
+import { AchievementCondition } from './AchievementCondition';
 import { GiantId } from './GiantId';
 import { Reward } from './Reward';
-import { UserAchievmentAllOfPivot } from './UserAchievmentAllOfPivot';
+import { UserAchievementPivot } from './UserAchievementPivot';
 import { HttpFile } from '../http/http';
 
 export class UserAchievment {
@@ -22,7 +22,7 @@ export class UserAchievment {
     'name': string;
     'description': string;
     'statusText': string;
-    'conditions': Array<AchievementConditionsInner>;
+    'conditions': Array<AchievementCondition>;
     'rewardXp': number;
     'rewardCurrants': number;
     'rewardMood': number;
@@ -33,7 +33,7 @@ export class UserAchievment {
     'updatedAt': Date;
     'reward': Reward;
     'category': string;
-    'pivot': UserAchievmentAllOfPivot;
+    'pivot': UserAchievementPivot;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -71,7 +71,7 @@ export class UserAchievment {
         {
             "name": "conditions",
             "baseName": "conditions",
-            "type": "Array<AchievementConditionsInner>",
+            "type": "Array<AchievementCondition>",
             "format": ""
         },
         {
@@ -137,7 +137,7 @@ export class UserAchievment {
         {
             "name": "pivot",
             "baseName": "pivot",
-            "type": "UserAchievmentAllOfPivot",
+            "type": "UserAchievementPivot",
             "format": ""
         }    ];
 

@@ -15,8 +15,14 @@ import { AchievementDetails } from '../models/AchievementDetails';
 import { AuthenticationCredentials } from '../models/AuthenticationCredentials';
 import { CategoryIndex } from '../models/CategoryIndex';
 import { ErrorResponse } from '../models/ErrorResponse';
+import { GiantDetails } from '../models/GiantDetails';
+import { GiantId } from '../models/GiantId';
 import { Inhabitant } from '../models/Inhabitant';
+import { InhabitantDetails } from '../models/InhabitantDetails';
+import { Item } from '../models/Item';
+import { ItemDetails } from '../models/ItemDetails';
 import { Location } from '../models/Location';
+import { LocationDetails } from '../models/LocationDetails';
 import { SearchResults } from '../models/SearchResults';
 import { ServerStats } from '../models/ServerStats';
 import { SessionInfo } from '../models/SessionInfo';
@@ -27,6 +33,7 @@ import { UpgradeDetails } from '../models/UpgradeDetails';
 import { User } from '../models/User';
 import { UserAchievment } from '../models/UserAchievment';
 import { UserSkill } from '../models/UserSkill';
+import { UserUpgrade } from '../models/UserUpgrade';
 
 /**
  * no description
@@ -66,20 +73,20 @@ export class OddGiantsApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
      * Get Achievements by category
-     * @param category 
+     * @param categoryId 
      */
-    public async achievementsByCategory(category: string, _options?: Configuration): Promise<RequestContext> {
+    public async achievementsByCategory(categoryId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
-        // verify required parameter 'category' is not null or undefined
-        if (category === null || category === undefined) {
-            throw new RequiredError("OddGiantsApi", "achievementsByCategory", "category");
+        // verify required parameter 'categoryId' is not null or undefined
+        if (categoryId === null || categoryId === undefined) {
+            throw new RequiredError("OddGiantsApi", "achievementsByCategory", "categoryId");
         }
 
 
         // Path Params
-        const localVarPath = '/encyclopedia/achievments/{category}'
-            .replace('{' + 'category' + '}', encodeURIComponent(String(category)));
+        const localVarPath = '/encyclopedia/achievments/{category_id}'
+            .replace('{' + 'category_id' + '}', encodeURIComponent(String(categoryId)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
@@ -103,6 +110,36 @@ export class OddGiantsApiRequestFactory extends BaseAPIRequestFactory {
 
         // Path Params
         const localVarPath = '/encyclepedia/categories';
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * @param giantId 
+     */
+    public async giant(giantId: GiantId, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'giantId' is not null or undefined
+        if (giantId === null || giantId === undefined) {
+            throw new RequiredError("OddGiantsApi", "giant", "giantId");
+        }
+
+
+        // Path Params
+        const localVarPath = '/encyclopedia/giants/{giant_id}'
+            .replace('{' + 'giant_id' + '}', encodeURIComponent(String(giantId)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
@@ -149,20 +186,82 @@ export class OddGiantsApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * @param category 
+     * @param categoryId 
      */
-    public async inhabitantsByCategory(category: string, _options?: Configuration): Promise<RequestContext> {
+    public async inhabitantsByCategory(categoryId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
-        // verify required parameter 'category' is not null or undefined
-        if (category === null || category === undefined) {
-            throw new RequiredError("OddGiantsApi", "inhabitantsByCategory", "category");
+        // verify required parameter 'categoryId' is not null or undefined
+        if (categoryId === null || categoryId === undefined) {
+            throw new RequiredError("OddGiantsApi", "inhabitantsByCategory", "categoryId");
         }
 
 
         // Path Params
-        const localVarPath = '/encyclopedia/inhabitants/{category}'
-            .replace('{' + 'category' + '}', encodeURIComponent(String(category)));
+        const localVarPath = '/encyclopedia/inhabitants/{category_id}'
+            .replace('{' + 'category_id' + '}', encodeURIComponent(String(categoryId)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * Item information
+     * @param itemId 
+     */
+    public async item(itemId: string, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'itemId' is not null or undefined
+        if (itemId === null || itemId === undefined) {
+            throw new RequiredError("OddGiantsApi", "item", "itemId");
+        }
+
+
+        // Path Params
+        const localVarPath = '/encyclopedia/item/{item_id}'
+            .replace('{' + 'item_id' + '}', encodeURIComponent(String(itemId)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * List items by category
+     * @param categoryId 
+     */
+    public async itemsByCategory(categoryId: string, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'categoryId' is not null or undefined
+        if (categoryId === null || categoryId === undefined) {
+            throw new RequiredError("OddGiantsApi", "itemsByCategory", "categoryId");
+        }
+
+
+        // Path Params
+        const localVarPath = '/encyclopedia/items/{category_id}'
+            .replace('{' + 'category_id' + '}', encodeURIComponent(String(categoryId)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
@@ -212,7 +311,7 @@ export class OddGiantsApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * User's provide an email address and password to gain access to authenticated routes. 
      * Logs in a user
-     * @param authenticationCredentials 
+     * @param authenticationCredentials Authentication credentials
      */
     public async login(authenticationCredentials?: AuthenticationCredentials, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
@@ -327,14 +426,14 @@ export class OddGiantsApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
      * Search
-     * @param q 
+     * @param searchQuery 
      */
-    public async search(q: string, _options?: Configuration): Promise<RequestContext> {
+    public async search(searchQuery: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
-        // verify required parameter 'q' is not null or undefined
-        if (q === null || q === undefined) {
-            throw new RequiredError("OddGiantsApi", "search", "q");
+        // verify required parameter 'searchQuery' is not null or undefined
+        if (searchQuery === null || searchQuery === undefined) {
+            throw new RequiredError("OddGiantsApi", "search", "searchQuery");
         }
 
 
@@ -346,8 +445,8 @@ export class OddGiantsApiRequestFactory extends BaseAPIRequestFactory {
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
-        if (q !== undefined) {
-            requestContext.setQueryParam("q", ObjectSerializer.serialize(q, "string", ""));
+        if (searchQuery !== undefined) {
+            requestContext.setQueryParam("search_query", ObjectSerializer.serialize(searchQuery, "string", "uri-encoded"));
         }
 
 
@@ -416,21 +515,21 @@ export class OddGiantsApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * Get Skill Category
-     * @param category 
+     * Get Skill by category
+     * @param categoryId 
      */
-    public async skillsByCategory(category: string, _options?: Configuration): Promise<RequestContext> {
+    public async skillsByCategory(categoryId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
-        // verify required parameter 'category' is not null or undefined
-        if (category === null || category === undefined) {
-            throw new RequiredError("OddGiantsApi", "skillsByCategory", "category");
+        // verify required parameter 'categoryId' is not null or undefined
+        if (categoryId === null || categoryId === undefined) {
+            throw new RequiredError("OddGiantsApi", "skillsByCategory", "categoryId");
         }
 
 
         // Path Params
-        const localVarPath = '/encyclopedia/skills/{category}'
-            .replace('{' + 'category' + '}', encodeURIComponent(String(category)));
+        const localVarPath = '/encyclopedia/skills/{category_id}'
+            .replace('{' + 'category_id' + '}', encodeURIComponent(String(categoryId)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
@@ -478,21 +577,21 @@ export class OddGiantsApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * Get upgrade category
-     * @param category 
+     * Get Upgradse by category
+     * @param categoryId 
      */
-    public async upgradesByCategory(category: string, _options?: Configuration): Promise<RequestContext> {
+    public async upgradesByCategory(categoryId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
-        // verify required parameter 'category' is not null or undefined
-        if (category === null || category === undefined) {
-            throw new RequiredError("OddGiantsApi", "upgradesByCategory", "category");
+        // verify required parameter 'categoryId' is not null or undefined
+        if (categoryId === null || categoryId === undefined) {
+            throw new RequiredError("OddGiantsApi", "upgradesByCategory", "categoryId");
         }
 
 
         // Path Params
-        const localVarPath = '/encyclopedia/upgrades/{category}'
-            .replace('{' + 'category' + '}', encodeURIComponent(String(category)));
+        const localVarPath = '/encyclopedia/upgrades/{category_id}'
+            .replace('{' + 'category_id' + '}', encodeURIComponent(String(categoryId)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
@@ -727,25 +826,54 @@ export class OddGiantsApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to inhabitant
+     * @params response Response returned by the server for a request to giant
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async inhabitant(response: ResponseContext): Promise<Inhabitant > {
+     public async giant(response: ResponseContext): Promise<GiantDetails > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: Inhabitant = ObjectSerializer.deserialize(
+            const body: GiantDetails = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Inhabitant", ""
-            ) as Inhabitant;
+                "GiantDetails", ""
+            ) as GiantDetails;
             return body;
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: Inhabitant = ObjectSerializer.deserialize(
+            const body: GiantDetails = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Inhabitant", ""
-            ) as Inhabitant;
+                "GiantDetails", ""
+            ) as GiantDetails;
+            return body;
+        }
+
+        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to inhabitant
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async inhabitant(response: ResponseContext): Promise<InhabitantDetails > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: InhabitantDetails = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "InhabitantDetails", ""
+            ) as InhabitantDetails;
+            return body;
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: InhabitantDetails = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "InhabitantDetails", ""
+            ) as InhabitantDetails;
             return body;
         }
 
@@ -785,25 +913,83 @@ export class OddGiantsApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to location
+     * @params response Response returned by the server for a request to item
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async location(response: ResponseContext): Promise<Location > {
+     public async item(response: ResponseContext): Promise<ItemDetails > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: Location = ObjectSerializer.deserialize(
+            const body: ItemDetails = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Location", ""
-            ) as Location;
+                "ItemDetails", ""
+            ) as ItemDetails;
             return body;
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: Location = ObjectSerializer.deserialize(
+            const body: ItemDetails = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Location", ""
-            ) as Location;
+                "ItemDetails", ""
+            ) as ItemDetails;
+            return body;
+        }
+
+        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to itemsByCategory
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async itemsByCategory(response: ResponseContext): Promise<Array<Item> > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: Array<Item> = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Array<Item>", ""
+            ) as Array<Item>;
+            return body;
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: Array<Item> = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Array<Item>", ""
+            ) as Array<Item>;
+            return body;
+        }
+
+        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to location
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async location(response: ResponseContext): Promise<LocationDetails > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: LocationDetails = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "LocationDetails", ""
+            ) as LocationDetails;
+            return body;
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: LocationDetails = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "LocationDetails", ""
+            ) as LocationDetails;
             return body;
         }
 
@@ -863,7 +1049,7 @@ export class OddGiantsApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "ErrorResponse", ""
             ) as ErrorResponse;
-            throw new ApiException<ErrorResponse>(response.httpStatusCode, "Something went wrong.", body, response.headers);
+            throw new ApiException<ErrorResponse>(response.httpStatusCode, "Something went wrong", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
@@ -1204,22 +1390,22 @@ export class OddGiantsApiResponseProcessor {
      * @params response Response returned by the server for a request to userUpgrades
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async userUpgrades(response: ResponseContext): Promise<Array<Upgrade> > {
+     public async userUpgrades(response: ResponseContext): Promise<Array<UserUpgrade> > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: Array<Upgrade> = ObjectSerializer.deserialize(
+            const body: Array<UserUpgrade> = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<Upgrade>", ""
-            ) as Array<Upgrade>;
+                "Array<UserUpgrade>", ""
+            ) as Array<UserUpgrade>;
             return body;
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: Array<Upgrade> = ObjectSerializer.deserialize(
+            const body: Array<UserUpgrade> = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<Upgrade>", ""
-            ) as Array<Upgrade>;
+                "Array<UserUpgrade>", ""
+            ) as Array<UserUpgrade>;
             return body;
         }
 

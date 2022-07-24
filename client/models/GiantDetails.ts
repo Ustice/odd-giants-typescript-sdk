@@ -11,7 +11,7 @@
  */
 
 import { GiantId } from './GiantId';
-import { Skill } from './Skill';
+import { GiantSkill } from './GiantSkill';
 import { HttpFile } from '../http/http';
 
 export class GiantDetails {
@@ -24,7 +24,7 @@ export class GiantDetails {
     'type': string;
     'updatedAt': Date;
     'createdAt': Date;
-    'skills': Array<Skill & any>;
+    'skills': Array<GiantSkill>;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -86,7 +86,7 @@ export class GiantDetails {
         {
             "name": "skills",
             "baseName": "skills",
-            "type": "Array<Skill & any>",
+            "type": "Array<GiantSkill>",
             "format": ""
         }    ];
 

@@ -5,10 +5,13 @@ All URIs are relative to *https://api.oddgiants.com/public*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**achievement**](OddGiantsApi.md#achievement) | **GET** /encyclopedia/achievement/{achievement_id} | 
-[**achievementsByCategory**](OddGiantsApi.md#achievementsByCategory) | **GET** /encyclopedia/achievments/{category} | 
+[**achievementsByCategory**](OddGiantsApi.md#achievementsByCategory) | **GET** /encyclopedia/achievments/{category_id} | 
 [**categories**](OddGiantsApi.md#categories) | **GET** /encyclepedia/categories | 
+[**giant**](OddGiantsApi.md#giant) | **GET** /encyclopedia/giants/{giant_id} | 
 [**inhabitant**](OddGiantsApi.md#inhabitant) | **GET** /encyclopedia/inhabitant/{inhabitant_id} | 
-[**inhabitantsByCategory**](OddGiantsApi.md#inhabitantsByCategory) | **GET** /encyclopedia/inhabitants/{category} | 
+[**inhabitantsByCategory**](OddGiantsApi.md#inhabitantsByCategory) | **GET** /encyclopedia/inhabitants/{category_id} | 
+[**item**](OddGiantsApi.md#item) | **GET** /encyclopedia/item/{item_id} | 
+[**itemsByCategory**](OddGiantsApi.md#itemsByCategory) | **GET** /encyclopedia/items/{category_id} | 
 [**location**](OddGiantsApi.md#location) | **GET** /encyclopedia/location/{location_id} | 
 [**login**](OddGiantsApi.md#login) | **POST** /login | Logs in a user
 [**loginRefresh**](OddGiantsApi.md#loginRefresh) | **POST** /login/refresh | Refreshes the user&#39;s session
@@ -17,9 +20,9 @@ Method | HTTP request | Description
 [**search**](OddGiantsApi.md#search) | **GET** /encyclopedia/search | 
 [**serverStats**](OddGiantsApi.md#serverStats) | **GET** /configs | List 
 [**skill**](OddGiantsApi.md#skill) | **GET** /encyclopedia/skill/{skill_id} | 
-[**skillsByCategory**](OddGiantsApi.md#skillsByCategory) | **GET** /encyclopedia/skills/{category} | 
+[**skillsByCategory**](OddGiantsApi.md#skillsByCategory) | **GET** /encyclopedia/skills/{category_id} | 
 [**upgrade**](OddGiantsApi.md#upgrade) | **GET** /encyclopedia/upgrade/{upgrade_id} | 
-[**upgradesByCategory**](OddGiantsApi.md#upgradesByCategory) | **GET** /encyclopedia/upgrades/{category} | 
+[**upgradesByCategory**](OddGiantsApi.md#upgradesByCategory) | **GET** /encyclopedia/upgrades/{category_id} | 
 [**user**](OddGiantsApi.md#user) | **GET** /users/{user_id} | 
 [**userAchievements**](OddGiantsApi.md#userAchievements) | **GET** /users/{user_id}/achievments | 
 [**userSkills**](OddGiantsApi.md#userSkills) | **GET** /users/{user_id}/skills | 
@@ -39,7 +42,6 @@ Gets Achievement details
 
 ```typescript
 import { createConfiguration, OddGiantsApi } from 'odd-giants'
-import * as fs from 'fs'
 
 const configuration = createConfiguration()
 const oddGiants = new OddGiantsApi(configuration)
@@ -75,14 +77,14 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
+**200** | Successfully loaded Achievement |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **achievementsByCategory**
 
 ```typescript
-declare function achievementsByCategory(category: string, options?: Configuration): Array<Achievement>
+declare function achievementsByCategory(categoryId: string, options?: Configuration): Array<Achievement>
 ```
 
 Get Achievements by category
@@ -92,14 +94,13 @@ Get Achievements by category
 
 ```typescript
 import { createConfiguration, OddGiantsApi } from 'odd-giants'
-import * as fs from 'fs'
 
 const configuration = createConfiguration()
 const oddGiants = new OddGiantsApi(configuration)
 
-const category = "ar2c3v8s7djuy2zmetozkhdomha2b"
+const categoryId = "ar2c3v8s7djuy2zmetozkhdomha2b"
 
-const value = await oddGiants.achievementsByCategory(category)
+const value = await oddGiants.achievementsByCategory(categoryId)
 
 console.log(`API called successfully. Returned data: ${ value }`)
 ```
@@ -108,7 +109,7 @@ console.log(`API called successfully. Returned data: ${ value }`)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **category** | [**string**] |  | defaults to undefined
+ **categoryId** | [**string**] |  | defaults to undefined
 
 
 ### Return type
@@ -128,7 +129,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successfully loaded Achievement category |  -  |
+**200** | Successfully loaded Achievement by category |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
@@ -145,7 +146,6 @@ Categories of information available within the encyclopedia/api
 
 ```typescript
 import { createConfiguration, OddGiantsApi } from 'odd-giants'
-import * as fs from 'fs'
 
 const configuration = createConfiguration()
 const oddGiants = new OddGiantsApi(configuration)
@@ -176,10 +176,10 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **inhabitant**
+# **giant**
 
 ```typescript
-declare function inhabitant(inhabitantId: string, options?: Configuration): Inhabitant
+declare function giant(giantId: GiantId, options?: Configuration): GiantDetails
 ```
 
 
@@ -188,7 +188,57 @@ declare function inhabitant(inhabitantId: string, options?: Configuration): Inha
 
 ```typescript
 import { createConfiguration, OddGiantsApi } from 'odd-giants'
-import * as fs from 'fs'
+
+const configuration = createConfiguration()
+const oddGiants = new OddGiantsApi(configuration)
+
+const giantId = "alph"
+
+const value = await oddGiants.giant(giantId)
+
+console.log(`API called successfully. Returned data: ${ value }`)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **giantId** | **GiantId** |  | defaults to undefined
+
+
+### Return type
+
+`GiantDetails`
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successfully loaded Giant |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **inhabitant**
+
+```typescript
+declare function inhabitant(inhabitantId: string, options?: Configuration): InhabitantDetails
+```
+
+
+### Example
+
+
+```typescript
+import { createConfiguration, OddGiantsApi } from 'odd-giants'
 
 const configuration = createConfiguration()
 const oddGiants = new OddGiantsApi(configuration)
@@ -209,7 +259,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-`Inhabitant`
+`InhabitantDetails`
 
 ### Authorization
 
@@ -224,14 +274,14 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Inhabitant loaded |  -  |
+**200** | Successfully loaded Inhabitant |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **inhabitantsByCategory**
 
 ```typescript
-declare function inhabitantsByCategory(category: string, options?: Configuration): Array<Inhabitant>
+declare function inhabitantsByCategory(categoryId: string, options?: Configuration): Array<Inhabitant>
 ```
 
 
@@ -240,14 +290,13 @@ declare function inhabitantsByCategory(category: string, options?: Configuration
 
 ```typescript
 import { createConfiguration, OddGiantsApi } from 'odd-giants'
-import * as fs from 'fs'
 
 const configuration = createConfiguration()
 const oddGiants = new OddGiantsApi(configuration)
 
-const category = "category_example"
+const categoryId = "ar2c3v8s7djuy2zmetozkhdomha2b"
 
-const value = await oddGiants.inhabitantsByCategory(category)
+const value = await oddGiants.inhabitantsByCategory(categoryId)
 
 console.log(`API called successfully. Returned data: ${ value }`)
 ```
@@ -256,7 +305,7 @@ console.log(`API called successfully. Returned data: ${ value }`)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **category** | [**string**] |  | defaults to undefined
+ **categoryId** | [**string**] |  | defaults to undefined
 
 
 ### Return type
@@ -276,14 +325,118 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Inhabitants loaded |  -  |
+**200** | Sucessfully loaded Inhabitants by category |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **item**
+
+```typescript
+declare function item(itemId: string, options?: Configuration): ItemDetails
+```
+
+Item information
+
+### Example
+
+
+```typescript
+import { createConfiguration, OddGiantsApi } from 'odd-giants'
+
+const configuration = createConfiguration()
+const oddGiants = new OddGiantsApi(configuration)
+
+const itemId = "ar2c3v8s7djuy2zmetozkhdomha2b"
+
+const value = await oddGiants.item(itemId)
+
+console.log(`API called successfully. Returned data: ${ value }`)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **itemId** | [**string**] |  | defaults to undefined
+
+
+### Return type
+
+`ItemDetails`
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successfully loaded Item |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **itemsByCategory**
+
+```typescript
+declare function itemsByCategory(categoryId: string, options?: Configuration): Array<Item>
+```
+
+List items by category
+
+### Example
+
+
+```typescript
+import { createConfiguration, OddGiantsApi } from 'odd-giants'
+
+const configuration = createConfiguration()
+const oddGiants = new OddGiantsApi(configuration)
+
+const categoryId = "ar2c3v8s7djuy2zmetozkhdomha2b"
+
+const value = await oddGiants.itemsByCategory(categoryId)
+
+console.log(`API called successfully. Returned data: ${ value }`)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **categoryId** | [**string**] |  | defaults to undefined
+
+
+### Return type
+
+`Array<Item>`
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Sucessfully loaded Items by category |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **location**
 
 ```typescript
-declare function location(locationId: string, options?: Configuration): Location
+declare function location(locationId: string, options?: Configuration): LocationDetails
 ```
 
 Locations around Ur
@@ -293,7 +446,6 @@ Locations around Ur
 
 ```typescript
 import { createConfiguration, OddGiantsApi } from 'odd-giants'
-import * as fs from 'fs'
 
 const configuration = createConfiguration()
 const oddGiants = new OddGiantsApi(configuration)
@@ -314,7 +466,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-`Location`
+`LocationDetails`
 
 ### Authorization
 
@@ -346,7 +498,6 @@ User's provide an email address and password to gain access to authenticated rou
 
 ```typescript
 import { createConfiguration, OddGiantsApi } from 'odd-giants'
-import * as fs from 'fs'
 
 const configuration = createConfiguration()
 const oddGiants = new OddGiantsApi(configuration)
@@ -366,7 +517,7 @@ console.log(`API called successfully. Returned data: ${ value }`)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authenticationCredentials** | **AuthenticationCredentials**|  |
+ **authenticationCredentials** | **AuthenticationCredentials**| Authentication credentials |
 
 
 ### Return type
@@ -386,7 +537,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | The user has sucessfully authenticated |  -  |
+**200** | Successful authentication |  -  |
 **302** | The user failed to log in successfully |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
@@ -404,7 +555,6 @@ By sending the refresh_token, the user is able to refresh their session.
 
 ```typescript
 import { createConfiguration, OddGiantsApi } from 'odd-giants'
-import * as fs from 'fs'
 
 const configuration = createConfiguration()
 const oddGiants = new OddGiantsApi(configuration)
@@ -431,8 +581,8 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | The user has successfully refreshed their session. |  -  |
-**400** | Something went wrong. |  -  |
+**200** | The user has successfully refreshed their session |  -  |
+**400** | Something went wrong |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
@@ -449,7 +599,6 @@ Gets the authenticated user
 
 ```typescript
 import { createConfiguration, OddGiantsApi } from 'odd-giants'
-import * as fs from 'fs'
 
 const configuration = createConfiguration()
 const oddGiants = new OddGiantsApi(configuration)
@@ -493,7 +642,6 @@ Locations around Ur
 
 ```typescript
 import { createConfiguration, OddGiantsApi } from 'odd-giants'
-import * as fs from 'fs'
 
 const configuration = createConfiguration()
 const oddGiants = new OddGiantsApi(configuration)
@@ -529,14 +677,14 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Location loaded |  -  |
+**200** | Successfully loaded Region |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **search**
 
 ```typescript
-declare function search(q: string, options?: Configuration): SearchResults
+declare function search(searchQuery: string, options?: Configuration): SearchResults
 ```
 
 Search
@@ -546,14 +694,13 @@ Search
 
 ```typescript
 import { createConfiguration, OddGiantsApi } from 'odd-giants'
-import * as fs from 'fs'
 
 const configuration = createConfiguration()
 const oddGiants = new OddGiantsApi(configuration)
 
-const q = "q_example"
+const searchQuery = "search_query_example"
 
-const value = await oddGiants.search(q)
+const value = await oddGiants.search(searchQuery)
 
 console.log(`API called successfully. Returned data: ${ value }`)
 ```
@@ -562,7 +709,7 @@ console.log(`API called successfully. Returned data: ${ value }`)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **q** | [**string**] |  | defaults to undefined
+ **searchQuery** | [**string**] |  | defaults to undefined
 
 
 ### Return type
@@ -599,7 +746,6 @@ declare function serverStats(options?: Configuration): ServerStats
 
 ```typescript
 import { createConfiguration, OddGiantsApi } from 'odd-giants'
-import * as fs from 'fs'
 
 const configuration = createConfiguration()
 const oddGiants = new OddGiantsApi(configuration)
@@ -626,7 +772,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success |  -  |
+**200** | Successfully loaded server stats |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
@@ -643,7 +789,6 @@ Get Skill
 
 ```typescript
 import { createConfiguration, OddGiantsApi } from 'odd-giants'
-import * as fs from 'fs'
 
 const configuration = createConfiguration()
 const oddGiants = new OddGiantsApi(configuration)
@@ -679,31 +824,30 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Skill loaded |  -  |
+**200** | Sucessfully loaded Inhabitants by category |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **skillsByCategory**
 
 ```typescript
-declare function skillsByCategory(category: string, options?: Configuration): Array<Skill>
+declare function skillsByCategory(categoryId: string, options?: Configuration): Array<Skill>
 ```
 
-Get Skill Category
+Get Skill by category
 
 ### Example
 
 
 ```typescript
 import { createConfiguration, OddGiantsApi } from 'odd-giants'
-import * as fs from 'fs'
 
 const configuration = createConfiguration()
 const oddGiants = new OddGiantsApi(configuration)
 
-const category = "ar2c3v8s7djuy2zmetozkhdomha2b"
+const categoryId = "ar2c3v8s7djuy2zmetozkhdomha2b"
 
-const value = await oddGiants.skillsByCategory(category)
+const value = await oddGiants.skillsByCategory(categoryId)
 
 console.log(`API called successfully. Returned data: ${ value }`)
 ```
@@ -712,7 +856,7 @@ console.log(`API called successfully. Returned data: ${ value }`)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **category** | [**string**] |  | defaults to undefined
+ **categoryId** | [**string**] |  | defaults to undefined
 
 
 ### Return type
@@ -732,7 +876,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Skill category loaded |  -  |
+**200** | Sucessfully loaded Inhabitants by category |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
@@ -749,7 +893,6 @@ Gets the details of an Upgrade
 
 ```typescript
 import { createConfiguration, OddGiantsApi } from 'odd-giants'
-import * as fs from 'fs'
 
 const configuration = createConfiguration()
 const oddGiants = new OddGiantsApi(configuration)
@@ -785,31 +928,30 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successfully loaded Upgrade details |  -  |
+**200** | Sucessfully loaded Inhabitants by category |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **upgradesByCategory**
 
 ```typescript
-declare function upgradesByCategory(category: string, options?: Configuration): Array<Upgrade>
+declare function upgradesByCategory(categoryId: string, options?: Configuration): Array<Upgrade>
 ```
 
-Get upgrade category
+Get Upgradse by category
 
 ### Example
 
 
 ```typescript
 import { createConfiguration, OddGiantsApi } from 'odd-giants'
-import * as fs from 'fs'
 
 const configuration = createConfiguration()
 const oddGiants = new OddGiantsApi(configuration)
 
-const category = "ar2c3v8s7djuy2zmetozkhdomha2b"
+const categoryId = "ar2c3v8s7djuy2zmetozkhdomha2b"
 
-const value = await oddGiants.upgradesByCategory(category)
+const value = await oddGiants.upgradesByCategory(categoryId)
 
 console.log(`API called successfully. Returned data: ${ value }`)
 ```
@@ -818,7 +960,7 @@ console.log(`API called successfully. Returned data: ${ value }`)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **category** | [**string**] |  | defaults to undefined
+ **categoryId** | [**string**] |  | defaults to undefined
 
 
 ### Return type
@@ -838,7 +980,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Upgrade category loaded |  -  |
+**200** | Sucessfully loaded Inhabitants by category |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
@@ -855,7 +997,6 @@ Gets information about a specific user
 
 ```typescript
 import { createConfiguration, OddGiantsApi } from 'odd-giants'
-import * as fs from 'fs'
 
 const configuration = createConfiguration()
 const oddGiants = new OddGiantsApi(configuration)
@@ -908,7 +1049,6 @@ Gets the achievments for a given user
 
 ```typescript
 import { createConfiguration, OddGiantsApi } from 'odd-giants'
-import * as fs from 'fs'
 
 const configuration = createConfiguration()
 const oddGiants = new OddGiantsApi(configuration)
@@ -961,7 +1101,6 @@ Gets the skills for a given user
 
 ```typescript
 import { createConfiguration, OddGiantsApi } from 'odd-giants'
-import * as fs from 'fs'
 
 const configuration = createConfiguration()
 const oddGiants = new OddGiantsApi(configuration)
@@ -997,14 +1136,14 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Sucessfully loaded the given user&#39;s skills |  -  |
+**200** | Sucessfully loaded the User&#39;s Skills |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **userUpgrades**
 
 ```typescript
-declare function userUpgrades(userId: number, options?: Configuration): Array<Upgrade>
+declare function userUpgrades(userId: number, options?: Configuration): Array<UserUpgrade>
 ```
 
 Gets the upgrades for a given user
@@ -1014,7 +1153,6 @@ Gets the upgrades for a given user
 
 ```typescript
 import { createConfiguration, OddGiantsApi } from 'odd-giants'
-import * as fs from 'fs'
 
 const configuration = createConfiguration()
 const oddGiants = new OddGiantsApi(configuration)
@@ -1035,7 +1173,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-`Array<Upgrade>`
+`Array<UserUpgrade>`
 
 ### Authorization
 
@@ -1050,7 +1188,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Sucessfully loaded the given user&#39;s upgrades |  -  |
+**200** | Sucessfully loaded the User&#39;s Upgrades |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 

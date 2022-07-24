@@ -1,7 +1,17 @@
 export * from './Achievement';
-export * from './AchievementConditionsInner';
+export * from './AchievementAchievement';
+export * from './AchievementAchievementConnection';
+export * from './AchievementCondition';
+export * from './AchievementConnections';
 export * from './AchievementDetails';
-export * from './AchievementDetailsAllOf';
+export * from './AchievementItem';
+export * from './AchievementItemConnections';
+export * from './AchievementRecipe';
+export * from './AchievementRecipeConnection';
+export * from './AchievementRecipePivot';
+export * from './AchievementUpgrade';
+export * from './AchievementUpgradeConnections';
+export * from './AchievementUpgradePivot';
 export * from './AuthenticationCredentials';
 export * from './Category';
 export * from './CategoryAchievements';
@@ -13,43 +23,60 @@ export * from './CategorySkills';
 export * from './CategoryUpgrades';
 export * from './ErrorResponse';
 export * from './Giant';
+export * from './GiantConnections';
 export * from './GiantDetails';
-export * from './GiantDetailsAllOf';
 export * from './GiantId';
 export * from './GiantList';
+export * from './GiantSkill';
+export * from './GiantSkillConnection';
+export * from './GiantSkillPivot';
 export * from './Inhabitant';
+export * from './InhabitantConnections';
 export * from './InhabitantDetails';
-export * from './InhabitantDetailsAllOf';
+export * from './InhabitantItem';
+export * from './InhabitantItemConnection';
+export * from './InhabitantItemPivot';
 export * from './Item';
+export * from './ItemAchievement';
+export * from './ItemAchievementConnection';
+export * from './ItemAchievementPivot';
+export * from './ItemConnections';
 export * from './ItemDetails';
-export * from './ItemDetailsAllOf';
+export * from './ItemInhabitant';
+export * from './ItemInhabitant1';
+export * from './ItemInhabitantConnection';
 export * from './Location';
+export * from './LocationConnection';
+export * from './LocationConnections';
 export * from './LocationContentsValue';
 export * from './LocationDetails';
-export * from './LocationDetailsAllOf';
+export * from './LocationInhabitant';
+export * from './LocationInhabitantConnection';
+export * from './LocationInhabitantPivot';
+export * from './LocationItem';
+export * from './LocationItemConnection';
+export * from './LocationItemPivot';
+export * from './LocationLocation';
+export * from './LocationLocationPivot';
 export * from './Recipe';
-export * from './RecipeItemsInputInner';
-export * from './RecipeItemsInputInnerAllOf';
-export * from './RecipeItemsInputInnerAllOfPivot';
-export * from './RecipeItemsOutputInner';
-export * from './RecipeItemsOutputInnerAllOf';
-export * from './RecipeItemsOutputInnerAllOfPivot';
-export * from './RecipeItemsToolInner';
-export * from './RecipeItemsToolInnerAllOf';
-export * from './RecipeItemsToolInnerAllOfPivot';
-export * from './RecipePivot';
+export * from './RecipeItem';
+export * from './RecipeItemConnection';
+export * from './RecipeItemPivot';
 export * from './Region';
 export * from './Reward';
 export * from './SearchResults';
 export * from './ServerStats';
 export * from './SessionInfo';
 export * from './Skill';
+export * from './SkillConnections';
 export * from './SkillDetails';
-export * from './SkillDetailsGiantsInner';
-export * from './SkillDetailsGiantsInnerAllOf';
-export * from './SkillDetailsGiantsInnerAllOfPivot';
-export * from './SkillDetailsRequiredForRecipesInner';
+export * from './SkillGiant';
+export * from './SkillGiantConnections';
+export * from './SkillGiantPivot';
 export * from './Upgrade';
+export * from './UpgradeAchievement';
+export * from './UpgradeAchievementConnection';
+export * from './UpgradeCondition';
 export * from './UpgradeConditionAchievement';
 export * from './UpgradeConditionLevel';
 export * from './UpgradeConditionMaxEnergy';
@@ -57,28 +84,44 @@ export * from './UpgradeConditionNull';
 export * from './UpgradeConditionQuest';
 export * from './UpgradeConditionSkill';
 export * from './UpgradeConditionUpgrade';
-export * from './UpgradeConditionsInner';
+export * from './UpgradeConnections';
 export * from './UpgradeDetails';
-export * from './UpgradeDetailsAllOf';
+export * from './UpgradeReward';
 export * from './UpgradeRewardKeepable';
 export * from './UpgradeRewardLearning';
 export * from './UpgradeRewardMovement';
-export * from './UpgradeRewardsInner';
+export * from './UpgradeSkill';
+export * from './UpgradeSkillConnection';
+export * from './UpgradeSkillPivot';
+export * from './UpgradeUpgrade';
+export * from './UpgradeUpgradeConnection';
+export * from './UpgradeUpgradePivot';
 export * from './User';
+export * from './UserAchievementConnections';
+export * from './UserAchievementPivot';
 export * from './UserAchievment';
-export * from './UserAchievmentAllOf';
-export * from './UserAchievmentAllOfPivot';
 export * from './UserSkill';
-export * from './UserSkillAllOf';
-export * from './UserSkillAllOfPivot';
+export * from './UserSkillConnection';
+export * from './UserSkillConnections';
+export * from './UserSkillPivot';
 export * from './UserUpgrade';
-export * from './UserUpgradeAllOf';
-export * from './UserUpgradeAllOfPivot';
+export * from './UserUpgradeConnection';
+export * from './UserUpgradePivot';
 
 import { Achievement } from './Achievement';
-import { AchievementConditionsInner, AchievementConditionsInnerTypeEnum      } from './AchievementConditionsInner';
+import { AchievementAchievement } from './AchievementAchievement';
+import { AchievementAchievementConnection } from './AchievementAchievementConnection';
+import { AchievementCondition, AchievementConditionTypeEnum      } from './AchievementCondition';
+import { AchievementConnections } from './AchievementConnections';
 import { AchievementDetails } from './AchievementDetails';
-import { AchievementDetailsAllOf } from './AchievementDetailsAllOf';
+import { AchievementItem     , AchievementItemArticleEnum                 } from './AchievementItem';
+import { AchievementItemConnections } from './AchievementItemConnections';
+import { AchievementRecipe   , AchievementRecipeLearntEnum                } from './AchievementRecipe';
+import { AchievementRecipeConnection } from './AchievementRecipeConnection';
+import { AchievementRecipePivot } from './AchievementRecipePivot';
+import { AchievementUpgrade } from './AchievementUpgrade';
+import { AchievementUpgradeConnections } from './AchievementUpgradeConnections';
+import { AchievementUpgradePivot } from './AchievementUpgradePivot';
 import { AuthenticationCredentials } from './AuthenticationCredentials';
 import { Category } from './Category';
 import { CategoryAchievements } from './CategoryAchievements';
@@ -90,43 +133,60 @@ import { CategorySkills } from './CategorySkills';
 import { CategoryUpgrades } from './CategoryUpgrades';
 import { ErrorResponse } from './ErrorResponse';
 import { Giant } from './Giant';
+import { GiantConnections } from './GiantConnections';
 import { GiantDetails } from './GiantDetails';
-import { GiantDetailsAllOf } from './GiantDetailsAllOf';
 import { GiantId } from './GiantId';
 import { GiantList } from './GiantList';
+import { GiantSkill } from './GiantSkill';
+import { GiantSkillConnection } from './GiantSkillConnection';
+import { GiantSkillPivot  , GiantSkillPivotPrimaryEnum   } from './GiantSkillPivot';
 import { Inhabitant } from './Inhabitant';
+import { InhabitantConnections } from './InhabitantConnections';
 import { InhabitantDetails } from './InhabitantDetails';
-import { InhabitantDetailsAllOf } from './InhabitantDetailsAllOf';
+import { InhabitantItem     , InhabitantItemArticleEnum                } from './InhabitantItem';
+import { InhabitantItemConnection } from './InhabitantItemConnection';
+import { InhabitantItemPivot } from './InhabitantItemPivot';
 import { Item     , ItemArticleEnum               } from './Item';
+import { ItemAchievement } from './ItemAchievement';
+import { ItemAchievementConnection } from './ItemAchievementConnection';
+import { ItemAchievementPivot } from './ItemAchievementPivot';
+import { ItemConnections } from './ItemConnections';
 import { ItemDetails     , ItemDetailsArticleEnum                    } from './ItemDetails';
-import { ItemDetailsAllOf } from './ItemDetailsAllOf';
+import { ItemInhabitant } from './ItemInhabitant';
+import { ItemInhabitant1 } from './ItemInhabitant1';
+import { ItemInhabitantConnection } from './ItemInhabitantConnection';
 import { Location } from './Location';
+import { LocationConnection } from './LocationConnection';
+import { LocationConnections } from './LocationConnections';
 import { LocationContentsValue } from './LocationContentsValue';
 import { LocationDetails } from './LocationDetails';
-import { LocationDetailsAllOf } from './LocationDetailsAllOf';
+import { LocationInhabitant } from './LocationInhabitant';
+import { LocationInhabitantConnection } from './LocationInhabitantConnection';
+import { LocationInhabitantPivot } from './LocationInhabitantPivot';
+import { LocationItem     , LocationItemArticleEnum                } from './LocationItem';
+import { LocationItemConnection } from './LocationItemConnection';
+import { LocationItemPivot } from './LocationItemPivot';
+import { LocationLocation } from './LocationLocation';
+import { LocationLocationPivot } from './LocationLocationPivot';
 import { Recipe   , RecipeLearntEnum                } from './Recipe';
-import { RecipeItemsInputInner     , RecipeItemsInputInnerArticleEnum                } from './RecipeItemsInputInner';
-import { RecipeItemsInputInnerAllOf } from './RecipeItemsInputInnerAllOf';
-import { RecipeItemsInputInnerAllOfPivot  , RecipeItemsInputInnerAllOfPivotTypeEnum    } from './RecipeItemsInputInnerAllOfPivot';
-import { RecipeItemsOutputInner     , RecipeItemsOutputInnerArticleEnum                } from './RecipeItemsOutputInner';
-import { RecipeItemsOutputInnerAllOf } from './RecipeItemsOutputInnerAllOf';
-import { RecipeItemsOutputInnerAllOfPivot  , RecipeItemsOutputInnerAllOfPivotTypeEnum    } from './RecipeItemsOutputInnerAllOfPivot';
-import { RecipeItemsToolInner     , RecipeItemsToolInnerArticleEnum                } from './RecipeItemsToolInner';
-import { RecipeItemsToolInnerAllOf } from './RecipeItemsToolInnerAllOf';
-import { RecipeItemsToolInnerAllOfPivot  , RecipeItemsToolInnerAllOfPivotTypeEnum    } from './RecipeItemsToolInnerAllOfPivot';
-import { RecipePivot  , RecipePivotTypeEnum   } from './RecipePivot';
+import { RecipeItem     , RecipeItemArticleEnum                } from './RecipeItem';
+import { RecipeItemConnection } from './RecipeItemConnection';
+import { RecipeItemPivot  , RecipeItemPivotTypeEnum    } from './RecipeItemPivot';
 import { Region } from './Region';
 import { Reward } from './Reward';
 import { SearchResults } from './SearchResults';
 import { ServerStats } from './ServerStats';
 import { SessionInfo } from './SessionInfo';
 import { Skill } from './Skill';
+import { SkillConnections } from './SkillConnections';
 import { SkillDetails } from './SkillDetails';
-import { SkillDetailsGiantsInner } from './SkillDetailsGiantsInner';
-import { SkillDetailsGiantsInnerAllOf } from './SkillDetailsGiantsInnerAllOf';
-import { SkillDetailsGiantsInnerAllOfPivot  , SkillDetailsGiantsInnerAllOfPivotPrimaryEnum   } from './SkillDetailsGiantsInnerAllOfPivot';
-import { SkillDetailsRequiredForRecipesInner   , SkillDetailsRequiredForRecipesInnerLearntEnum                } from './SkillDetailsRequiredForRecipesInner';
+import { SkillGiant } from './SkillGiant';
+import { SkillGiantConnections } from './SkillGiantConnections';
+import { SkillGiantPivot  , SkillGiantPivotPrimaryEnum   } from './SkillGiantPivot';
 import { Upgrade } from './Upgrade';
+import { UpgradeAchievement } from './UpgradeAchievement';
+import { UpgradeAchievementConnection } from './UpgradeAchievementConnection';
+import { UpgradeCondition, UpgradeConditionTypeEnum         } from './UpgradeCondition';
 import { UpgradeConditionAchievement, UpgradeConditionAchievementTypeEnum    } from './UpgradeConditionAchievement';
 import { UpgradeConditionLevel, UpgradeConditionLevelTypeEnum    } from './UpgradeConditionLevel';
 import { UpgradeConditionMaxEnergy, UpgradeConditionMaxEnergyTypeEnum    } from './UpgradeConditionMaxEnergy';
@@ -134,23 +194,29 @@ import { UpgradeConditionNull, UpgradeConditionNullTypeEnum   } from './UpgradeC
 import { UpgradeConditionQuest, UpgradeConditionQuestTypeEnum    } from './UpgradeConditionQuest';
 import { UpgradeConditionSkill, UpgradeConditionSkillTypeEnum    } from './UpgradeConditionSkill';
 import { UpgradeConditionUpgrade, UpgradeConditionUpgradeTypeEnum    } from './UpgradeConditionUpgrade';
-import { UpgradeConditionsInner, UpgradeConditionsInnerTypeEnum         } from './UpgradeConditionsInner';
+import { UpgradeConnections } from './UpgradeConnections';
 import { UpgradeDetails } from './UpgradeDetails';
-import { UpgradeDetailsAllOf } from './UpgradeDetailsAllOf';
+import { UpgradeReward, UpgradeRewardTypeEnum           } from './UpgradeReward';
 import { UpgradeRewardKeepable , UpgradeRewardKeepableTypeEnum    } from './UpgradeRewardKeepable';
 import { UpgradeRewardLearning, UpgradeRewardLearningTypeEnum   } from './UpgradeRewardLearning';
 import { UpgradeRewardMovement, UpgradeRewardMovementTypeEnum         } from './UpgradeRewardMovement';
-import { UpgradeRewardsInner, UpgradeRewardsInnerTypeEnum           } from './UpgradeRewardsInner';
+import { UpgradeSkill } from './UpgradeSkill';
+import { UpgradeSkillConnection } from './UpgradeSkillConnection';
+import { UpgradeSkillPivot } from './UpgradeSkillPivot';
+import { UpgradeUpgrade } from './UpgradeUpgrade';
+import { UpgradeUpgradeConnection } from './UpgradeUpgradeConnection';
+import { UpgradeUpgradePivot } from './UpgradeUpgradePivot';
 import { User } from './User';
+import { UserAchievementConnections } from './UserAchievementConnections';
+import { UserAchievementPivot } from './UserAchievementPivot';
 import { UserAchievment } from './UserAchievment';
-import { UserAchievmentAllOf } from './UserAchievmentAllOf';
-import { UserAchievmentAllOfPivot } from './UserAchievmentAllOfPivot';
 import { UserSkill                  } from './UserSkill';
-import { UserSkillAllOf , UserSkillAllOfLearnedEnum     } from './UserSkillAllOf';
-import { UserSkillAllOfPivot } from './UserSkillAllOfPivot';
+import { UserSkillConnection } from './UserSkillConnection';
+import { UserSkillConnections , UserSkillConnectionsLearnedEnum     } from './UserSkillConnections';
+import { UserSkillPivot } from './UserSkillPivot';
 import { UserUpgrade } from './UserUpgrade';
-import { UserUpgradeAllOf } from './UserUpgradeAllOf';
-import { UserUpgradeAllOfPivot } from './UserUpgradeAllOfPivot';
+import { UserUpgradeConnection } from './UserUpgradeConnection';
+import { UserUpgradePivot } from './UserUpgradePivot';
 
 /* tslint:disable:no-unused-variable */
 let primitives = [
@@ -172,20 +238,20 @@ const supportedMediaTypes: { [mediaType: string]: number } = {
 
 
 let enumsMap: Set<string> = new Set<string>([
-    "AchievementConditionsInnerTypeEnum",
+    "AchievementConditionTypeEnum",
+    "AchievementItemArticleEnum",
+    "AchievementRecipeLearntEnum",
     "GiantId",
+    "GiantSkillPivotPrimaryEnum",
+    "InhabitantItemArticleEnum",
     "ItemArticleEnum",
     "ItemDetailsArticleEnum",
+    "LocationItemArticleEnum",
     "RecipeLearntEnum",
-    "RecipeItemsInputInnerArticleEnum",
-    "RecipeItemsInputInnerAllOfPivotTypeEnum",
-    "RecipeItemsOutputInnerArticleEnum",
-    "RecipeItemsOutputInnerAllOfPivotTypeEnum",
-    "RecipeItemsToolInnerArticleEnum",
-    "RecipeItemsToolInnerAllOfPivotTypeEnum",
-    "RecipePivotTypeEnum",
-    "SkillDetailsGiantsInnerAllOfPivotPrimaryEnum",
-    "SkillDetailsRequiredForRecipesInnerLearntEnum",
+    "RecipeItemArticleEnum",
+    "RecipeItemPivotTypeEnum",
+    "SkillGiantPivotPrimaryEnum",
+    "UpgradeConditionTypeEnum",
     "UpgradeConditionAchievementTypeEnum",
     "UpgradeConditionLevelTypeEnum",
     "UpgradeConditionMaxEnergyTypeEnum",
@@ -193,19 +259,28 @@ let enumsMap: Set<string> = new Set<string>([
     "UpgradeConditionQuestTypeEnum",
     "UpgradeConditionSkillTypeEnum",
     "UpgradeConditionUpgradeTypeEnum",
-    "UpgradeConditionsInnerTypeEnum",
+    "UpgradeRewardTypeEnum",
     "UpgradeRewardKeepableTypeEnum",
     "UpgradeRewardLearningTypeEnum",
     "UpgradeRewardMovementTypeEnum",
-    "UpgradeRewardsInnerTypeEnum",
-    "UserSkillAllOfLearnedEnum",
+    "UserSkillConnectionsLearnedEnum",
 ]);
 
 let typeMap: {[index: string]: any} = {
     "Achievement": Achievement,
-    "AchievementConditionsInner": AchievementConditionsInner,
+    "AchievementAchievement": AchievementAchievement,
+    "AchievementAchievementConnection": AchievementAchievementConnection,
+    "AchievementCondition": AchievementCondition,
+    "AchievementConnections": AchievementConnections,
     "AchievementDetails": AchievementDetails,
-    "AchievementDetailsAllOf": AchievementDetailsAllOf,
+    "AchievementItem": AchievementItem,
+    "AchievementItemConnections": AchievementItemConnections,
+    "AchievementRecipe": AchievementRecipe,
+    "AchievementRecipeConnection": AchievementRecipeConnection,
+    "AchievementRecipePivot": AchievementRecipePivot,
+    "AchievementUpgrade": AchievementUpgrade,
+    "AchievementUpgradeConnections": AchievementUpgradeConnections,
+    "AchievementUpgradePivot": AchievementUpgradePivot,
     "AuthenticationCredentials": AuthenticationCredentials,
     "Category": Category,
     "CategoryAchievements": CategoryAchievements,
@@ -217,42 +292,59 @@ let typeMap: {[index: string]: any} = {
     "CategoryUpgrades": CategoryUpgrades,
     "ErrorResponse": ErrorResponse,
     "Giant": Giant,
+    "GiantConnections": GiantConnections,
     "GiantDetails": GiantDetails,
-    "GiantDetailsAllOf": GiantDetailsAllOf,
     "GiantList": GiantList,
+    "GiantSkill": GiantSkill,
+    "GiantSkillConnection": GiantSkillConnection,
+    "GiantSkillPivot": GiantSkillPivot,
     "Inhabitant": Inhabitant,
+    "InhabitantConnections": InhabitantConnections,
     "InhabitantDetails": InhabitantDetails,
-    "InhabitantDetailsAllOf": InhabitantDetailsAllOf,
+    "InhabitantItem": InhabitantItem,
+    "InhabitantItemConnection": InhabitantItemConnection,
+    "InhabitantItemPivot": InhabitantItemPivot,
     "Item": Item,
+    "ItemAchievement": ItemAchievement,
+    "ItemAchievementConnection": ItemAchievementConnection,
+    "ItemAchievementPivot": ItemAchievementPivot,
+    "ItemConnections": ItemConnections,
     "ItemDetails": ItemDetails,
-    "ItemDetailsAllOf": ItemDetailsAllOf,
+    "ItemInhabitant": ItemInhabitant,
+    "ItemInhabitant1": ItemInhabitant1,
+    "ItemInhabitantConnection": ItemInhabitantConnection,
     "Location": Location,
+    "LocationConnection": LocationConnection,
+    "LocationConnections": LocationConnections,
     "LocationContentsValue": LocationContentsValue,
     "LocationDetails": LocationDetails,
-    "LocationDetailsAllOf": LocationDetailsAllOf,
+    "LocationInhabitant": LocationInhabitant,
+    "LocationInhabitantConnection": LocationInhabitantConnection,
+    "LocationInhabitantPivot": LocationInhabitantPivot,
+    "LocationItem": LocationItem,
+    "LocationItemConnection": LocationItemConnection,
+    "LocationItemPivot": LocationItemPivot,
+    "LocationLocation": LocationLocation,
+    "LocationLocationPivot": LocationLocationPivot,
     "Recipe": Recipe,
-    "RecipeItemsInputInner": RecipeItemsInputInner,
-    "RecipeItemsInputInnerAllOf": RecipeItemsInputInnerAllOf,
-    "RecipeItemsInputInnerAllOfPivot": RecipeItemsInputInnerAllOfPivot,
-    "RecipeItemsOutputInner": RecipeItemsOutputInner,
-    "RecipeItemsOutputInnerAllOf": RecipeItemsOutputInnerAllOf,
-    "RecipeItemsOutputInnerAllOfPivot": RecipeItemsOutputInnerAllOfPivot,
-    "RecipeItemsToolInner": RecipeItemsToolInner,
-    "RecipeItemsToolInnerAllOf": RecipeItemsToolInnerAllOf,
-    "RecipeItemsToolInnerAllOfPivot": RecipeItemsToolInnerAllOfPivot,
-    "RecipePivot": RecipePivot,
+    "RecipeItem": RecipeItem,
+    "RecipeItemConnection": RecipeItemConnection,
+    "RecipeItemPivot": RecipeItemPivot,
     "Region": Region,
     "Reward": Reward,
     "SearchResults": SearchResults,
     "ServerStats": ServerStats,
     "SessionInfo": SessionInfo,
     "Skill": Skill,
+    "SkillConnections": SkillConnections,
     "SkillDetails": SkillDetails,
-    "SkillDetailsGiantsInner": SkillDetailsGiantsInner,
-    "SkillDetailsGiantsInnerAllOf": SkillDetailsGiantsInnerAllOf,
-    "SkillDetailsGiantsInnerAllOfPivot": SkillDetailsGiantsInnerAllOfPivot,
-    "SkillDetailsRequiredForRecipesInner": SkillDetailsRequiredForRecipesInner,
+    "SkillGiant": SkillGiant,
+    "SkillGiantConnections": SkillGiantConnections,
+    "SkillGiantPivot": SkillGiantPivot,
     "Upgrade": Upgrade,
+    "UpgradeAchievement": UpgradeAchievement,
+    "UpgradeAchievementConnection": UpgradeAchievementConnection,
+    "UpgradeCondition": UpgradeCondition,
     "UpgradeConditionAchievement": UpgradeConditionAchievement,
     "UpgradeConditionLevel": UpgradeConditionLevel,
     "UpgradeConditionMaxEnergy": UpgradeConditionMaxEnergy,
@@ -260,23 +352,29 @@ let typeMap: {[index: string]: any} = {
     "UpgradeConditionQuest": UpgradeConditionQuest,
     "UpgradeConditionSkill": UpgradeConditionSkill,
     "UpgradeConditionUpgrade": UpgradeConditionUpgrade,
-    "UpgradeConditionsInner": UpgradeConditionsInner,
+    "UpgradeConnections": UpgradeConnections,
     "UpgradeDetails": UpgradeDetails,
-    "UpgradeDetailsAllOf": UpgradeDetailsAllOf,
+    "UpgradeReward": UpgradeReward,
     "UpgradeRewardKeepable": UpgradeRewardKeepable,
     "UpgradeRewardLearning": UpgradeRewardLearning,
     "UpgradeRewardMovement": UpgradeRewardMovement,
-    "UpgradeRewardsInner": UpgradeRewardsInner,
+    "UpgradeSkill": UpgradeSkill,
+    "UpgradeSkillConnection": UpgradeSkillConnection,
+    "UpgradeSkillPivot": UpgradeSkillPivot,
+    "UpgradeUpgrade": UpgradeUpgrade,
+    "UpgradeUpgradeConnection": UpgradeUpgradeConnection,
+    "UpgradeUpgradePivot": UpgradeUpgradePivot,
     "User": User,
+    "UserAchievementConnections": UserAchievementConnections,
+    "UserAchievementPivot": UserAchievementPivot,
     "UserAchievment": UserAchievment,
-    "UserAchievmentAllOf": UserAchievmentAllOf,
-    "UserAchievmentAllOfPivot": UserAchievmentAllOfPivot,
     "UserSkill": UserSkill,
-    "UserSkillAllOf": UserSkillAllOf,
-    "UserSkillAllOfPivot": UserSkillAllOfPivot,
+    "UserSkillConnection": UserSkillConnection,
+    "UserSkillConnections": UserSkillConnections,
+    "UserSkillPivot": UserSkillPivot,
     "UserUpgrade": UserUpgrade,
-    "UserUpgradeAllOf": UserUpgradeAllOf,
-    "UserUpgradeAllOfPivot": UserUpgradeAllOfPivot,
+    "UserUpgradeConnection": UserUpgradeConnection,
+    "UserUpgradePivot": UserUpgradePivot,
 }
 
 export class ObjectSerializer {

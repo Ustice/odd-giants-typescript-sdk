@@ -10,9 +10,9 @@
  * Do not edit the class manually.
  */
 
-import { Achievement } from './Achievement';
-import { Inhabitant } from './Inhabitant';
-import { Recipe } from './Recipe';
+import { ItemAchievement } from './ItemAchievement';
+import { ItemInhabitant } from './ItemInhabitant';
+import { RecipeItem } from './RecipeItem';
 import { HttpFile } from '../http/http';
 
 export class ItemDetails {
@@ -34,11 +34,11 @@ export class ItemDetails {
     'createdAt': Date;
     'updatedAt': Date;
     'name': string;
-    'recipesTool': Array<Recipe & any>;
-    'recipesInput': Array<Recipe & any>;
-    'recipesOutput'?: Array<Recipe & any>;
-    'npcs': Array<Inhabitant & any>;
-    'achievements': Array<Achievement & any>;
+    'recipesTool': Array<RecipeItem>;
+    'recipesInput': Array<RecipeItem>;
+    'recipesOutput'?: Array<RecipeItem>;
+    'npcs': Array<ItemInhabitant>;
+    'achievements': Array<ItemAchievement>;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -154,31 +154,31 @@ export class ItemDetails {
         {
             "name": "recipesTool",
             "baseName": "recipes_tool",
-            "type": "Array<Recipe & any>",
+            "type": "Array<RecipeItem>",
             "format": ""
         },
         {
             "name": "recipesInput",
             "baseName": "recipes_input",
-            "type": "Array<Recipe & any>",
+            "type": "Array<RecipeItem>",
             "format": ""
         },
         {
             "name": "recipesOutput",
             "baseName": "recipes_output",
-            "type": "Array<Recipe & any>",
+            "type": "Array<RecipeItem>",
             "format": ""
         },
         {
             "name": "npcs",
             "baseName": "npcs",
-            "type": "Array<Inhabitant & any>",
+            "type": "Array<ItemInhabitant>",
             "format": ""
         },
         {
             "name": "achievements",
             "baseName": "achievements",
-            "type": "Array<Achievement & any>",
+            "type": "Array<ItemAchievement>",
             "format": ""
         }    ];
 

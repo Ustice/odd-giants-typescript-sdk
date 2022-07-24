@@ -26,7 +26,6 @@ declare function {{{operationId}}}({{#allParams}}{{paramName}}{{^required}}?{{/r
 
 ```typescript
 import { createConfiguration, {{classname}} } from '{{{projectName}}}'
-import * as fs from 'fs'
 
 const configuration = createConfiguration()
 const oddGiants = new {{classname}}(configuration){{#hasParams}}

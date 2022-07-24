@@ -11,10 +11,8 @@
  */
 
 import { AchievementDetails } from './AchievementDetails';
-import { RecipeItemsInputInner } from './RecipeItemsInputInner';
-import { RecipeItemsOutputInner } from './RecipeItemsOutputInner';
-import { RecipeItemsToolInner } from './RecipeItemsToolInner';
-import { RecipePivot } from './RecipePivot';
+import { RecipeItem } from './RecipeItem';
+import { RecipeItemConnection } from './RecipeItemConnection';
 import { SkillDetails } from './SkillDetails';
 import { HttpFile } from '../http/http';
 
@@ -39,10 +37,10 @@ export class Recipe {
     'createdAt': Date;
     'updatedAt': Date;
     'tool'?: string;
-    'pivot': RecipePivot;
-    'itemsTool': Array<RecipeItemsToolInner>;
-    'itemsInput': Array<RecipeItemsInputInner>;
-    'itemsOutput': Array<RecipeItemsOutputInner>;
+    'pivot': RecipeItemConnection;
+    'itemsTool': Array<RecipeItem>;
+    'itemsInput': Array<RecipeItem>;
+    'itemsOutput': Array<RecipeItem>;
     'npcs': Array<SkillDetails>;
     'requiredAchievements': Array<AchievementDetails>;
 
@@ -118,25 +116,25 @@ export class Recipe {
         {
             "name": "pivot",
             "baseName": "pivot",
-            "type": "RecipePivot",
+            "type": "RecipeItemConnection",
             "format": ""
         },
         {
             "name": "itemsTool",
             "baseName": "items_tool",
-            "type": "Array<RecipeItemsToolInner>",
+            "type": "Array<RecipeItem>",
             "format": ""
         },
         {
             "name": "itemsInput",
             "baseName": "items_input",
-            "type": "Array<RecipeItemsInputInner>",
+            "type": "Array<RecipeItem>",
             "format": ""
         },
         {
             "name": "itemsOutput",
             "baseName": "items_output",
-            "type": "Array<RecipeItemsOutputInner>",
+            "type": "Array<RecipeItem>",
             "format": ""
         },
         {

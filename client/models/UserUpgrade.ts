@@ -10,9 +10,9 @@
  * Do not edit the class manually.
  */
 
-import { UpgradeConditionsInner } from './UpgradeConditionsInner';
-import { UpgradeRewardsInner } from './UpgradeRewardsInner';
-import { UserUpgradeAllOfPivot } from './UserUpgradeAllOfPivot';
+import { UpgradeCondition } from './UpgradeCondition';
+import { UpgradeReward } from './UpgradeReward';
+import { UserUpgradePivot } from './UserUpgradePivot';
 import { HttpFile } from '../http/http';
 
 export class UserUpgrade {
@@ -24,8 +24,8 @@ export class UserUpgrade {
     'cost': number;
     'maxUses': number;
     'chance': number;
-    'conditions': Array<UpgradeConditionsInner>;
-    'rewards': Array<UpgradeRewardsInner>;
+    'conditions': Array<UpgradeCondition>;
+    'rewards': Array<UpgradeReward>;
     'requiresLevel': number;
     'requiresMaxEnergy': number;
     'createdAt': Date;
@@ -33,7 +33,7 @@ export class UserUpgrade {
     'value': string;
     'upgradeId': string;
     'desc': string;
-    'pivot': UserUpgradeAllOfPivot;
+    'pivot': UserUpgradePivot;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -89,13 +89,13 @@ export class UserUpgrade {
         {
             "name": "conditions",
             "baseName": "conditions",
-            "type": "Array<UpgradeConditionsInner>",
+            "type": "Array<UpgradeCondition>",
             "format": ""
         },
         {
             "name": "rewards",
             "baseName": "rewards",
-            "type": "Array<UpgradeRewardsInner>",
+            "type": "Array<UpgradeReward>",
             "format": ""
         },
         {
@@ -143,7 +143,7 @@ export class UserUpgrade {
         {
             "name": "pivot",
             "baseName": "pivot",
-            "type": "UserUpgradeAllOfPivot",
+            "type": "UserUpgradePivot",
             "format": ""
         }    ];
 

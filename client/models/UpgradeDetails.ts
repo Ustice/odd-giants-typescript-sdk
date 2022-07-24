@@ -10,11 +10,11 @@
  * Do not edit the class manually.
  */
 
-import { Achievement } from './Achievement';
-import { Skill } from './Skill';
-import { Upgrade } from './Upgrade';
-import { UpgradeConditionsInner } from './UpgradeConditionsInner';
-import { UpgradeRewardsInner } from './UpgradeRewardsInner';
+import { UpgradeAchievement } from './UpgradeAchievement';
+import { UpgradeCondition } from './UpgradeCondition';
+import { UpgradeReward } from './UpgradeReward';
+import { UpgradeSkill } from './UpgradeSkill';
+import { UpgradeUpgrade } from './UpgradeUpgrade';
 import { HttpFile } from '../http/http';
 
 export class UpgradeDetails {
@@ -26,8 +26,8 @@ export class UpgradeDetails {
     'cost': number;
     'maxUses': number;
     'chance': number;
-    'conditions': Array<UpgradeConditionsInner>;
-    'rewards': Array<UpgradeRewardsInner>;
+    'conditions': Array<UpgradeCondition>;
+    'rewards': Array<UpgradeReward>;
     'requiresLevel': number;
     'requiresMaxEnergy': number;
     'createdAt': Date;
@@ -35,10 +35,10 @@ export class UpgradeDetails {
     'value': string;
     'upgradeId': string;
     'desc': string;
-    'requiredSkills': Array<Skill & any>;
-    'requiredAchievements': Array<Achievement & any>;
-    'requiredUpgrades': Array<Upgrade & any>;
-    'requiredForSkills': Array<Skill & any>;
+    'requiredSkills': Array<UpgradeSkill>;
+    'requiredAchievements': Array<UpgradeAchievement>;
+    'requiredUpgrades': Array<UpgradeUpgrade>;
+    'requiredForSkills': Array<UpgradeSkill>;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -94,13 +94,13 @@ export class UpgradeDetails {
         {
             "name": "conditions",
             "baseName": "conditions",
-            "type": "Array<UpgradeConditionsInner>",
+            "type": "Array<UpgradeCondition>",
             "format": ""
         },
         {
             "name": "rewards",
             "baseName": "rewards",
-            "type": "Array<UpgradeRewardsInner>",
+            "type": "Array<UpgradeReward>",
             "format": ""
         },
         {
@@ -148,25 +148,25 @@ export class UpgradeDetails {
         {
             "name": "requiredSkills",
             "baseName": "required_skills",
-            "type": "Array<Skill & any>",
+            "type": "Array<UpgradeSkill>",
             "format": ""
         },
         {
             "name": "requiredAchievements",
             "baseName": "required_achievements",
-            "type": "Array<Achievement & any>",
+            "type": "Array<UpgradeAchievement>",
             "format": ""
         },
         {
             "name": "requiredUpgrades",
             "baseName": "required_upgrades",
-            "type": "Array<Upgrade & any>",
+            "type": "Array<UpgradeUpgrade>",
             "format": ""
         },
         {
             "name": "requiredForSkills",
             "baseName": "required_for_skills",
-            "type": "Array<Skill & any>",
+            "type": "Array<UpgradeSkill>",
             "format": ""
         }    ];
 

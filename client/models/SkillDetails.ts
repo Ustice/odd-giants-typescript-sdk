@@ -11,12 +11,24 @@
  */
 
 import { AchievementDetails } from './AchievementDetails';
-import { SkillDetailsGiantsInner } from './SkillDetailsGiantsInner';
-import { SkillDetailsRequiredForRecipesInner } from './SkillDetailsRequiredForRecipesInner';
+import { Recipe } from './Recipe';
+import { SkillGiant } from './SkillGiant';
 import { UpgradeDetails } from './UpgradeDetails';
 import { HttpFile } from '../http/http';
 
 export class SkillDetails {
+    'id': string;
+    'categoryId': string;
+    'name': string;
+    'group': string;
+    'level': number;
+    'description': string;
+    'pointCost': number;
+    'requiresLevel': number;
+    'questId': string;
+    'reqQuests': Array<string>;
+    'createdAt': string;
+    'updatedAt': string;
     'learned': string;
     'requiredSkills': Array<SkillDetails>;
     'requiredAchievements': Array<AchievementDetails>;
@@ -24,12 +36,84 @@ export class SkillDetails {
     'requiredForSkills': Array<SkillDetails>;
     'requiredForAchievements': Array<AchievementDetails>;
     'requiredForUpgrades': Array<UpgradeDetails>;
-    'requiredForRecipes': Array<SkillDetailsRequiredForRecipesInner>;
-    'giants': Array<SkillDetailsGiantsInner>;
+    'requiredForRecipes': Array<Recipe>;
+    'giants': Array<SkillGiant>;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "categoryId",
+            "baseName": "category_id",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "group",
+            "baseName": "group",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "level",
+            "baseName": "level",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "description",
+            "baseName": "description",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "pointCost",
+            "baseName": "point_cost",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "requiresLevel",
+            "baseName": "requires_level",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "questId",
+            "baseName": "quest_id",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "reqQuests",
+            "baseName": "req_quests",
+            "type": "Array<string>",
+            "format": ""
+        },
+        {
+            "name": "createdAt",
+            "baseName": "created_at",
+            "type": "string",
+            "format": "datetime"
+        },
+        {
+            "name": "updatedAt",
+            "baseName": "updated_at",
+            "type": "string",
+            "format": "datetime"
+        },
         {
             "name": "learned",
             "baseName": "learned",
@@ -75,13 +159,13 @@ export class SkillDetails {
         {
             "name": "requiredForRecipes",
             "baseName": "required_for_recipes",
-            "type": "Array<SkillDetailsRequiredForRecipesInner>",
+            "type": "Array<Recipe>",
             "format": ""
         },
         {
             "name": "giants",
             "baseName": "giants",
-            "type": "Array<SkillDetailsGiantsInner>",
+            "type": "Array<SkillGiant>",
             "format": ""
         }    ];
 

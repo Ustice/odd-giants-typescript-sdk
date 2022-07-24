@@ -10,13 +10,13 @@
  * Do not edit the class manually.
  */
 
-import { Achievement } from './Achievement';
-import { AchievementConditionsInner } from './AchievementConditionsInner';
+import { AchievementAchievement } from './AchievementAchievement';
+import { AchievementCondition } from './AchievementCondition';
+import { AchievementItem } from './AchievementItem';
+import { AchievementRecipe } from './AchievementRecipe';
+import { AchievementUpgrade } from './AchievementUpgrade';
 import { GiantId } from './GiantId';
-import { Item } from './Item';
-import { Recipe } from './Recipe';
 import { Reward } from './Reward';
-import { Upgrade } from './Upgrade';
 import { HttpFile } from '../http/http';
 
 export class AchievementDetails {
@@ -25,7 +25,7 @@ export class AchievementDetails {
     'name': string;
     'description': string;
     'statusText': string;
-    'conditions': Array<AchievementConditionsInner>;
+    'conditions': Array<AchievementCondition>;
     'rewardXp': number;
     'rewardCurrants': number;
     'rewardMood': number;
@@ -36,11 +36,11 @@ export class AchievementDetails {
     'updatedAt': Date;
     'reward': Reward;
     'category': string;
-    'connectionsFrom': Array<Achievement & any>;
-    'connectionsTo': Array<Achievement & any>;
-    'requiredForUpgrades': Array<Upgrade & any>;
-    'requiredForRecipes': Array<Recipe & any>;
-    'items': Array<Item & any>;
+    'connectionsFrom': Array<AchievementAchievement>;
+    'connectionsTo': Array<AchievementAchievement>;
+    'requiredForUpgrades': Array<AchievementUpgrade>;
+    'requiredForRecipes': Array<AchievementRecipe>;
+    'items': Array<AchievementItem>;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -78,7 +78,7 @@ export class AchievementDetails {
         {
             "name": "conditions",
             "baseName": "conditions",
-            "type": "Array<AchievementConditionsInner>",
+            "type": "Array<AchievementCondition>",
             "format": ""
         },
         {
@@ -144,31 +144,31 @@ export class AchievementDetails {
         {
             "name": "connectionsFrom",
             "baseName": "connections_from",
-            "type": "Array<Achievement & any>",
+            "type": "Array<AchievementAchievement>",
             "format": ""
         },
         {
             "name": "connectionsTo",
             "baseName": "connections_to",
-            "type": "Array<Achievement & any>",
+            "type": "Array<AchievementAchievement>",
             "format": ""
         },
         {
             "name": "requiredForUpgrades",
             "baseName": "required_for_upgrades",
-            "type": "Array<Upgrade & any>",
+            "type": "Array<AchievementUpgrade>",
             "format": ""
         },
         {
             "name": "requiredForRecipes",
             "baseName": "required_for_recipes",
-            "type": "Array<Recipe & any>",
+            "type": "Array<AchievementRecipe>",
             "format": ""
         },
         {
             "name": "items",
             "baseName": "items",
-            "type": "Array<Item & any>",
+            "type": "Array<AchievementItem>",
             "format": ""
         }    ];
 

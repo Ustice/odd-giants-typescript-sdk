@@ -10,8 +10,8 @@
  * Do not edit the class manually.
  */
 
-import { UpgradeConditionsInner } from './UpgradeConditionsInner';
-import { UpgradeRewardsInner } from './UpgradeRewardsInner';
+import { UpgradeCondition } from './UpgradeCondition';
+import { UpgradeReward } from './UpgradeReward';
 import { HttpFile } from '../http/http';
 
 export class Upgrade {
@@ -23,8 +23,8 @@ export class Upgrade {
     'cost': number;
     'maxUses': number;
     'chance': number;
-    'conditions': Array<UpgradeConditionsInner>;
-    'rewards': Array<UpgradeRewardsInner>;
+    'conditions': Array<UpgradeCondition>;
+    'rewards': Array<UpgradeReward>;
     'requiresLevel': number;
     'requiresMaxEnergy': number;
     'createdAt': Date;
@@ -87,13 +87,13 @@ export class Upgrade {
         {
             "name": "conditions",
             "baseName": "conditions",
-            "type": "Array<UpgradeConditionsInner>",
+            "type": "Array<UpgradeCondition>",
             "format": ""
         },
         {
             "name": "rewards",
             "baseName": "rewards",
-            "type": "Array<UpgradeRewardsInner>",
+            "type": "Array<UpgradeReward>",
             "format": ""
         },
         {

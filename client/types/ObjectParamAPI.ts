@@ -3,9 +3,19 @@ import * as models from '../models/all';
 import { Configuration} from '../configuration'
 
 import { Achievement } from '../models/Achievement';
-import { AchievementConditionsInner } from '../models/AchievementConditionsInner';
+import { AchievementAchievement } from '../models/AchievementAchievement';
+import { AchievementAchievementConnection } from '../models/AchievementAchievementConnection';
+import { AchievementCondition } from '../models/AchievementCondition';
+import { AchievementConnections } from '../models/AchievementConnections';
 import { AchievementDetails } from '../models/AchievementDetails';
-import { AchievementDetailsAllOf } from '../models/AchievementDetailsAllOf';
+import { AchievementItem } from '../models/AchievementItem';
+import { AchievementItemConnections } from '../models/AchievementItemConnections';
+import { AchievementRecipe } from '../models/AchievementRecipe';
+import { AchievementRecipeConnection } from '../models/AchievementRecipeConnection';
+import { AchievementRecipePivot } from '../models/AchievementRecipePivot';
+import { AchievementUpgrade } from '../models/AchievementUpgrade';
+import { AchievementUpgradeConnections } from '../models/AchievementUpgradeConnections';
+import { AchievementUpgradePivot } from '../models/AchievementUpgradePivot';
 import { AuthenticationCredentials } from '../models/AuthenticationCredentials';
 import { Category } from '../models/Category';
 import { CategoryAchievements } from '../models/CategoryAchievements';
@@ -17,43 +27,60 @@ import { CategorySkills } from '../models/CategorySkills';
 import { CategoryUpgrades } from '../models/CategoryUpgrades';
 import { ErrorResponse } from '../models/ErrorResponse';
 import { Giant } from '../models/Giant';
+import { GiantConnections } from '../models/GiantConnections';
 import { GiantDetails } from '../models/GiantDetails';
-import { GiantDetailsAllOf } from '../models/GiantDetailsAllOf';
 import { GiantId } from '../models/GiantId';
 import { GiantList } from '../models/GiantList';
+import { GiantSkill } from '../models/GiantSkill';
+import { GiantSkillConnection } from '../models/GiantSkillConnection';
+import { GiantSkillPivot } from '../models/GiantSkillPivot';
 import { Inhabitant } from '../models/Inhabitant';
+import { InhabitantConnections } from '../models/InhabitantConnections';
 import { InhabitantDetails } from '../models/InhabitantDetails';
-import { InhabitantDetailsAllOf } from '../models/InhabitantDetailsAllOf';
+import { InhabitantItem } from '../models/InhabitantItem';
+import { InhabitantItemConnection } from '../models/InhabitantItemConnection';
+import { InhabitantItemPivot } from '../models/InhabitantItemPivot';
 import { Item } from '../models/Item';
+import { ItemAchievement } from '../models/ItemAchievement';
+import { ItemAchievementConnection } from '../models/ItemAchievementConnection';
+import { ItemAchievementPivot } from '../models/ItemAchievementPivot';
+import { ItemConnections } from '../models/ItemConnections';
 import { ItemDetails } from '../models/ItemDetails';
-import { ItemDetailsAllOf } from '../models/ItemDetailsAllOf';
+import { ItemInhabitant } from '../models/ItemInhabitant';
+import { ItemInhabitant1 } from '../models/ItemInhabitant1';
+import { ItemInhabitantConnection } from '../models/ItemInhabitantConnection';
 import { Location } from '../models/Location';
+import { LocationConnection } from '../models/LocationConnection';
+import { LocationConnections } from '../models/LocationConnections';
 import { LocationContentsValue } from '../models/LocationContentsValue';
 import { LocationDetails } from '../models/LocationDetails';
-import { LocationDetailsAllOf } from '../models/LocationDetailsAllOf';
+import { LocationInhabitant } from '../models/LocationInhabitant';
+import { LocationInhabitantConnection } from '../models/LocationInhabitantConnection';
+import { LocationInhabitantPivot } from '../models/LocationInhabitantPivot';
+import { LocationItem } from '../models/LocationItem';
+import { LocationItemConnection } from '../models/LocationItemConnection';
+import { LocationItemPivot } from '../models/LocationItemPivot';
+import { LocationLocation } from '../models/LocationLocation';
+import { LocationLocationPivot } from '../models/LocationLocationPivot';
 import { Recipe } from '../models/Recipe';
-import { RecipeItemsInputInner } from '../models/RecipeItemsInputInner';
-import { RecipeItemsInputInnerAllOf } from '../models/RecipeItemsInputInnerAllOf';
-import { RecipeItemsInputInnerAllOfPivot } from '../models/RecipeItemsInputInnerAllOfPivot';
-import { RecipeItemsOutputInner } from '../models/RecipeItemsOutputInner';
-import { RecipeItemsOutputInnerAllOf } from '../models/RecipeItemsOutputInnerAllOf';
-import { RecipeItemsOutputInnerAllOfPivot } from '../models/RecipeItemsOutputInnerAllOfPivot';
-import { RecipeItemsToolInner } from '../models/RecipeItemsToolInner';
-import { RecipeItemsToolInnerAllOf } from '../models/RecipeItemsToolInnerAllOf';
-import { RecipeItemsToolInnerAllOfPivot } from '../models/RecipeItemsToolInnerAllOfPivot';
-import { RecipePivot } from '../models/RecipePivot';
+import { RecipeItem } from '../models/RecipeItem';
+import { RecipeItemConnection } from '../models/RecipeItemConnection';
+import { RecipeItemPivot } from '../models/RecipeItemPivot';
 import { Region } from '../models/Region';
 import { Reward } from '../models/Reward';
 import { SearchResults } from '../models/SearchResults';
 import { ServerStats } from '../models/ServerStats';
 import { SessionInfo } from '../models/SessionInfo';
 import { Skill } from '../models/Skill';
+import { SkillConnections } from '../models/SkillConnections';
 import { SkillDetails } from '../models/SkillDetails';
-import { SkillDetailsGiantsInner } from '../models/SkillDetailsGiantsInner';
-import { SkillDetailsGiantsInnerAllOf } from '../models/SkillDetailsGiantsInnerAllOf';
-import { SkillDetailsGiantsInnerAllOfPivot } from '../models/SkillDetailsGiantsInnerAllOfPivot';
-import { SkillDetailsRequiredForRecipesInner } from '../models/SkillDetailsRequiredForRecipesInner';
+import { SkillGiant } from '../models/SkillGiant';
+import { SkillGiantConnections } from '../models/SkillGiantConnections';
+import { SkillGiantPivot } from '../models/SkillGiantPivot';
 import { Upgrade } from '../models/Upgrade';
+import { UpgradeAchievement } from '../models/UpgradeAchievement';
+import { UpgradeAchievementConnection } from '../models/UpgradeAchievementConnection';
+import { UpgradeCondition } from '../models/UpgradeCondition';
 import { UpgradeConditionAchievement } from '../models/UpgradeConditionAchievement';
 import { UpgradeConditionLevel } from '../models/UpgradeConditionLevel';
 import { UpgradeConditionMaxEnergy } from '../models/UpgradeConditionMaxEnergy';
@@ -61,23 +88,29 @@ import { UpgradeConditionNull } from '../models/UpgradeConditionNull';
 import { UpgradeConditionQuest } from '../models/UpgradeConditionQuest';
 import { UpgradeConditionSkill } from '../models/UpgradeConditionSkill';
 import { UpgradeConditionUpgrade } from '../models/UpgradeConditionUpgrade';
-import { UpgradeConditionsInner } from '../models/UpgradeConditionsInner';
+import { UpgradeConnections } from '../models/UpgradeConnections';
 import { UpgradeDetails } from '../models/UpgradeDetails';
-import { UpgradeDetailsAllOf } from '../models/UpgradeDetailsAllOf';
+import { UpgradeReward } from '../models/UpgradeReward';
 import { UpgradeRewardKeepable } from '../models/UpgradeRewardKeepable';
 import { UpgradeRewardLearning } from '../models/UpgradeRewardLearning';
 import { UpgradeRewardMovement } from '../models/UpgradeRewardMovement';
-import { UpgradeRewardsInner } from '../models/UpgradeRewardsInner';
+import { UpgradeSkill } from '../models/UpgradeSkill';
+import { UpgradeSkillConnection } from '../models/UpgradeSkillConnection';
+import { UpgradeSkillPivot } from '../models/UpgradeSkillPivot';
+import { UpgradeUpgrade } from '../models/UpgradeUpgrade';
+import { UpgradeUpgradeConnection } from '../models/UpgradeUpgradeConnection';
+import { UpgradeUpgradePivot } from '../models/UpgradeUpgradePivot';
 import { User } from '../models/User';
+import { UserAchievementConnections } from '../models/UserAchievementConnections';
+import { UserAchievementPivot } from '../models/UserAchievementPivot';
 import { UserAchievment } from '../models/UserAchievment';
-import { UserAchievmentAllOf } from '../models/UserAchievmentAllOf';
-import { UserAchievmentAllOfPivot } from '../models/UserAchievmentAllOfPivot';
 import { UserSkill } from '../models/UserSkill';
-import { UserSkillAllOf } from '../models/UserSkillAllOf';
-import { UserSkillAllOfPivot } from '../models/UserSkillAllOfPivot';
+import { UserSkillConnection } from '../models/UserSkillConnection';
+import { UserSkillConnections } from '../models/UserSkillConnections';
+import { UserSkillPivot } from '../models/UserSkillPivot';
 import { UserUpgrade } from '../models/UserUpgrade';
-import { UserUpgradeAllOf } from '../models/UserUpgradeAllOf';
-import { UserUpgradeAllOfPivot } from '../models/UserUpgradeAllOfPivot';
+import { UserUpgradeConnection } from '../models/UserUpgradeConnection';
+import { UserUpgradePivot } from '../models/UserUpgradePivot';
 
 import { ObservableOddGiantsApi } from "./ObservableAPI";
 import { OddGiantsApiRequestFactory, OddGiantsApiResponseProcessor} from "../apis/OddGiantsApi";
@@ -97,10 +130,19 @@ export interface OddGiantsApiAchievementsByCategoryRequest {
      * @type string
      * @memberof OddGiantsApiachievementsByCategory
      */
-    category: string
+    categoryId: string
 }
 
 export interface OddGiantsApiCategoriesRequest {
+}
+
+export interface OddGiantsApiGiantRequest {
+    /**
+     * 
+     * @type GiantId
+     * @memberof OddGiantsApigiant
+     */
+    giantId: GiantId
 }
 
 export interface OddGiantsApiInhabitantRequest {
@@ -118,7 +160,25 @@ export interface OddGiantsApiInhabitantsByCategoryRequest {
      * @type string
      * @memberof OddGiantsApiinhabitantsByCategory
      */
-    category: string
+    categoryId: string
+}
+
+export interface OddGiantsApiItemRequest {
+    /**
+     * 
+     * @type string
+     * @memberof OddGiantsApiitem
+     */
+    itemId: string
+}
+
+export interface OddGiantsApiItemsByCategoryRequest {
+    /**
+     * 
+     * @type string
+     * @memberof OddGiantsApiitemsByCategory
+     */
+    categoryId: string
 }
 
 export interface OddGiantsApiLocationRequest {
@@ -132,7 +192,7 @@ export interface OddGiantsApiLocationRequest {
 
 export interface OddGiantsApiLoginRequest {
     /**
-     * 
+     * Authentication credentials
      * @type AuthenticationCredentials
      * @memberof OddGiantsApilogin
      */
@@ -160,7 +220,7 @@ export interface OddGiantsApiSearchRequest {
      * @type string
      * @memberof OddGiantsApisearch
      */
-    q: string
+    searchQuery: string
 }
 
 export interface OddGiantsApiServerStatsRequest {
@@ -181,7 +241,7 @@ export interface OddGiantsApiSkillsByCategoryRequest {
      * @type string
      * @memberof OddGiantsApiskillsByCategory
      */
-    category: string
+    categoryId: string
 }
 
 export interface OddGiantsApiUpgradeRequest {
@@ -199,7 +259,7 @@ export interface OddGiantsApiUpgradesByCategoryRequest {
      * @type string
      * @memberof OddGiantsApiupgradesByCategory
      */
-    category: string
+    categoryId: string
 }
 
 export interface OddGiantsApiUserRequest {
@@ -258,7 +318,7 @@ export class ObjectOddGiantsApi {
      * @param param the request object
      */
     public achievementsByCategory(param: OddGiantsApiAchievementsByCategoryRequest, options?: Configuration): Promise<Array<Achievement>> {
-        return this.api.achievementsByCategory(param.category,  options).toPromise();
+        return this.api.achievementsByCategory(param.categoryId,  options).toPromise();
     }
 
     /**
@@ -272,7 +332,14 @@ export class ObjectOddGiantsApi {
     /**
      * @param param the request object
      */
-    public inhabitant(param: OddGiantsApiInhabitantRequest, options?: Configuration): Promise<Inhabitant> {
+    public giant(param: OddGiantsApiGiantRequest, options?: Configuration): Promise<GiantDetails> {
+        return this.api.giant(param.giantId,  options).toPromise();
+    }
+
+    /**
+     * @param param the request object
+     */
+    public inhabitant(param: OddGiantsApiInhabitantRequest, options?: Configuration): Promise<InhabitantDetails> {
         return this.api.inhabitant(param.inhabitantId,  options).toPromise();
     }
 
@@ -280,14 +347,30 @@ export class ObjectOddGiantsApi {
      * @param param the request object
      */
     public inhabitantsByCategory(param: OddGiantsApiInhabitantsByCategoryRequest, options?: Configuration): Promise<Array<Inhabitant>> {
-        return this.api.inhabitantsByCategory(param.category,  options).toPromise();
+        return this.api.inhabitantsByCategory(param.categoryId,  options).toPromise();
+    }
+
+    /**
+     * Item information
+     * @param param the request object
+     */
+    public item(param: OddGiantsApiItemRequest, options?: Configuration): Promise<ItemDetails> {
+        return this.api.item(param.itemId,  options).toPromise();
+    }
+
+    /**
+     * List items by category
+     * @param param the request object
+     */
+    public itemsByCategory(param: OddGiantsApiItemsByCategoryRequest, options?: Configuration): Promise<Array<Item>> {
+        return this.api.itemsByCategory(param.categoryId,  options).toPromise();
     }
 
     /**
      * Locations around Ur
      * @param param the request object
      */
-    public location(param: OddGiantsApiLocationRequest, options?: Configuration): Promise<Location> {
+    public location(param: OddGiantsApiLocationRequest, options?: Configuration): Promise<LocationDetails> {
         return this.api.location(param.locationId,  options).toPromise();
     }
 
@@ -331,7 +414,7 @@ export class ObjectOddGiantsApi {
      * @param param the request object
      */
     public search(param: OddGiantsApiSearchRequest, options?: Configuration): Promise<SearchResults> {
-        return this.api.search(param.q,  options).toPromise();
+        return this.api.search(param.searchQuery,  options).toPromise();
     }
 
     /**
@@ -352,11 +435,11 @@ export class ObjectOddGiantsApi {
     }
 
     /**
-     * Get Skill Category
+     * Get Skill by category
      * @param param the request object
      */
     public skillsByCategory(param: OddGiantsApiSkillsByCategoryRequest, options?: Configuration): Promise<Array<Skill>> {
-        return this.api.skillsByCategory(param.category,  options).toPromise();
+        return this.api.skillsByCategory(param.categoryId,  options).toPromise();
     }
 
     /**
@@ -368,11 +451,11 @@ export class ObjectOddGiantsApi {
     }
 
     /**
-     * Get upgrade category
+     * Get Upgradse by category
      * @param param the request object
      */
     public upgradesByCategory(param: OddGiantsApiUpgradesByCategoryRequest, options?: Configuration): Promise<Array<Upgrade>> {
-        return this.api.upgradesByCategory(param.category,  options).toPromise();
+        return this.api.upgradesByCategory(param.categoryId,  options).toPromise();
     }
 
     /**
@@ -403,7 +486,7 @@ export class ObjectOddGiantsApi {
      * Gets the upgrades for a given user
      * @param param the request object
      */
-    public userUpgrades(param: OddGiantsApiUserUpgradesRequest, options?: Configuration): Promise<Array<Upgrade>> {
+    public userUpgrades(param: OddGiantsApiUserUpgradesRequest, options?: Configuration): Promise<Array<UserUpgrade>> {
         return this.api.userUpgrades(param.userId,  options).toPromise();
     }
 

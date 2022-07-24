@@ -10,7 +10,7 @@
  * Do not edit the class manually.
  */
 
-import { AchievementConditionsInner } from './AchievementConditionsInner';
+import { AchievementCondition } from './AchievementCondition';
 import { GiantId } from './GiantId';
 import { Reward } from './Reward';
 import { HttpFile } from '../http/http';
@@ -21,7 +21,7 @@ export class Achievement {
     'name': string;
     'description': string;
     'statusText': string;
-    'conditions': Array<AchievementConditionsInner>;
+    'conditions': Array<AchievementCondition>;
     'rewardXp': number;
     'rewardCurrants': number;
     'rewardMood': number;
@@ -69,7 +69,7 @@ export class Achievement {
         {
             "name": "conditions",
             "baseName": "conditions",
-            "type": "Array<AchievementConditionsInner>",
+            "type": "Array<AchievementCondition>",
             "format": ""
         },
         {

@@ -10,7 +10,7 @@
  * Do not edit the class manually.
  */
 
-import { Item } from './Item';
+import { InhabitantItem } from './InhabitantItem';
 import { HttpFile } from '../http/http';
 
 export class InhabitantDetails {
@@ -20,7 +20,7 @@ export class InhabitantDetails {
     'description': string;
     'hasInfopage': number;
     'id': string;
-    'items': Array<Item & any>;
+    'items': Array<InhabitantItem>;
     'name': string;
     'namePlural': string;
     'updatedAt': Date;
@@ -67,7 +67,7 @@ export class InhabitantDetails {
         {
             "name": "items",
             "baseName": "items",
-            "type": "Array<Item & any>",
+            "type": "Array<InhabitantItem>",
             "format": ""
         },
         {

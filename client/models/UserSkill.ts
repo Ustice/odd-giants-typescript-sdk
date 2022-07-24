@@ -10,7 +10,8 @@
  * Do not edit the class manually.
  */
 
-import { UserSkillAllOfPivot } from './UserSkillAllOfPivot';
+import { UserSkillConnection } from './UserSkillConnection';
+import { UserSkillPivot } from './UserSkillPivot';
 import { HttpFile } from '../http/http';
 
 export class UserSkill {
@@ -28,7 +29,7 @@ export class UserSkill {
     'createdAt'?: string;
     'updatedAt'?: string;
     'skillId'?: string;
-    'pivot'?: any;
+    'pivot'?: UserSkillConnection;
     'starts': string;
     'ends': string;
 
@@ -122,7 +123,7 @@ export class UserSkill {
         {
             "name": "pivot",
             "baseName": "pivot",
-            "type": "any",
+            "type": "UserSkillConnection",
             "format": ""
         },
         {
