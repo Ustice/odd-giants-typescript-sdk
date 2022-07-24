@@ -13,21 +13,21 @@
 import { HttpFile } from '../http/http';
 
 export class UpgradeUpgradePivot {
-    'upgradeId': string;
     'requiredUpgradeId'?: string;
+    'upgradeId': string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "upgradeId",
-            "baseName": "upgrade_id",
+            "name": "requiredUpgradeId",
+            "baseName": "required_upgrade_id",
             "type": "string",
             "format": ""
         },
         {
-            "name": "requiredUpgradeId",
-            "baseName": "required_upgrade_id",
+            "name": "upgradeId",
+            "baseName": "upgrade_id",
             "type": "string",
             "format": ""
         }    ];

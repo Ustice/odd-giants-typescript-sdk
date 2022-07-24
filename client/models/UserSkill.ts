@@ -15,33 +15,27 @@ import { UserSkillPivot } from './UserSkillPivot';
 import { HttpFile } from '../http/http';
 
 export class UserSkill {
-    'id'?: string;
     'categoryId'?: string;
-    'name'?: string;
-    'group'?: string;
-    'level'?: number;
+    'createdAt'?: string;
     'description'?: string;
+    'group'?: string;
+    'id'?: string;
     'learned'?: number;
+    'level'?: number;
+    'name'?: string;
+    'pivot'?: UserSkillConnection;
     'pointCost'?: number;
-    'requiresLevel'?: number;
     'questId'?: string;
     'reqQuests'?: Array<string>;
-    'createdAt'?: string;
-    'updatedAt'?: string;
+    'requiresLevel'?: number;
     'skillId'?: string;
-    'pivot'?: UserSkillConnection;
-    'starts': string;
+    'updatedAt'?: string;
     'ends': string;
+    'starts': string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string",
-            "format": ""
-        },
         {
             "name": "categoryId",
             "baseName": "category_id",
@@ -49,8 +43,14 @@ export class UserSkill {
             "format": ""
         },
         {
-            "name": "name",
-            "baseName": "name",
+            "name": "createdAt",
+            "baseName": "created_at",
+            "type": "string",
+            "format": "datetime"
+        },
+        {
+            "name": "description",
+            "baseName": "description",
             "type": "string",
             "format": ""
         },
@@ -61,14 +61,8 @@ export class UserSkill {
             "format": ""
         },
         {
-            "name": "level",
-            "baseName": "level",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "description",
-            "baseName": "description",
+            "name": "id",
+            "baseName": "id",
             "type": "string",
             "format": ""
         },
@@ -79,14 +73,26 @@ export class UserSkill {
             "format": ""
         },
         {
-            "name": "pointCost",
-            "baseName": "point_cost",
+            "name": "level",
+            "baseName": "level",
             "type": "number",
             "format": ""
         },
         {
-            "name": "requiresLevel",
-            "baseName": "requires_level",
+            "name": "name",
+            "baseName": "name",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "pivot",
+            "baseName": "pivot",
+            "type": "UserSkillConnection",
+            "format": ""
+        },
+        {
+            "name": "pointCost",
+            "baseName": "point_cost",
             "type": "number",
             "format": ""
         },
@@ -103,16 +109,10 @@ export class UserSkill {
             "format": ""
         },
         {
-            "name": "createdAt",
-            "baseName": "created_at",
-            "type": "string",
-            "format": "datetime"
-        },
-        {
-            "name": "updatedAt",
-            "baseName": "updated_at",
-            "type": "string",
-            "format": "datetime"
+            "name": "requiresLevel",
+            "baseName": "requires_level",
+            "type": "number",
+            "format": ""
         },
         {
             "name": "skillId",
@@ -121,20 +121,20 @@ export class UserSkill {
             "format": ""
         },
         {
-            "name": "pivot",
-            "baseName": "pivot",
-            "type": "UserSkillConnection",
-            "format": ""
-        },
-        {
-            "name": "starts",
-            "baseName": "starts",
+            "name": "updatedAt",
+            "baseName": "updated_at",
             "type": "string",
             "format": "datetime"
         },
         {
             "name": "ends",
             "baseName": "ends",
+            "type": "string",
+            "format": "datetime"
+        },
+        {
+            "name": "starts",
+            "baseName": "starts",
             "type": "string",
             "format": "datetime"
         }    ];

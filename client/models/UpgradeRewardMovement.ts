@@ -13,44 +13,20 @@
 import { HttpFile } from '../http/http';
 
 export class UpgradeRewardMovement {
+    'can3Jump': boolean;
+    'canWallJump': boolean;
+    'gravity': number;
+    'multiplier3Jump': number;
     'type': UpgradeRewardMovementTypeEnum;
     /**
     * Represents walking speed
     */
     'vxMax': number;
-    'gravity': number;
     'vyJump': number;
-    'can3Jump': boolean;
-    'canWallJump': boolean;
-    'multiplier3Jump': number;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
-        {
-            "name": "type",
-            "baseName": "type",
-            "type": "UpgradeRewardMovementTypeEnum",
-            "format": ""
-        },
-        {
-            "name": "vxMax",
-            "baseName": "vx_max",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "gravity",
-            "baseName": "gravity",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "vyJump",
-            "baseName": "vy_jump",
-            "type": "number",
-            "format": ""
-        },
         {
             "name": "can3Jump",
             "baseName": "can_3_jump",
@@ -64,8 +40,32 @@ export class UpgradeRewardMovement {
             "format": ""
         },
         {
+            "name": "gravity",
+            "baseName": "gravity",
+            "type": "number",
+            "format": ""
+        },
+        {
             "name": "multiplier3Jump",
             "baseName": "multiplier_3_jump",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "type",
+            "baseName": "type",
+            "type": "UpgradeRewardMovementTypeEnum",
+            "format": ""
+        },
+        {
+            "name": "vxMax",
+            "baseName": "vx_max",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "vyJump",
+            "baseName": "vy_jump",
             "type": "number",
             "format": ""
         }    ];

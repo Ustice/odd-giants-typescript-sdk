@@ -16,24 +16,24 @@ export class LocationLocationPivot {
     /**
     * Identifier for the Location Model
     */
-    'locationId': string;
+    'connectionId': string;
     /**
     * Identifier for the Location Model
     */
-    'connectionId': string;
+    'locationId': string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "locationId",
-            "baseName": "location_id",
+            "name": "connectionId",
+            "baseName": "connection_id",
             "type": "string",
             "format": "^[0-9A-Z]{15}$"
         },
         {
-            "name": "connectionId",
-            "baseName": "connection_id",
+            "name": "locationId",
+            "baseName": "location_id",
             "type": "string",
             "format": "^[0-9A-Z]{15}$"
         }    ];

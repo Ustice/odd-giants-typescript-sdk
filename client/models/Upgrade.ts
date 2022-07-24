@@ -15,67 +15,31 @@ import { UpgradeReward } from './UpgradeReward';
 import { HttpFile } from '../http/http';
 
 export class Upgrade {
-    'id': string;
     'categoryId': string;
-    'name': string;
-    'displayName': string;
-    'description': string;
-    'cost': number;
-    'maxUses': number;
     'chance': number;
     'conditions': Array<UpgradeCondition>;
-    'rewards': Array<UpgradeReward>;
+    'cost': number;
+    'createdAt': Date;
+    'desc': string;
+    'description': string;
+    'displayName': string;
+    'id': string;
+    'maxUses': number;
+    'name': string;
     'requiresLevel': number;
     'requiresMaxEnergy': number;
-    'createdAt': Date;
+    'rewards': Array<UpgradeReward>;
     'updatedAt': Date;
-    'value': string;
     'upgradeId': string;
-    'desc': string;
+    'value': string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "id",
-            "baseName": "id",
-            "type": "string",
-            "format": ""
-        },
-        {
             "name": "categoryId",
             "baseName": "category_id",
             "type": "string",
-            "format": ""
-        },
-        {
-            "name": "name",
-            "baseName": "name",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "displayName",
-            "baseName": "display_name",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "description",
-            "baseName": "description",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "cost",
-            "baseName": "cost",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "maxUses",
-            "baseName": "max_uses",
-            "type": "number",
             "format": ""
         },
         {
@@ -91,9 +55,51 @@ export class Upgrade {
             "format": ""
         },
         {
-            "name": "rewards",
-            "baseName": "rewards",
-            "type": "Array<UpgradeReward>",
+            "name": "cost",
+            "baseName": "cost",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "createdAt",
+            "baseName": "created_at",
+            "type": "Date",
+            "format": "date-time"
+        },
+        {
+            "name": "desc",
+            "baseName": "desc",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "description",
+            "baseName": "description",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "displayName",
+            "baseName": "display_name",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "maxUses",
+            "baseName": "max_uses",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string",
             "format": ""
         },
         {
@@ -109,10 +115,10 @@ export class Upgrade {
             "format": ""
         },
         {
-            "name": "createdAt",
-            "baseName": "created_at",
-            "type": "Date",
-            "format": "date-time"
+            "name": "rewards",
+            "baseName": "rewards",
+            "type": "Array<UpgradeReward>",
+            "format": ""
         },
         {
             "name": "updatedAt",
@@ -121,20 +127,14 @@ export class Upgrade {
             "format": "date-time"
         },
         {
-            "name": "value",
-            "baseName": "value",
-            "type": "string",
-            "format": ""
-        },
-        {
             "name": "upgradeId",
             "baseName": "upgrade_id",
             "type": "string",
             "format": ""
         },
         {
-            "name": "desc",
-            "baseName": "desc",
+            "name": "value",
+            "baseName": "value",
             "type": "string",
             "format": ""
         }    ];

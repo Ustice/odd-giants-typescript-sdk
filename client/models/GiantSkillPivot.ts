@@ -15,8 +15,8 @@ import { HttpFile } from '../http/http';
 
 export class GiantSkillPivot {
     'giantId': GiantId;
-    'skillId': string;
     'primary': GiantSkillPivotPrimaryEnum;
+    'skillId': string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -28,15 +28,15 @@ export class GiantSkillPivot {
             "format": ""
         },
         {
-            "name": "skillId",
-            "baseName": "skill_id",
-            "type": "string",
-            "format": ""
-        },
-        {
             "name": "primary",
             "baseName": "primary",
             "type": "GiantSkillPivotPrimaryEnum",
+            "format": ""
+        },
+        {
+            "name": "skillId",
+            "baseName": "skill_id",
+            "type": "string",
             "format": ""
         }    ];
 

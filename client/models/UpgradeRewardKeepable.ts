@@ -13,16 +13,22 @@
 import { HttpFile } from '../http/http';
 
 export class UpgradeRewardKeepable {
+    'classId': string;
     /**
     * number of keepables rewarded
     */
     'num': number;
     'type': UpgradeRewardKeepableTypeEnum;
-    'classId': string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
+        {
+            "name": "classId",
+            "baseName": "class_id",
+            "type": "string",
+            "format": ""
+        },
         {
             "name": "num",
             "baseName": "num",
@@ -33,12 +39,6 @@ export class UpgradeRewardKeepable {
             "name": "type",
             "baseName": "type",
             "type": "UpgradeRewardKeepableTypeEnum",
-            "format": ""
-        },
-        {
-            "name": "classId",
-            "baseName": "class_id",
-            "type": "string",
             "format": ""
         }    ];
 

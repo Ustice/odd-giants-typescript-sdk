@@ -13,20 +13,14 @@
 import { HttpFile } from '../http/http';
 
 export class RecipeItemPivot {
-    'recipeId'?: number;
     'itemId': string;
-    'type': RecipeItemPivotTypeEnum;
     'quantity': number;
+    'recipeId'?: number;
+    'type': RecipeItemPivotTypeEnum;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
-        {
-            "name": "recipeId",
-            "baseName": "recipe_id",
-            "type": "number",
-            "format": ""
-        },
         {
             "name": "itemId",
             "baseName": "item_id",
@@ -34,15 +28,21 @@ export class RecipeItemPivot {
             "format": ""
         },
         {
-            "name": "type",
-            "baseName": "type",
-            "type": "RecipeItemPivotTypeEnum",
-            "format": ""
-        },
-        {
             "name": "quantity",
             "baseName": "quantity",
             "type": "number",
+            "format": ""
+        },
+        {
+            "name": "recipeId",
+            "baseName": "recipe_id",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "type",
+            "baseName": "type",
+            "type": "RecipeItemPivotTypeEnum",
             "format": ""
         }    ];
 

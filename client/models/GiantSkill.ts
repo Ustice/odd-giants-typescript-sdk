@@ -14,17 +14,17 @@ import { GiantSkillPivot } from './GiantSkillPivot';
 import { HttpFile } from '../http/http';
 
 export class GiantSkill {
-    'id': string;
     'categoryId': string;
-    'name': string;
-    'group': string;
-    'level': number;
+    'createdAt': string;
     'description': string;
+    'group': string;
+    'id': string;
+    'level': number;
+    'name': string;
     'pointCost': number;
-    'requiresLevel': number;
     'questId': string;
     'reqQuests': Array<string>;
-    'createdAt': string;
+    'requiresLevel': number;
     'updatedAt': string;
     'pivot': GiantSkillPivot;
 
@@ -32,20 +32,20 @@ export class GiantSkill {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "id",
-            "baseName": "id",
-            "type": "string",
-            "format": ""
-        },
-        {
             "name": "categoryId",
             "baseName": "category_id",
             "type": "string",
             "format": ""
         },
         {
-            "name": "name",
-            "baseName": "name",
+            "name": "createdAt",
+            "baseName": "created_at",
+            "type": "string",
+            "format": "datetime"
+        },
+        {
+            "name": "description",
+            "baseName": "description",
             "type": "string",
             "format": ""
         },
@@ -56,26 +56,26 @@ export class GiantSkill {
             "format": ""
         },
         {
+            "name": "id",
+            "baseName": "id",
+            "type": "string",
+            "format": ""
+        },
+        {
             "name": "level",
             "baseName": "level",
             "type": "number",
             "format": ""
         },
         {
-            "name": "description",
-            "baseName": "description",
+            "name": "name",
+            "baseName": "name",
             "type": "string",
             "format": ""
         },
         {
             "name": "pointCost",
             "baseName": "point_cost",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "requiresLevel",
-            "baseName": "requires_level",
             "type": "number",
             "format": ""
         },
@@ -92,10 +92,10 @@ export class GiantSkill {
             "format": ""
         },
         {
-            "name": "createdAt",
-            "baseName": "created_at",
-            "type": "string",
-            "format": "datetime"
+            "name": "requiresLevel",
+            "baseName": "requires_level",
+            "type": "number",
+            "format": ""
         },
         {
             "name": "updatedAt",

@@ -16,20 +16,14 @@ import { UpgradeUpgrade } from './UpgradeUpgrade';
 import { HttpFile } from '../http/http';
 
 export class UpgradeConnections {
-    'requiredSkills': Array<UpgradeSkill>;
     'requiredAchievements': Array<UpgradeAchievement>;
-    'requiredUpgrades': Array<UpgradeUpgrade>;
     'requiredForSkills': Array<UpgradeSkill>;
+    'requiredSkills': Array<UpgradeSkill>;
+    'requiredUpgrades': Array<UpgradeUpgrade>;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
-        {
-            "name": "requiredSkills",
-            "baseName": "required_skills",
-            "type": "Array<UpgradeSkill>",
-            "format": ""
-        },
         {
             "name": "requiredAchievements",
             "baseName": "required_achievements",
@@ -37,15 +31,21 @@ export class UpgradeConnections {
             "format": ""
         },
         {
-            "name": "requiredUpgrades",
-            "baseName": "required_upgrades",
-            "type": "Array<UpgradeUpgrade>",
-            "format": ""
-        },
-        {
             "name": "requiredForSkills",
             "baseName": "required_for_skills",
             "type": "Array<UpgradeSkill>",
+            "format": ""
+        },
+        {
+            "name": "requiredSkills",
+            "baseName": "required_skills",
+            "type": "Array<UpgradeSkill>",
+            "format": ""
+        },
+        {
+            "name": "requiredUpgrades",
+            "baseName": "required_upgrades",
+            "type": "Array<UpgradeUpgrade>",
             "format": ""
         }    ];
 

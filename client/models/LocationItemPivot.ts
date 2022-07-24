@@ -13,27 +13,27 @@
 import { HttpFile } from '../http/http';
 
 export class LocationItemPivot {
+    'itemId': string;
     /**
     * Identifier for the Location Model
     */
     'locationId': string;
-    'itemId': string;
     'quantity': number;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "locationId",
-            "baseName": "location_id",
-            "type": "string",
-            "format": "^[0-9A-Z]{15}$"
-        },
-        {
             "name": "itemId",
             "baseName": "item_id",
             "type": "string",
             "format": ""
+        },
+        {
+            "name": "locationId",
+            "baseName": "location_id",
+            "type": "string",
+            "format": "^[0-9A-Z]{15}$"
         },
         {
             "name": "quantity",

@@ -20,27 +20,39 @@ import { Skill } from './Skill';
 import { HttpFile } from '../http/http';
 
 export class SearchResults {
-    'skills': Array<Skill>;
     'achievements': Array<Achievement>;
+    'giants': Array<Giant>;
+    'inhabitants': Array<Inhabitant>;
+    'items': Array<Item>;
     'locations': Array<Location>;
     'regions': Array<Region>;
-    'giants': Array<Giant>;
-    'items': Array<Item>;
-    'inhabitants': Array<Inhabitant>;
+    'skills': Array<Skill>;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "skills",
-            "baseName": "skills",
-            "type": "Array<Skill>",
-            "format": ""
-        },
-        {
             "name": "achievements",
             "baseName": "achievements",
             "type": "Array<Achievement>",
+            "format": ""
+        },
+        {
+            "name": "giants",
+            "baseName": "giants",
+            "type": "Array<Giant>",
+            "format": ""
+        },
+        {
+            "name": "inhabitants",
+            "baseName": "inhabitants",
+            "type": "Array<Inhabitant>",
+            "format": ""
+        },
+        {
+            "name": "items",
+            "baseName": "items",
+            "type": "Array<Item>",
             "format": ""
         },
         {
@@ -56,21 +68,9 @@ export class SearchResults {
             "format": ""
         },
         {
-            "name": "giants",
-            "baseName": "giants",
-            "type": "Array<Giant>",
-            "format": ""
-        },
-        {
-            "name": "items",
-            "baseName": "items",
-            "type": "Array<Item>",
-            "format": ""
-        },
-        {
-            "name": "inhabitants",
-            "baseName": "inhabitants",
-            "type": "Array<Inhabitant>",
+            "name": "skills",
+            "baseName": "skills",
+            "type": "Array<Skill>",
             "format": ""
         }    ];
 

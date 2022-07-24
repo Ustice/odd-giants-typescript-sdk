@@ -14,31 +14,19 @@ import { GiantId } from './GiantId';
 import { HttpFile } from '../http/http';
 
 export class Reward {
-    'xp'?: number;
     'currants'?: number;
-    'mood'?: number;
     'energy'?: number;
     'giant'?: GiantId;
     'giantFavor'?: number;
+    'mood'?: number;
+    'xp'?: number;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "xp",
-            "baseName": "xp",
-            "type": "number",
-            "format": ""
-        },
-        {
             "name": "currants",
             "baseName": "currants",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "mood",
-            "baseName": "mood",
             "type": "number",
             "format": ""
         },
@@ -57,6 +45,18 @@ export class Reward {
         {
             "name": "giantFavor",
             "baseName": "giant_favor",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "mood",
+            "baseName": "mood",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "xp",
+            "baseName": "xp",
             "type": "number",
             "format": ""
         }    ];

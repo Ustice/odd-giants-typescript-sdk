@@ -13,22 +13,22 @@
 import { HttpFile } from '../http/http';
 
 export class UpgradeConditionMaxEnergy {
-    'type': UpgradeConditionMaxEnergyTypeEnum;
     'maxEnergy'?: string;
+    'type': UpgradeConditionMaxEnergyTypeEnum;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "type",
-            "baseName": "type",
-            "type": "UpgradeConditionMaxEnergyTypeEnum",
-            "format": ""
-        },
-        {
             "name": "maxEnergy",
             "baseName": "max_energy",
             "type": "string",
+            "format": ""
+        },
+        {
+            "name": "type",
+            "baseName": "type",
+            "type": "UpgradeConditionMaxEnergyTypeEnum",
             "format": ""
         }    ];
 

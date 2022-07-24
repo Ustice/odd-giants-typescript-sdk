@@ -14,8 +14,8 @@ import { HttpFile } from '../http/http';
 
 export class ItemAchievementPivot {
     'achievementId': string;
-    'itemId': string;
     'count': number;
+    'itemId': string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -27,15 +27,15 @@ export class ItemAchievementPivot {
             "format": ""
         },
         {
-            "name": "itemId",
-            "baseName": "item_id",
-            "type": "string",
-            "format": ""
-        },
-        {
             "name": "count",
             "baseName": "count",
             "type": "number",
+            "format": ""
+        },
+        {
+            "name": "itemId",
+            "baseName": "item_id",
+            "type": "string",
             "format": ""
         }    ];
 

@@ -13,25 +13,25 @@
 import { HttpFile } from '../http/http';
 
 export class UserAchievementPivot {
+    'achievementId': string;
     /**
     * Identifier for the User Model
     */
     'userId': number;
-    'achievementId': string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "userId",
-            "baseName": "user_id",
-            "type": "number",
-            "format": ""
-        },
-        {
             "name": "achievementId",
             "baseName": "achievement_id",
             "type": "string",
+            "format": ""
+        },
+        {
+            "name": "userId",
+            "baseName": "user_id",
+            "type": "number",
             "format": ""
         }    ];
 

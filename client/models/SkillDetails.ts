@@ -17,37 +17,31 @@ import { UpgradeDetails } from './UpgradeDetails';
 import { HttpFile } from '../http/http';
 
 export class SkillDetails {
-    'id': string;
     'categoryId': string;
-    'name': string;
-    'group': string;
-    'level': number;
+    'createdAt': string;
     'description': string;
+    'group': string;
+    'id': string;
+    'level': number;
+    'name': string;
     'pointCost': number;
-    'requiresLevel': number;
     'questId': string;
     'reqQuests': Array<string>;
-    'createdAt': string;
+    'requiresLevel': number;
     'updatedAt': string;
-    'learned': string;
-    'requiredSkills': Array<SkillDetails>;
-    'requiredAchievements': Array<AchievementDetails>;
-    'requiredUpgrades': Array<UpgradeDetails>;
-    'requiredForSkills': Array<SkillDetails>;
-    'requiredForAchievements': Array<AchievementDetails>;
-    'requiredForUpgrades': Array<UpgradeDetails>;
-    'requiredForRecipes': Array<Recipe>;
     'giants': Array<SkillGiant>;
+    'learned': string;
+    'requiredAchievements': Array<AchievementDetails>;
+    'requiredForAchievements': Array<AchievementDetails>;
+    'requiredForRecipes': Array<Recipe>;
+    'requiredForSkills': Array<SkillDetails>;
+    'requiredForUpgrades': Array<UpgradeDetails>;
+    'requiredSkills': Array<SkillDetails>;
+    'requiredUpgrades': Array<UpgradeDetails>;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string",
-            "format": ""
-        },
         {
             "name": "categoryId",
             "baseName": "category_id",
@@ -55,8 +49,14 @@ export class SkillDetails {
             "format": ""
         },
         {
-            "name": "name",
-            "baseName": "name",
+            "name": "createdAt",
+            "baseName": "created_at",
+            "type": "string",
+            "format": "datetime"
+        },
+        {
+            "name": "description",
+            "baseName": "description",
             "type": "string",
             "format": ""
         },
@@ -67,26 +67,26 @@ export class SkillDetails {
             "format": ""
         },
         {
+            "name": "id",
+            "baseName": "id",
+            "type": "string",
+            "format": ""
+        },
+        {
             "name": "level",
             "baseName": "level",
             "type": "number",
             "format": ""
         },
         {
-            "name": "description",
-            "baseName": "description",
+            "name": "name",
+            "baseName": "name",
             "type": "string",
             "format": ""
         },
         {
             "name": "pointCost",
             "baseName": "point_cost",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "requiresLevel",
-            "baseName": "requires_level",
             "type": "number",
             "format": ""
         },
@@ -103,10 +103,10 @@ export class SkillDetails {
             "format": ""
         },
         {
-            "name": "createdAt",
-            "baseName": "created_at",
-            "type": "string",
-            "format": "datetime"
+            "name": "requiresLevel",
+            "baseName": "requires_level",
+            "type": "number",
+            "format": ""
         },
         {
             "name": "updatedAt",
@@ -115,15 +115,15 @@ export class SkillDetails {
             "format": "datetime"
         },
         {
-            "name": "learned",
-            "baseName": "learned",
-            "type": "string",
+            "name": "giants",
+            "baseName": "giants",
+            "type": "Array<SkillGiant>",
             "format": ""
         },
         {
-            "name": "requiredSkills",
-            "baseName": "required_skills",
-            "type": "Array<SkillDetails>",
+            "name": "learned",
+            "baseName": "learned",
+            "type": "string",
             "format": ""
         },
         {
@@ -133,27 +133,9 @@ export class SkillDetails {
             "format": ""
         },
         {
-            "name": "requiredUpgrades",
-            "baseName": "required_upgrades",
-            "type": "Array<UpgradeDetails>",
-            "format": ""
-        },
-        {
-            "name": "requiredForSkills",
-            "baseName": "required_for_skills",
-            "type": "Array<SkillDetails>",
-            "format": ""
-        },
-        {
             "name": "requiredForAchievements",
             "baseName": "required_for_achievements",
             "type": "Array<AchievementDetails>",
-            "format": ""
-        },
-        {
-            "name": "requiredForUpgrades",
-            "baseName": "required_for_upgrades",
-            "type": "Array<UpgradeDetails>",
             "format": ""
         },
         {
@@ -163,9 +145,27 @@ export class SkillDetails {
             "format": ""
         },
         {
-            "name": "giants",
-            "baseName": "giants",
-            "type": "Array<SkillGiant>",
+            "name": "requiredForSkills",
+            "baseName": "required_for_skills",
+            "type": "Array<SkillDetails>",
+            "format": ""
+        },
+        {
+            "name": "requiredForUpgrades",
+            "baseName": "required_for_upgrades",
+            "type": "Array<UpgradeDetails>",
+            "format": ""
+        },
+        {
+            "name": "requiredSkills",
+            "baseName": "required_skills",
+            "type": "Array<SkillDetails>",
+            "format": ""
+        },
+        {
+            "name": "requiredUpgrades",
+            "baseName": "required_upgrades",
+            "type": "Array<UpgradeDetails>",
             "format": ""
         }    ];
 

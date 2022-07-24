@@ -18,29 +18,29 @@ import { UpgradeDetails } from './UpgradeDetails';
 import { HttpFile } from '../http/http';
 
 export class SkillConnections {
-    'learned': string;
-    'requiredSkills': Array<SkillDetails>;
-    'requiredAchievements': Array<AchievementDetails>;
-    'requiredUpgrades': Array<UpgradeDetails>;
-    'requiredForSkills': Array<SkillDetails>;
-    'requiredForAchievements': Array<AchievementDetails>;
-    'requiredForUpgrades': Array<UpgradeDetails>;
-    'requiredForRecipes': Array<Recipe>;
     'giants': Array<SkillGiant>;
+    'learned': string;
+    'requiredAchievements': Array<AchievementDetails>;
+    'requiredForAchievements': Array<AchievementDetails>;
+    'requiredForRecipes': Array<Recipe>;
+    'requiredForSkills': Array<SkillDetails>;
+    'requiredForUpgrades': Array<UpgradeDetails>;
+    'requiredSkills': Array<SkillDetails>;
+    'requiredUpgrades': Array<UpgradeDetails>;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "learned",
-            "baseName": "learned",
-            "type": "string",
+            "name": "giants",
+            "baseName": "giants",
+            "type": "Array<SkillGiant>",
             "format": ""
         },
         {
-            "name": "requiredSkills",
-            "baseName": "required_skills",
-            "type": "Array<SkillDetails>",
+            "name": "learned",
+            "baseName": "learned",
+            "type": "string",
             "format": ""
         },
         {
@@ -50,27 +50,9 @@ export class SkillConnections {
             "format": ""
         },
         {
-            "name": "requiredUpgrades",
-            "baseName": "required_upgrades",
-            "type": "Array<UpgradeDetails>",
-            "format": ""
-        },
-        {
-            "name": "requiredForSkills",
-            "baseName": "required_for_skills",
-            "type": "Array<SkillDetails>",
-            "format": ""
-        },
-        {
             "name": "requiredForAchievements",
             "baseName": "required_for_achievements",
             "type": "Array<AchievementDetails>",
-            "format": ""
-        },
-        {
-            "name": "requiredForUpgrades",
-            "baseName": "required_for_upgrades",
-            "type": "Array<UpgradeDetails>",
             "format": ""
         },
         {
@@ -80,9 +62,27 @@ export class SkillConnections {
             "format": ""
         },
         {
-            "name": "giants",
-            "baseName": "giants",
-            "type": "Array<SkillGiant>",
+            "name": "requiredForSkills",
+            "baseName": "required_for_skills",
+            "type": "Array<SkillDetails>",
+            "format": ""
+        },
+        {
+            "name": "requiredForUpgrades",
+            "baseName": "required_for_upgrades",
+            "type": "Array<UpgradeDetails>",
+            "format": ""
+        },
+        {
+            "name": "requiredSkills",
+            "baseName": "required_skills",
+            "type": "Array<SkillDetails>",
+            "format": ""
+        },
+        {
+            "name": "requiredUpgrades",
+            "baseName": "required_upgrades",
+            "type": "Array<UpgradeDetails>",
             "format": ""
         }    ];
 

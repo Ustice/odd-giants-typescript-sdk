@@ -15,6 +15,7 @@ import { GiantSkill } from './GiantSkill';
 import { HttpFile } from '../http/http';
 
 export class GiantDetails {
+    'createdAt': Date;
     'description': string;
     'followersName': string;
     'gender': string;
@@ -23,12 +24,17 @@ export class GiantDetails {
     'qualities': string;
     'type': string;
     'updatedAt': Date;
-    'createdAt': Date;
     'skills': Array<GiantSkill>;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
+        {
+            "name": "createdAt",
+            "baseName": "created_at",
+            "type": "Date",
+            "format": "date-time"
+        },
         {
             "name": "description",
             "baseName": "description",
@@ -74,12 +80,6 @@ export class GiantDetails {
         {
             "name": "updatedAt",
             "baseName": "updated_at",
-            "type": "Date",
-            "format": "date-time"
-        },
-        {
-            "name": "createdAt",
-            "baseName": "created_at",
             "type": "Date",
             "format": "date-time"
         },

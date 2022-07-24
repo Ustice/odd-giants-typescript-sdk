@@ -14,33 +14,51 @@ import { RecipeItemPivot } from './RecipeItemPivot';
 import { HttpFile } from '../http/http';
 
 export class RecipeItem {
-    'id': string;
-    'categoryId': string;
-    'label': string;
-    'nameSingle': string;
-    'namePlural': string;
+    'adjustedScale'?: number;
     'article': RecipeItemArticleEnum;
+    'baseCost': number;
+    'capacity': number;
+    'categoryId': string;
+    'createdAt': Date;
     'description': string;
     'hasInfo': number;
     'hasInfopage': number;
+    'id': string;
     'isRoutable': number;
-    'adjustedScale'?: number;
-    'stackmax': number;
-    'capacity': number;
-    'baseCost': number;
-    'parentClasses': Array<string>;
-    'createdAt': Date;
-    'updatedAt': Date;
+    'label': string;
     'name': string;
+    'namePlural': string;
+    'nameSingle': string;
+    'parentClasses': Array<string>;
+    'stackmax': number;
+    'updatedAt': Date;
     'pivot': RecipeItemPivot;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "id",
-            "baseName": "id",
-            "type": "string",
+            "name": "adjustedScale",
+            "baseName": "adjusted_scale",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "article",
+            "baseName": "article",
+            "type": "RecipeItemArticleEnum",
+            "format": ""
+        },
+        {
+            "name": "baseCost",
+            "baseName": "base_cost",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "capacity",
+            "baseName": "capacity",
+            "type": "number",
             "format": ""
         },
         {
@@ -50,28 +68,10 @@ export class RecipeItem {
             "format": ""
         },
         {
-            "name": "label",
-            "baseName": "label",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "nameSingle",
-            "baseName": "name_single",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "namePlural",
-            "baseName": "name_plural",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "article",
-            "baseName": "article",
-            "type": "RecipeItemArticleEnum",
-            "format": ""
+            "name": "createdAt",
+            "baseName": "created_at",
+            "type": "Date",
+            "format": "date-time"
         },
         {
             "name": "description",
@@ -92,33 +92,39 @@ export class RecipeItem {
             "format": ""
         },
         {
+            "name": "id",
+            "baseName": "id",
+            "type": "string",
+            "format": ""
+        },
+        {
             "name": "isRoutable",
             "baseName": "is_routable",
             "type": "number",
             "format": ""
         },
         {
-            "name": "adjustedScale",
-            "baseName": "adjusted_scale",
-            "type": "number",
+            "name": "label",
+            "baseName": "label",
+            "type": "string",
             "format": ""
         },
         {
-            "name": "stackmax",
-            "baseName": "stackmax",
-            "type": "number",
+            "name": "name",
+            "baseName": "name",
+            "type": "string",
             "format": ""
         },
         {
-            "name": "capacity",
-            "baseName": "capacity",
-            "type": "number",
+            "name": "namePlural",
+            "baseName": "name_plural",
+            "type": "string",
             "format": ""
         },
         {
-            "name": "baseCost",
-            "baseName": "base_cost",
-            "type": "number",
+            "name": "nameSingle",
+            "baseName": "name_single",
+            "type": "string",
             "format": ""
         },
         {
@@ -128,22 +134,16 @@ export class RecipeItem {
             "format": ""
         },
         {
-            "name": "createdAt",
-            "baseName": "created_at",
-            "type": "Date",
-            "format": "date-time"
+            "name": "stackmax",
+            "baseName": "stackmax",
+            "type": "number",
+            "format": ""
         },
         {
             "name": "updatedAt",
             "baseName": "updated_at",
             "type": "Date",
             "format": "date-time"
-        },
-        {
-            "name": "name",
-            "baseName": "name",
-            "type": "string",
-            "format": ""
         },
         {
             "name": "pivot",

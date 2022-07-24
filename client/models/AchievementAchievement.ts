@@ -17,22 +17,22 @@ import { Reward } from './Reward';
 import { HttpFile } from '../http/http';
 
 export class AchievementAchievement {
-    'id': string;
+    'category': string;
     'categoryId': string;
-    'name': string;
-    'description': string;
-    'statusText': string;
     'conditions': Array<AchievementCondition>;
-    'rewardXp': number;
+    'createdAt': Date;
+    'description': string;
+    'id': string;
+    'name': string;
+    'reward': Reward;
     'rewardCurrants': number;
-    'rewardMood': number;
     'rewardEnergy': number;
     'rewardGiant': GiantId;
     'rewardGiantFavor': number;
-    'createdAt': Date;
+    'rewardMood': number;
+    'rewardXp': number;
+    'statusText': string;
     'updatedAt': Date;
-    'reward': Reward;
-    'category': string;
     'achievementId'?: Achievement;
     'connectionId'?: Achievement;
 
@@ -40,8 +40,8 @@ export class AchievementAchievement {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "id",
-            "baseName": "id",
+            "name": "category",
+            "baseName": "category",
             "type": "string",
             "format": ""
         },
@@ -52,10 +52,16 @@ export class AchievementAchievement {
             "format": ""
         },
         {
-            "name": "name",
-            "baseName": "name",
-            "type": "string",
+            "name": "conditions",
+            "baseName": "conditions",
+            "type": "Array<AchievementCondition>",
             "format": ""
+        },
+        {
+            "name": "createdAt",
+            "baseName": "created_at",
+            "type": "Date",
+            "format": "date-time"
         },
         {
             "name": "description",
@@ -64,32 +70,26 @@ export class AchievementAchievement {
             "format": ""
         },
         {
-            "name": "statusText",
-            "baseName": "status_text",
+            "name": "id",
+            "baseName": "id",
             "type": "string",
             "format": ""
         },
         {
-            "name": "conditions",
-            "baseName": "conditions",
-            "type": "Array<AchievementCondition>",
+            "name": "name",
+            "baseName": "name",
+            "type": "string",
             "format": ""
         },
         {
-            "name": "rewardXp",
-            "baseName": "reward_xp",
-            "type": "number",
+            "name": "reward",
+            "baseName": "reward",
+            "type": "Reward",
             "format": ""
         },
         {
             "name": "rewardCurrants",
             "baseName": "reward_currants",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "rewardMood",
-            "baseName": "reward_mood",
             "type": "number",
             "format": ""
         },
@@ -112,28 +112,28 @@ export class AchievementAchievement {
             "format": ""
         },
         {
-            "name": "createdAt",
-            "baseName": "created_at",
-            "type": "Date",
-            "format": "date-time"
+            "name": "rewardMood",
+            "baseName": "reward_mood",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "rewardXp",
+            "baseName": "reward_xp",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "statusText",
+            "baseName": "status_text",
+            "type": "string",
+            "format": ""
         },
         {
             "name": "updatedAt",
             "baseName": "updated_at",
             "type": "Date",
             "format": "date-time"
-        },
-        {
-            "name": "reward",
-            "baseName": "reward",
-            "type": "Reward",
-            "format": ""
-        },
-        {
-            "name": "category",
-            "baseName": "category",
-            "type": "string",
-            "format": ""
         },
         {
             "name": "achievementId",

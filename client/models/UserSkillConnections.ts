@@ -14,22 +14,22 @@ import { UserSkillPivot } from './UserSkillPivot';
 import { HttpFile } from '../http/http';
 
 export class UserSkillConnections {
-    'pivot': UserSkillPivot;
+    'ends': string;
     /**
     * Indicates whether a user has learned the skill.
     */
     'learned': UserSkillConnectionsLearnedEnum;
+    'pivot': UserSkillPivot;
     'starts': string;
-    'ends': string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "pivot",
-            "baseName": "pivot",
-            "type": "UserSkillPivot",
-            "format": ""
+            "name": "ends",
+            "baseName": "ends",
+            "type": "string",
+            "format": "datetime"
         },
         {
             "name": "learned",
@@ -38,14 +38,14 @@ export class UserSkillConnections {
             "format": ""
         },
         {
-            "name": "starts",
-            "baseName": "starts",
-            "type": "string",
-            "format": "datetime"
+            "name": "pivot",
+            "baseName": "pivot",
+            "type": "UserSkillPivot",
+            "format": ""
         },
         {
-            "name": "ends",
-            "baseName": "ends",
+            "name": "starts",
+            "baseName": "starts",
             "type": "string",
             "format": "datetime"
         }    ];

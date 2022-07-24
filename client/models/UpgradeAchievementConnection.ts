@@ -13,21 +13,21 @@
 import { HttpFile } from '../http/http';
 
 export class UpgradeAchievementConnection {
-    'upgradeId': string;
     'achievementId': string;
+    'upgradeId': string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "upgradeId",
-            "baseName": "upgrade_id",
+            "name": "achievementId",
+            "baseName": "achievement_id",
             "type": "string",
             "format": ""
         },
         {
-            "name": "achievementId",
-            "baseName": "achievement_id",
+            "name": "upgradeId",
+            "baseName": "upgrade_id",
             "type": "string",
             "format": ""
         }    ];

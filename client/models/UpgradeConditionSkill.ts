@@ -13,22 +13,22 @@
 import { HttpFile } from '../http/http';
 
 export class UpgradeConditionSkill {
-    'type': UpgradeConditionSkillTypeEnum;
     'skillId'?: string;
+    'type': UpgradeConditionSkillTypeEnum;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "type",
-            "baseName": "type",
-            "type": "UpgradeConditionSkillTypeEnum",
-            "format": ""
-        },
-        {
             "name": "skillId",
             "baseName": "skill_id",
             "type": "string",
+            "format": ""
+        },
+        {
+            "name": "type",
+            "baseName": "type",
+            "type": "UpgradeConditionSkillTypeEnum",
             "format": ""
         }    ];
 

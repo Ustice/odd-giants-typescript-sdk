@@ -14,19 +14,13 @@ import { GiantId } from './GiantId';
 import { HttpFile } from '../http/http';
 
 export class SkillGiantPivot {
-    'skillId'?: string;
     'giantId'?: GiantId;
     'primary'?: SkillGiantPivotPrimaryEnum;
+    'skillId'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
-        {
-            "name": "skillId",
-            "baseName": "skill_id",
-            "type": "string",
-            "format": ""
-        },
         {
             "name": "giantId",
             "baseName": "giant_id",
@@ -37,6 +31,12 @@ export class SkillGiantPivot {
             "name": "primary",
             "baseName": "primary",
             "type": "SkillGiantPivotPrimaryEnum",
+            "format": ""
+        },
+        {
+            "name": "skillId",
+            "baseName": "skill_id",
+            "type": "string",
             "format": ""
         }    ];
 

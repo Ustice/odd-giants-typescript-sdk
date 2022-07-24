@@ -16,19 +16,25 @@ import { RecipeItem } from './RecipeItem';
 import { HttpFile } from '../http/http';
 
 export class ItemConnections {
-    'recipesTool'?: Array<RecipeItem>;
+    'achievements'?: Array<ItemAchievement>;
+    'npcs'?: Array<ItemInhabitant>;
     'recipesInput'?: Array<RecipeItem>;
     'recipesOutput'?: Array<RecipeItem>;
-    'npcs'?: Array<ItemInhabitant>;
-    'achievements'?: Array<ItemAchievement>;
+    'recipesTool'?: Array<RecipeItem>;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "recipesTool",
-            "baseName": "recipes_tool",
-            "type": "Array<RecipeItem>",
+            "name": "achievements",
+            "baseName": "achievements",
+            "type": "Array<ItemAchievement>",
+            "format": ""
+        },
+        {
+            "name": "npcs",
+            "baseName": "npcs",
+            "type": "Array<ItemInhabitant>",
             "format": ""
         },
         {
@@ -44,15 +50,9 @@ export class ItemConnections {
             "format": ""
         },
         {
-            "name": "npcs",
-            "baseName": "npcs",
-            "type": "Array<ItemInhabitant>",
-            "format": ""
-        },
-        {
-            "name": "achievements",
-            "baseName": "achievements",
-            "type": "Array<ItemAchievement>",
+            "name": "recipesTool",
+            "baseName": "recipes_tool",
+            "type": "Array<RecipeItem>",
             "format": ""
         }    ];
 

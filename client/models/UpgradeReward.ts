@@ -16,49 +16,25 @@ import { UpgradeRewardMovement } from './UpgradeRewardMovement';
 import { HttpFile } from '../http/http';
 
 export class UpgradeReward {
+    'can3Jump': boolean;
+    'canWallJump': boolean;
+    'gravity': number;
+    'multiplier3Jump': number;
     'type': UpgradeRewardTypeEnum;
     /**
     * Represents walking speed
     */
     'vxMax': number;
-    'gravity': number;
     'vyJump': number;
-    'can3Jump': boolean;
-    'canWallJump': boolean;
-    'multiplier3Jump': number;
+    'classId': string;
     /**
     * number of keepables rewarded
     */
     'num': number;
-    'classId': string;
 
     static readonly discriminator: string | undefined = "type";
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
-        {
-            "name": "type",
-            "baseName": "type",
-            "type": "UpgradeRewardTypeEnum",
-            "format": ""
-        },
-        {
-            "name": "vxMax",
-            "baseName": "vx_max",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "gravity",
-            "baseName": "gravity",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "vyJump",
-            "baseName": "vy_jump",
-            "type": "number",
-            "format": ""
-        },
         {
             "name": "can3Jump",
             "baseName": "can_3_jump",
@@ -72,14 +48,32 @@ export class UpgradeReward {
             "format": ""
         },
         {
+            "name": "gravity",
+            "baseName": "gravity",
+            "type": "number",
+            "format": ""
+        },
+        {
             "name": "multiplier3Jump",
             "baseName": "multiplier_3_jump",
             "type": "number",
             "format": ""
         },
         {
-            "name": "num",
-            "baseName": "num",
+            "name": "type",
+            "baseName": "type",
+            "type": "UpgradeRewardTypeEnum",
+            "format": ""
+        },
+        {
+            "name": "vxMax",
+            "baseName": "vx_max",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "vyJump",
+            "baseName": "vy_jump",
             "type": "number",
             "format": ""
         },
@@ -87,6 +81,12 @@ export class UpgradeReward {
             "name": "classId",
             "baseName": "class_id",
             "type": "string",
+            "format": ""
+        },
+        {
+            "name": "num",
+            "baseName": "num",
+            "type": "number",
             "format": ""
         }    ];
 

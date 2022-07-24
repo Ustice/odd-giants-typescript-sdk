@@ -13,20 +13,14 @@
 import { HttpFile } from '../http/http';
 
 export class AchievementCondition {
-    'type'?: AchievementConditionTypeEnum;
     'group'?: string;
     'label'?: string;
+    'type'?: AchievementConditionTypeEnum;
     'value'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
-        {
-            "name": "type",
-            "baseName": "type",
-            "type": "AchievementConditionTypeEnum",
-            "format": ""
-        },
         {
             "name": "group",
             "baseName": "group",
@@ -37,6 +31,12 @@ export class AchievementCondition {
             "name": "label",
             "baseName": "label",
             "type": "string",
+            "format": ""
+        },
+        {
+            "name": "type",
+            "baseName": "type",
+            "type": "AchievementConditionTypeEnum",
             "format": ""
         },
         {

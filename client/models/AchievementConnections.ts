@@ -19,9 +19,9 @@ import { HttpFile } from '../http/http';
 export class AchievementConnections {
     'connectionsFrom': Array<AchievementAchievement>;
     'connectionsTo': Array<AchievementAchievement>;
-    'requiredForUpgrades': Array<AchievementUpgrade>;
-    'requiredForRecipes': Array<AchievementRecipe>;
     'items': Array<AchievementItem>;
+    'requiredForRecipes': Array<AchievementRecipe>;
+    'requiredForUpgrades': Array<AchievementUpgrade>;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -39,9 +39,9 @@ export class AchievementConnections {
             "format": ""
         },
         {
-            "name": "requiredForUpgrades",
-            "baseName": "required_for_upgrades",
-            "type": "Array<AchievementUpgrade>",
+            "name": "items",
+            "baseName": "items",
+            "type": "Array<AchievementItem>",
             "format": ""
         },
         {
@@ -51,9 +51,9 @@ export class AchievementConnections {
             "format": ""
         },
         {
-            "name": "items",
-            "baseName": "items",
-            "type": "Array<AchievementItem>",
+            "name": "requiredForUpgrades",
+            "baseName": "required_for_upgrades",
+            "type": "Array<AchievementUpgrade>",
             "format": ""
         }    ];
 

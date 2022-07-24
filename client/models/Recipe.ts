@@ -17,59 +17,41 @@ import { SkillDetails } from './SkillDetails';
 import { HttpFile } from '../http/http';
 
 export class Recipe {
+    'createdAt': Date;
+    'energyCost': number;
     'id': number;
-    'name': string;
-    'toolWear': number;
+    'itemsInput': Array<RecipeItem>;
+    'itemsOutput': Array<RecipeItem>;
+    'itemsTool': Array<RecipeItem>;
     /**
     * Whether the recipe is accessable to the player
     */
     'learnt'?: RecipeLearntEnum;
-    'energyCost': number;
-    'xpReward': number;
-    /**
-    * How long the recipe takes to make
-    */
-    'waitMs': number;
+    'name': string;
+    'npcs': Array<SkillDetails>;
+    'pivot': RecipeItemConnection;
+    'requiredAchievements': Array<AchievementDetails>;
     /**
     * How many of the recipe can be made at once
     */
     'taskLimit': number;
-    'createdAt': Date;
-    'updatedAt': Date;
     'tool'?: string;
-    'pivot': RecipeItemConnection;
-    'itemsTool': Array<RecipeItem>;
-    'itemsInput': Array<RecipeItem>;
-    'itemsOutput': Array<RecipeItem>;
-    'npcs': Array<SkillDetails>;
-    'requiredAchievements': Array<AchievementDetails>;
+    'toolWear': number;
+    'updatedAt': Date;
+    /**
+    * How long the recipe takes to make
+    */
+    'waitMs': number;
+    'xpReward': number;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "id",
-            "baseName": "id",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "name",
-            "baseName": "name",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "toolWear",
-            "baseName": "tool_wear",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "learnt",
-            "baseName": "learnt",
-            "type": "RecipeLearntEnum",
-            "format": ""
+            "name": "createdAt",
+            "baseName": "created_at",
+            "type": "Date",
+            "format": "date-time"
         },
         {
             "name": "energyCost",
@@ -78,51 +60,9 @@ export class Recipe {
             "format": ""
         },
         {
-            "name": "xpReward",
-            "baseName": "xp_reward",
+            "name": "id",
+            "baseName": "id",
             "type": "number",
-            "format": ""
-        },
-        {
-            "name": "waitMs",
-            "baseName": "wait_ms",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "taskLimit",
-            "baseName": "task_limit",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "createdAt",
-            "baseName": "created_at",
-            "type": "Date",
-            "format": "date-time"
-        },
-        {
-            "name": "updatedAt",
-            "baseName": "updated_at",
-            "type": "Date",
-            "format": "date-time"
-        },
-        {
-            "name": "tool",
-            "baseName": "tool",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "pivot",
-            "baseName": "pivot",
-            "type": "RecipeItemConnection",
-            "format": ""
-        },
-        {
-            "name": "itemsTool",
-            "baseName": "items_tool",
-            "type": "Array<RecipeItem>",
             "format": ""
         },
         {
@@ -138,15 +78,75 @@ export class Recipe {
             "format": ""
         },
         {
+            "name": "itemsTool",
+            "baseName": "items_tool",
+            "type": "Array<RecipeItem>",
+            "format": ""
+        },
+        {
+            "name": "learnt",
+            "baseName": "learnt",
+            "type": "RecipeLearntEnum",
+            "format": ""
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string",
+            "format": ""
+        },
+        {
             "name": "npcs",
             "baseName": "npcs",
             "type": "Array<SkillDetails>",
             "format": ""
         },
         {
+            "name": "pivot",
+            "baseName": "pivot",
+            "type": "RecipeItemConnection",
+            "format": ""
+        },
+        {
             "name": "requiredAchievements",
             "baseName": "required_achievements",
             "type": "Array<AchievementDetails>",
+            "format": ""
+        },
+        {
+            "name": "taskLimit",
+            "baseName": "task_limit",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "tool",
+            "baseName": "tool",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "toolWear",
+            "baseName": "tool_wear",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "updatedAt",
+            "baseName": "updated_at",
+            "type": "Date",
+            "format": "date-time"
+        },
+        {
+            "name": "waitMs",
+            "baseName": "wait_ms",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "xpReward",
+            "baseName": "xp_reward",
+            "type": "number",
             "format": ""
         }    ];
 

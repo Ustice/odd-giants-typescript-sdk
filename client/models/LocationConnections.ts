@@ -16,26 +16,14 @@ import { LocationLocation } from './LocationLocation';
 import { HttpFile } from '../http/http';
 
 export class LocationConnections {
-    'items': Array<LocationItem>;
-    'npcs': Array<LocationInhabitant>;
     'connectionsFrom': LocationLocation;
     'connectionsTo': LocationLocation;
+    'items': Array<LocationItem>;
+    'npcs': Array<LocationInhabitant>;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
-        {
-            "name": "items",
-            "baseName": "items",
-            "type": "Array<LocationItem>",
-            "format": ""
-        },
-        {
-            "name": "npcs",
-            "baseName": "npcs",
-            "type": "Array<LocationInhabitant>",
-            "format": ""
-        },
         {
             "name": "connectionsFrom",
             "baseName": "connections_from",
@@ -46,6 +34,18 @@ export class LocationConnections {
             "name": "connectionsTo",
             "baseName": "connections_to",
             "type": "LocationLocation",
+            "format": ""
+        },
+        {
+            "name": "items",
+            "baseName": "items",
+            "type": "Array<LocationItem>",
+            "format": ""
+        },
+        {
+            "name": "npcs",
+            "baseName": "npcs",
+            "type": "Array<LocationInhabitant>",
             "format": ""
         }    ];
 
