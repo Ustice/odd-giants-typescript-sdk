@@ -4,8 +4,11 @@
   "description": "Utilities for interacting with the Odd Giants public API.",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "webpack"
   },
+  "type": "module",
+  "target": "Node16",
   "author": "Jason Kleinberg",
   "license": "ISC",
   "devDependencies": {
@@ -34,5 +37,10 @@
     "webpack-cli": "^4.9.2",
     "webpack-merge": "^5.8.0",
     "webpack-node-externals": "^3.0.0"
+  },
+  "dependencies": {
+    "@types/url-parse": "^1.4.8",
+    "url-parse": "^1.5.10",
+    "whatwg-fetch": "^3.6.2"
   }
 }

@@ -26,6 +26,15 @@ import { CategoryLocations } from '../models/CategoryLocations';
 import { CategorySkills } from '../models/CategorySkills';
 import { CategoryUpgrades } from '../models/CategoryUpgrades';
 import { ErrorResponse } from '../models/ErrorResponse';
+import { GetAchievementsByCategoryResponse } from '../models/GetAchievementsByCategoryResponse';
+import { GetInhabitantsByCategoryResponse } from '../models/GetInhabitantsByCategoryResponse';
+import { GetItemsByCategoryResponse } from '../models/GetItemsByCategoryResponse';
+import { GetSkillsByCategoryResponse } from '../models/GetSkillsByCategoryResponse';
+import { GetUpgradeResponse } from '../models/GetUpgradeResponse';
+import { GetUpgradesByCategoryResponse } from '../models/GetUpgradesByCategoryResponse';
+import { GetUserAchievementsResponse } from '../models/GetUserAchievementsResponse';
+import { GetUserSkillsResponse } from '../models/GetUserSkillsResponse';
+import { GetUserUpgradesResponse } from '../models/GetUserUpgradesResponse';
 import { Giant } from '../models/Giant';
 import { GiantConnections } from '../models/GiantConnections';
 import { GiantDetails } from '../models/GiantDetails';
@@ -52,6 +61,7 @@ import { ItemInhabitantConnection } from '../models/ItemInhabitantConnection';
 import { Location } from '../models/Location';
 import { LocationConnection } from '../models/LocationConnection';
 import { LocationConnections } from '../models/LocationConnections';
+import { LocationContents } from '../models/LocationContents';
 import { LocationContentsValue } from '../models/LocationContentsValue';
 import { LocationDetails } from '../models/LocationDetails';
 import { LocationInhabitant } from '../models/LocationInhabitant';
@@ -60,7 +70,6 @@ import { LocationInhabitantPivot } from '../models/LocationInhabitantPivot';
 import { LocationItem } from '../models/LocationItem';
 import { LocationItemConnection } from '../models/LocationItemConnection';
 import { LocationItemPivot } from '../models/LocationItemPivot';
-import { LocationLocation } from '../models/LocationLocation';
 import { LocationLocationPivot } from '../models/LocationLocationPivot';
 import { Recipe } from '../models/Recipe';
 import { RecipeItem } from '../models/RecipeItem';
@@ -317,7 +326,7 @@ export class ObjectOddGiantsApi {
      * Get Achievements by category
      * @param param the request object
      */
-    public achievementsByCategory(param: OddGiantsApiAchievementsByCategoryRequest, options?: Configuration): Promise<Array<Achievement>> {
+    public achievementsByCategory(param: OddGiantsApiAchievementsByCategoryRequest, options?: Configuration): Promise<GetAchievementsByCategoryResponse> {
         return this.api.achievementsByCategory(param.categoryId,  options).toPromise();
     }
 
@@ -346,7 +355,7 @@ export class ObjectOddGiantsApi {
     /**
      * @param param the request object
      */
-    public inhabitantsByCategory(param: OddGiantsApiInhabitantsByCategoryRequest, options?: Configuration): Promise<Array<Inhabitant>> {
+    public inhabitantsByCategory(param: OddGiantsApiInhabitantsByCategoryRequest, options?: Configuration): Promise<GetInhabitantsByCategoryResponse> {
         return this.api.inhabitantsByCategory(param.categoryId,  options).toPromise();
     }
 
@@ -362,7 +371,7 @@ export class ObjectOddGiantsApi {
      * List items by category
      * @param param the request object
      */
-    public itemsByCategory(param: OddGiantsApiItemsByCategoryRequest, options?: Configuration): Promise<Array<Item>> {
+    public itemsByCategory(param: OddGiantsApiItemsByCategoryRequest, options?: Configuration): Promise<GetItemsByCategoryResponse> {
         return this.api.itemsByCategory(param.categoryId,  options).toPromise();
     }
 
@@ -438,7 +447,7 @@ export class ObjectOddGiantsApi {
      * Get Skill by category
      * @param param the request object
      */
-    public skillsByCategory(param: OddGiantsApiSkillsByCategoryRequest, options?: Configuration): Promise<Array<Skill>> {
+    public skillsByCategory(param: OddGiantsApiSkillsByCategoryRequest, options?: Configuration): Promise<GetSkillsByCategoryResponse> {
         return this.api.skillsByCategory(param.categoryId,  options).toPromise();
     }
 
@@ -446,7 +455,7 @@ export class ObjectOddGiantsApi {
      * Gets the details of an Upgrade
      * @param param the request object
      */
-    public upgrade(param: OddGiantsApiUpgradeRequest, options?: Configuration): Promise<Array<UpgradeDetails>> {
+    public upgrade(param: OddGiantsApiUpgradeRequest, options?: Configuration): Promise<GetUpgradeResponse> {
         return this.api.upgrade(param.upgradeId,  options).toPromise();
     }
 
@@ -454,7 +463,7 @@ export class ObjectOddGiantsApi {
      * Get Upgradse by category
      * @param param the request object
      */
-    public upgradesByCategory(param: OddGiantsApiUpgradesByCategoryRequest, options?: Configuration): Promise<Array<Upgrade>> {
+    public upgradesByCategory(param: OddGiantsApiUpgradesByCategoryRequest, options?: Configuration): Promise<GetUpgradesByCategoryResponse> {
         return this.api.upgradesByCategory(param.categoryId,  options).toPromise();
     }
 
@@ -470,7 +479,7 @@ export class ObjectOddGiantsApi {
      * Gets the achievments for a given user
      * @param param the request object
      */
-    public userAchievements(param: OddGiantsApiUserAchievementsRequest, options?: Configuration): Promise<Array<UserAchievment>> {
+    public userAchievements(param: OddGiantsApiUserAchievementsRequest, options?: Configuration): Promise<GetUserAchievementsResponse> {
         return this.api.userAchievements(param.userId,  options).toPromise();
     }
 
@@ -478,7 +487,7 @@ export class ObjectOddGiantsApi {
      * Gets the skills for a given user
      * @param param the request object
      */
-    public userSkills(param: OddGiantsApiUserSkillsRequest, options?: Configuration): Promise<Array<UserSkill>> {
+    public userSkills(param: OddGiantsApiUserSkillsRequest, options?: Configuration): Promise<GetUserSkillsResponse> {
         return this.api.userSkills(param.userId,  options).toPromise();
     }
 
@@ -486,7 +495,7 @@ export class ObjectOddGiantsApi {
      * Gets the upgrades for a given user
      * @param param the request object
      */
-    public userUpgrades(param: OddGiantsApiUserUpgradesRequest, options?: Configuration): Promise<Array<UserUpgrade>> {
+    public userUpgrades(param: OddGiantsApiUserUpgradesRequest, options?: Configuration): Promise<GetUserUpgradesResponse> {
         return this.api.userUpgrades(param.userId,  options).toPromise();
     }
 

@@ -10,11 +10,11 @@
  * Do not edit the class manually.
  */
 
-import { LocationContentsValue } from './LocationContentsValue';
+import { LocationContents } from './LocationContents';
 import { HttpFile } from '../http/http';
 
 export class Location {
-    'contents': { [key: string]: LocationContentsValue; };
+    'contents': LocationContents;
     'createdAt'?: string;
     /**
     * Identifier for the Location Model
@@ -37,7 +37,7 @@ export class Location {
         {
             "name": "contents",
             "baseName": "contents",
-            "type": "{ [key: string]: LocationContentsValue; }",
+            "type": "LocationContents",
             "format": ""
         },
         {

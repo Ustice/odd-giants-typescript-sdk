@@ -35,6 +35,15 @@ models/CategoryLocations.ts
 models/CategorySkills.ts
 models/CategoryUpgrades.ts
 models/ErrorResponse.ts
+models/GetAchievementsByCategoryResponse.ts
+models/GetInhabitantsByCategoryResponse.ts
+models/GetItemsByCategoryResponse.ts
+models/GetSkillsByCategoryResponse.ts
+models/GetUpgradeResponse.ts
+models/GetUpgradesByCategoryResponse.ts
+models/GetUserAchievementsResponse.ts
+models/GetUserSkillsResponse.ts
+models/GetUserUpgradesResponse.ts
 models/Giant.ts
 models/GiantConnections.ts
 models/GiantDetails.ts
@@ -61,6 +70,7 @@ models/ItemInhabitantConnection.ts
 models/Location.ts
 models/LocationConnection.ts
 models/LocationConnections.ts
+models/LocationContents.ts
 models/LocationContentsValue.ts
 models/LocationDetails.ts
 models/LocationInhabitant.ts
@@ -69,7 +79,6 @@ models/LocationInhabitantPivot.ts
 models/LocationItem.ts
 models/LocationItemConnection.ts
 models/LocationItemPivot.ts
-models/LocationLocation.ts
 models/LocationLocationPivot.ts
 models/ObjectSerializer.ts
 models/Recipe.ts

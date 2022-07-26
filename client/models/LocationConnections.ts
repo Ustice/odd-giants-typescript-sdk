@@ -10,14 +10,14 @@
  * Do not edit the class manually.
  */
 
+import { LocationDetails } from './LocationDetails';
 import { LocationInhabitant } from './LocationInhabitant';
 import { LocationItem } from './LocationItem';
-import { LocationLocation } from './LocationLocation';
 import { HttpFile } from '../http/http';
 
 export class LocationConnections {
-    'connectionsFrom': LocationLocation;
-    'connectionsTo': LocationLocation;
+    'connectionsFrom': Array<LocationDetails>;
+    'connectionsTo': Array<LocationDetails>;
     'items': Array<LocationItem>;
     'npcs': Array<LocationInhabitant>;
 
@@ -27,13 +27,13 @@ export class LocationConnections {
         {
             "name": "connectionsFrom",
             "baseName": "connections_from",
-            "type": "LocationLocation",
+            "type": "Array<LocationDetails>",
             "format": ""
         },
         {
             "name": "connectionsTo",
             "baseName": "connections_to",
-            "type": "LocationLocation",
+            "type": "Array<LocationDetails>",
             "format": ""
         },
         {

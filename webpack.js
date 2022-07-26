@@ -15,7 +15,7 @@ module.exports = {
       allowlist: ['webpack/hot/poll?1000'],
     }),
   ],
-  mode: 'production',
+  mode: 'development',
   module: {
     rules: [
       {

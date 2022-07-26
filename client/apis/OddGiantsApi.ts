@@ -2,38 +2,36 @@
 import {BaseAPIRequestFactory, RequiredError} from './baseapi';
 import {Configuration} from '../configuration';
 import {RequestContext, HttpMethod, ResponseContext, HttpFile} from '../http/http';
-import  FormData from "form-data";
-import { URLSearchParams } from 'url';
 import {ObjectSerializer} from '../models/ObjectSerializer';
 import {ApiException} from './exception';
 import {canConsumeForm, isCodeInRange} from '../util';
 import {SecurityAuthentication} from '../auth/auth';
 
 
-import { Achievement } from '../models/Achievement';
 import { AchievementDetails } from '../models/AchievementDetails';
 import { AuthenticationCredentials } from '../models/AuthenticationCredentials';
 import { CategoryIndex } from '../models/CategoryIndex';
 import { ErrorResponse } from '../models/ErrorResponse';
+import { GetAchievementsByCategoryResponse } from '../models/GetAchievementsByCategoryResponse';
+import { GetInhabitantsByCategoryResponse } from '../models/GetInhabitantsByCategoryResponse';
+import { GetItemsByCategoryResponse } from '../models/GetItemsByCategoryResponse';
+import { GetSkillsByCategoryResponse } from '../models/GetSkillsByCategoryResponse';
+import { GetUpgradeResponse } from '../models/GetUpgradeResponse';
+import { GetUpgradesByCategoryResponse } from '../models/GetUpgradesByCategoryResponse';
+import { GetUserAchievementsResponse } from '../models/GetUserAchievementsResponse';
+import { GetUserSkillsResponse } from '../models/GetUserSkillsResponse';
+import { GetUserUpgradesResponse } from '../models/GetUserUpgradesResponse';
 import { GiantDetails } from '../models/GiantDetails';
 import { GiantId } from '../models/GiantId';
-import { Inhabitant } from '../models/Inhabitant';
 import { InhabitantDetails } from '../models/InhabitantDetails';
-import { Item } from '../models/Item';
 import { ItemDetails } from '../models/ItemDetails';
 import { Location } from '../models/Location';
 import { LocationDetails } from '../models/LocationDetails';
 import { SearchResults } from '../models/SearchResults';
 import { ServerStats } from '../models/ServerStats';
 import { SessionInfo } from '../models/SessionInfo';
-import { Skill } from '../models/Skill';
 import { SkillDetails } from '../models/SkillDetails';
-import { Upgrade } from '../models/Upgrade';
-import { UpgradeDetails } from '../models/UpgradeDetails';
 import { User } from '../models/User';
-import { UserAchievment } from '../models/UserAchievment';
-import { UserSkill } from '../models/UserSkill';
-import { UserUpgrade } from '../models/UserUpgrade';
 
 /**
  * no description
@@ -390,12 +388,6 @@ export class OddGiantsApiRequestFactory extends BaseAPIRequestFactory {
         );
         requestContext.setBody(serializedBody);
 
-        let authMethod: SecurityAuthentication | undefined;
-        // Apply auth methods
-        authMethod = _config.authMethods["BearerAuth"]
-        if (authMethod?.applySecurityAuthentication) {
-            await authMethod?.applySecurityAuthentication(requestContext);
-        }
         
         const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
         if (defaultAuth?.applySecurityAuthentication) {
@@ -899,7 +891,7 @@ export class OddGiantsApiResponseProcessor {
             return body;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
     }
 
     /**
@@ -909,26 +901,26 @@ export class OddGiantsApiResponseProcessor {
      * @params response Response returned by the server for a request to achievementsByCategory
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async achievementsByCategory(response: ResponseContext): Promise<Array<Achievement> > {
+     public async achievementsByCategory(response: ResponseContext): Promise<GetAchievementsByCategoryResponse > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: Array<Achievement> = ObjectSerializer.deserialize(
+            const body: GetAchievementsByCategoryResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<Achievement>", ""
-            ) as Array<Achievement>;
+                "GetAchievementsByCategoryResponse", ""
+            ) as GetAchievementsByCategoryResponse;
             return body;
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: Array<Achievement> = ObjectSerializer.deserialize(
+            const body: GetAchievementsByCategoryResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<Achievement>", ""
-            ) as Array<Achievement>;
+                "GetAchievementsByCategoryResponse", ""
+            ) as GetAchievementsByCategoryResponse;
             return body;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
     }
 
     /**
@@ -957,7 +949,7 @@ export class OddGiantsApiResponseProcessor {
             return body;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
     }
 
     /**
@@ -986,7 +978,7 @@ export class OddGiantsApiResponseProcessor {
             return body;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
     }
 
     /**
@@ -1015,7 +1007,7 @@ export class OddGiantsApiResponseProcessor {
             return body;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
     }
 
     /**
@@ -1025,26 +1017,26 @@ export class OddGiantsApiResponseProcessor {
      * @params response Response returned by the server for a request to inhabitantsByCategory
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async inhabitantsByCategory(response: ResponseContext): Promise<Array<Inhabitant> > {
+     public async inhabitantsByCategory(response: ResponseContext): Promise<GetInhabitantsByCategoryResponse > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: Array<Inhabitant> = ObjectSerializer.deserialize(
+            const body: GetInhabitantsByCategoryResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<Inhabitant>", ""
-            ) as Array<Inhabitant>;
+                "GetInhabitantsByCategoryResponse", ""
+            ) as GetInhabitantsByCategoryResponse;
             return body;
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: Array<Inhabitant> = ObjectSerializer.deserialize(
+            const body: GetInhabitantsByCategoryResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<Inhabitant>", ""
-            ) as Array<Inhabitant>;
+                "GetInhabitantsByCategoryResponse", ""
+            ) as GetInhabitantsByCategoryResponse;
             return body;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
     }
 
     /**
@@ -1073,7 +1065,7 @@ export class OddGiantsApiResponseProcessor {
             return body;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
     }
 
     /**
@@ -1083,26 +1075,26 @@ export class OddGiantsApiResponseProcessor {
      * @params response Response returned by the server for a request to itemsByCategory
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async itemsByCategory(response: ResponseContext): Promise<Array<Item> > {
+     public async itemsByCategory(response: ResponseContext): Promise<GetItemsByCategoryResponse > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: Array<Item> = ObjectSerializer.deserialize(
+            const body: GetItemsByCategoryResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<Item>", ""
-            ) as Array<Item>;
+                "GetItemsByCategoryResponse", ""
+            ) as GetItemsByCategoryResponse;
             return body;
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: Array<Item> = ObjectSerializer.deserialize(
+            const body: GetItemsByCategoryResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<Item>", ""
-            ) as Array<Item>;
+                "GetItemsByCategoryResponse", ""
+            ) as GetItemsByCategoryResponse;
             return body;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
     }
 
     /**
@@ -1131,7 +1123,7 @@ export class OddGiantsApiResponseProcessor {
             return body;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
     }
 
     /**
@@ -1163,7 +1155,7 @@ export class OddGiantsApiResponseProcessor {
             return body;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
     }
 
     /**
@@ -1199,7 +1191,7 @@ export class OddGiantsApiResponseProcessor {
             return body;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
     }
 
     /**
@@ -1228,7 +1220,7 @@ export class OddGiantsApiResponseProcessor {
             return body;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
     }
 
     /**
@@ -1257,7 +1249,7 @@ export class OddGiantsApiResponseProcessor {
             return body;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
     }
 
     /**
@@ -1286,7 +1278,7 @@ export class OddGiantsApiResponseProcessor {
             return body;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
     }
 
     /**
@@ -1315,7 +1307,7 @@ export class OddGiantsApiResponseProcessor {
             return body;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
     }
 
     /**
@@ -1344,7 +1336,7 @@ export class OddGiantsApiResponseProcessor {
             return body;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
     }
 
     /**
@@ -1354,26 +1346,26 @@ export class OddGiantsApiResponseProcessor {
      * @params response Response returned by the server for a request to skillsByCategory
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async skillsByCategory(response: ResponseContext): Promise<Array<Skill> > {
+     public async skillsByCategory(response: ResponseContext): Promise<GetSkillsByCategoryResponse > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: Array<Skill> = ObjectSerializer.deserialize(
+            const body: GetSkillsByCategoryResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<Skill>", ""
-            ) as Array<Skill>;
+                "GetSkillsByCategoryResponse", ""
+            ) as GetSkillsByCategoryResponse;
             return body;
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: Array<Skill> = ObjectSerializer.deserialize(
+            const body: GetSkillsByCategoryResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<Skill>", ""
-            ) as Array<Skill>;
+                "GetSkillsByCategoryResponse", ""
+            ) as GetSkillsByCategoryResponse;
             return body;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
     }
 
     /**
@@ -1383,26 +1375,26 @@ export class OddGiantsApiResponseProcessor {
      * @params response Response returned by the server for a request to upgrade
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async upgrade(response: ResponseContext): Promise<Array<UpgradeDetails> > {
+     public async upgrade(response: ResponseContext): Promise<GetUpgradeResponse > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: Array<UpgradeDetails> = ObjectSerializer.deserialize(
+            const body: GetUpgradeResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<UpgradeDetails>", ""
-            ) as Array<UpgradeDetails>;
+                "GetUpgradeResponse", ""
+            ) as GetUpgradeResponse;
             return body;
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: Array<UpgradeDetails> = ObjectSerializer.deserialize(
+            const body: GetUpgradeResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<UpgradeDetails>", ""
-            ) as Array<UpgradeDetails>;
+                "GetUpgradeResponse", ""
+            ) as GetUpgradeResponse;
             return body;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
     }
 
     /**
@@ -1412,26 +1404,26 @@ export class OddGiantsApiResponseProcessor {
      * @params response Response returned by the server for a request to upgradesByCategory
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async upgradesByCategory(response: ResponseContext): Promise<Array<Upgrade> > {
+     public async upgradesByCategory(response: ResponseContext): Promise<GetUpgradesByCategoryResponse > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: Array<Upgrade> = ObjectSerializer.deserialize(
+            const body: GetUpgradesByCategoryResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<Upgrade>", ""
-            ) as Array<Upgrade>;
+                "GetUpgradesByCategoryResponse", ""
+            ) as GetUpgradesByCategoryResponse;
             return body;
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: Array<Upgrade> = ObjectSerializer.deserialize(
+            const body: GetUpgradesByCategoryResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<Upgrade>", ""
-            ) as Array<Upgrade>;
+                "GetUpgradesByCategoryResponse", ""
+            ) as GetUpgradesByCategoryResponse;
             return body;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
     }
 
     /**
@@ -1460,7 +1452,7 @@ export class OddGiantsApiResponseProcessor {
             return body;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
     }
 
     /**
@@ -1470,26 +1462,26 @@ export class OddGiantsApiResponseProcessor {
      * @params response Response returned by the server for a request to userAchievements
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async userAchievements(response: ResponseContext): Promise<Array<UserAchievment> > {
+     public async userAchievements(response: ResponseContext): Promise<GetUserAchievementsResponse > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: Array<UserAchievment> = ObjectSerializer.deserialize(
+            const body: GetUserAchievementsResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<UserAchievment>", ""
-            ) as Array<UserAchievment>;
+                "GetUserAchievementsResponse", ""
+            ) as GetUserAchievementsResponse;
             return body;
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: Array<UserAchievment> = ObjectSerializer.deserialize(
+            const body: GetUserAchievementsResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<UserAchievment>", ""
-            ) as Array<UserAchievment>;
+                "GetUserAchievementsResponse", ""
+            ) as GetUserAchievementsResponse;
             return body;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
     }
 
     /**
@@ -1499,26 +1491,26 @@ export class OddGiantsApiResponseProcessor {
      * @params response Response returned by the server for a request to userSkills
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async userSkills(response: ResponseContext): Promise<Array<UserSkill> > {
+     public async userSkills(response: ResponseContext): Promise<GetUserSkillsResponse > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: Array<UserSkill> = ObjectSerializer.deserialize(
+            const body: GetUserSkillsResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<UserSkill>", ""
-            ) as Array<UserSkill>;
+                "GetUserSkillsResponse", ""
+            ) as GetUserSkillsResponse;
             return body;
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: Array<UserSkill> = ObjectSerializer.deserialize(
+            const body: GetUserSkillsResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<UserSkill>", ""
-            ) as Array<UserSkill>;
+                "GetUserSkillsResponse", ""
+            ) as GetUserSkillsResponse;
             return body;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
     }
 
     /**
@@ -1528,26 +1520,26 @@ export class OddGiantsApiResponseProcessor {
      * @params response Response returned by the server for a request to userUpgrades
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async userUpgrades(response: ResponseContext): Promise<Array<UserUpgrade> > {
+     public async userUpgrades(response: ResponseContext): Promise<GetUserUpgradesResponse > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: Array<UserUpgrade> = ObjectSerializer.deserialize(
+            const body: GetUserUpgradesResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<UserUpgrade>", ""
-            ) as Array<UserUpgrade>;
+                "GetUserUpgradesResponse", ""
+            ) as GetUserUpgradesResponse;
             return body;
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: Array<UserUpgrade> = ObjectSerializer.deserialize(
+            const body: GetUserUpgradesResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "Array<UserUpgrade>", ""
-            ) as Array<UserUpgrade>;
+                "GetUserUpgradesResponse", ""
+            ) as GetUserUpgradesResponse;
             return body;
         }
 
-        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
     }
 
 }

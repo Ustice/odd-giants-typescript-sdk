@@ -26,7 +26,12 @@ await $`
         -o /out/client \\
         -t /out/templates \\
         --artifact-id ${ tsName } \\
-        -p platform=node \\
+        --global-property apiDocs=true \\
+        --global-property modelDocs=true \\
+        --global-property apiTests=true \\
+        --global-property modelTests=true \\
+        --global-property platform=node \\
+        -p generateAliasAsModel=true \\
         -p projectName=${ nameSlug } \\
         -p moduleName=${ tsName } \\
         -p classname=${ tsName } \\

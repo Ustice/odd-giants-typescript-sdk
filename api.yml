@@ -907,9 +907,13 @@ components:
     LocationConnections:
       properties:
         connections_from:
-          $ref: '#/components/schemas/LocationLocation'
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationDetails'
         connections_to:
-          $ref: '#/components/schemas/LocationLocation'
+          type: array
+          items:
+            $ref: '#/components/schemas/LocationDetails'
         items:
           items:
             $ref: '#/components/schemas/LocationItem'
@@ -986,11 +990,6 @@ components:
       required:
         - pivot
       type: object
-    LocationLocation:
-      allOf:
-        - $ref: '#/components/schemas/Location'
-        - $ref: '#/components/schemas/LocationConnection'
-      title: LocationLocation
     LoginRefreshResponse:
       $ref: '#/components/schemas/SessionInfo'
     LoginResponse:
@@ -1389,16 +1388,16 @@ components:
         - achievement_id
       type: object
     UpgradeCondition:
-      discriminator:
-        mapping:
-          '1': '#/components/schemas/UpgradeConditionNull'
-          '2': '#/components/schemas/UpgradeConditionLevel'
-          '3': '#/components/schemas/UpgradeConditionUpgrade'
-          '4': '#/components/schemas/UpgradeConditionSkill'
-          '5': '#/components/schemas/UpgradeConditionAchievement'
-          '6': '#/components/schemas/UpgradeConditionQuest'
-          '7': '#/components/schemas/UpgradeConditionMaxEnergy'
-        propertyName: type
+      # discriminator:
+      #   mapping:
+      #     1: '#/components/schemas/UpgradeConditionNull'
+      #     2: '#/components/schemas/UpgradeConditionLevel'
+      #     3: '#/components/schemas/UpgradeConditionUpgrade'
+      #     4: '#/components/schemas/UpgradeConditionSkill'
+      #     5: '#/components/schemas/UpgradeConditionAchievement'
+      #     6: '#/components/schemas/UpgradeConditionQuest'
+      #     7: '#/components/schemas/UpgradeConditionMaxEnergy'
+      #   propertyName: type
       oneOf:
         - $ref: '#/components/schemas/UpgradeConditionNull'
         - $ref: '#/components/schemas/UpgradeConditionLevel'
@@ -1410,11 +1409,11 @@ components:
     UpgradeConditionAchievement:
       properties:
         achievement_id:
-          type: string
+          type: integer
         type:
-          enum:
-            - 5
-          type: number
+          # enum:
+          #   - 5
+          type: integer
       required:
         - type
       type: object
@@ -1425,7 +1424,7 @@ components:
         type:
           enum:
             - 2
-          type: number
+          type: integer
       required:
         - type
       type: object
@@ -1436,7 +1435,7 @@ components:
         type:
           enum:
             - 7
-          type: number
+          type: integer
       required:
         - type
       type: object
@@ -1445,7 +1444,7 @@ components:
         type:
           enum:
             - 1
-          type: number
+          type: integer
       required:
         - type
       type: object
@@ -1456,7 +1455,7 @@ components:
         type:
           enum:
             - 6
-          type: number
+          type: integer
       required:
         - type
       type: object
@@ -1467,7 +1466,7 @@ components:
         type:
           enum:
             - 4
-          type: number
+          type: integer
       required:
         - type
       type: object
@@ -1478,7 +1477,7 @@ components:
         type:
           enum:
             - 3
-          type: number
+          type: integer
       required:
         - type
       type: object
@@ -1512,12 +1511,12 @@ components:
         - $ref: '#/components/schemas/UpgradeConnections'
       title: UpgradeDetails
     UpgradeReward:
-      discriminator:
-        mapping:
-          '1': '#/components/schemas/UpgradeRewardMovement'
-          '2': '#/components/schemas/UpgradeRewardKeepable'
-          '3': '#/components/schemas/UpgradeRewardLearning'
-        propertyName: type
+      # discriminator:
+      #   mapping:
+      #     1: '#/components/schemas/UpgradeRewardMovement'
+      #     8: '#/components/schemas/UpgradeRewardKeepable'
+      #     9: '#/components/schemas/UpgradeRewardLearning'
+      #   propertyName: type
       oneOf:
         - $ref: '#/components/schemas/UpgradeRewardMovement'
         - $ref: '#/components/schemas/UpgradeRewardKeepable'
@@ -2058,6 +2057,7 @@ paths:
           $ref: '#/components/responses/PostLogin'
         '302':
           description: The user failed to log in successfully
+      security: []
       summary: Logs in a user
       tags:
         - OddGiants

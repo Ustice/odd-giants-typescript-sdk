@@ -27,6 +27,15 @@ import { CategoryLocations } from '../models/CategoryLocations';
 import { CategorySkills } from '../models/CategorySkills';
 import { CategoryUpgrades } from '../models/CategoryUpgrades';
 import { ErrorResponse } from '../models/ErrorResponse';
+import { GetAchievementsByCategoryResponse } from '../models/GetAchievementsByCategoryResponse';
+import { GetInhabitantsByCategoryResponse } from '../models/GetInhabitantsByCategoryResponse';
+import { GetItemsByCategoryResponse } from '../models/GetItemsByCategoryResponse';
+import { GetSkillsByCategoryResponse } from '../models/GetSkillsByCategoryResponse';
+import { GetUpgradeResponse } from '../models/GetUpgradeResponse';
+import { GetUpgradesByCategoryResponse } from '../models/GetUpgradesByCategoryResponse';
+import { GetUserAchievementsResponse } from '../models/GetUserAchievementsResponse';
+import { GetUserSkillsResponse } from '../models/GetUserSkillsResponse';
+import { GetUserUpgradesResponse } from '../models/GetUserUpgradesResponse';
 import { Giant } from '../models/Giant';
 import { GiantConnections } from '../models/GiantConnections';
 import { GiantDetails } from '../models/GiantDetails';
@@ -53,6 +62,7 @@ import { ItemInhabitantConnection } from '../models/ItemInhabitantConnection';
 import { Location } from '../models/Location';
 import { LocationConnection } from '../models/LocationConnection';
 import { LocationConnections } from '../models/LocationConnections';
+import { LocationContents } from '../models/LocationContents';
 import { LocationContentsValue } from '../models/LocationContentsValue';
 import { LocationDetails } from '../models/LocationDetails';
 import { LocationInhabitant } from '../models/LocationInhabitant';
@@ -61,7 +71,6 @@ import { LocationInhabitantPivot } from '../models/LocationInhabitantPivot';
 import { LocationItem } from '../models/LocationItem';
 import { LocationItemConnection } from '../models/LocationItemConnection';
 import { LocationItemPivot } from '../models/LocationItemPivot';
-import { LocationLocation } from '../models/LocationLocation';
 import { LocationLocationPivot } from '../models/LocationLocationPivot';
 import { Recipe } from '../models/Recipe';
 import { RecipeItem } from '../models/RecipeItem';
@@ -156,7 +165,7 @@ export class ObservableOddGiantsApi {
      * Get Achievements by category
      * @param categoryId 
      */
-    public achievementsByCategory(categoryId: string, _options?: Configuration): Observable<Array<Achievement>> {
+    public achievementsByCategory(categoryId: string, _options?: Configuration): Observable<GetAchievementsByCategoryResponse> {
         const requestContextPromise = this.requestFactory.achievementsByCategory(categoryId, _options);
 
         // build promise chain
@@ -244,7 +253,7 @@ export class ObservableOddGiantsApi {
     /**
      * @param categoryId 
      */
-    public inhabitantsByCategory(categoryId: string, _options?: Configuration): Observable<Array<Inhabitant>> {
+    public inhabitantsByCategory(categoryId: string, _options?: Configuration): Observable<GetInhabitantsByCategoryResponse> {
         const requestContextPromise = this.requestFactory.inhabitantsByCategory(categoryId, _options);
 
         // build promise chain
@@ -290,7 +299,7 @@ export class ObservableOddGiantsApi {
      * List items by category
      * @param categoryId 
      */
-    public itemsByCategory(categoryId: string, _options?: Configuration): Observable<Array<Item>> {
+    public itemsByCategory(categoryId: string, _options?: Configuration): Observable<GetItemsByCategoryResponse> {
         const requestContextPromise = this.requestFactory.itemsByCategory(categoryId, _options);
 
         // build promise chain
@@ -498,7 +507,7 @@ export class ObservableOddGiantsApi {
      * Get Skill by category
      * @param categoryId 
      */
-    public skillsByCategory(categoryId: string, _options?: Configuration): Observable<Array<Skill>> {
+    public skillsByCategory(categoryId: string, _options?: Configuration): Observable<GetSkillsByCategoryResponse> {
         const requestContextPromise = this.requestFactory.skillsByCategory(categoryId, _options);
 
         // build promise chain
@@ -521,7 +530,7 @@ export class ObservableOddGiantsApi {
      * Gets the details of an Upgrade
      * @param upgradeId 
      */
-    public upgrade(upgradeId: string, _options?: Configuration): Observable<Array<UpgradeDetails>> {
+    public upgrade(upgradeId: string, _options?: Configuration): Observable<GetUpgradeResponse> {
         const requestContextPromise = this.requestFactory.upgrade(upgradeId, _options);
 
         // build promise chain
@@ -544,7 +553,7 @@ export class ObservableOddGiantsApi {
      * Get Upgradse by category
      * @param categoryId 
      */
-    public upgradesByCategory(categoryId: string, _options?: Configuration): Observable<Array<Upgrade>> {
+    public upgradesByCategory(categoryId: string, _options?: Configuration): Observable<GetUpgradesByCategoryResponse> {
         const requestContextPromise = this.requestFactory.upgradesByCategory(categoryId, _options);
 
         // build promise chain
@@ -590,7 +599,7 @@ export class ObservableOddGiantsApi {
      * Gets the achievments for a given user
      * @param userId 
      */
-    public userAchievements(userId: number, _options?: Configuration): Observable<Array<UserAchievment>> {
+    public userAchievements(userId: number, _options?: Configuration): Observable<GetUserAchievementsResponse> {
         const requestContextPromise = this.requestFactory.userAchievements(userId, _options);
 
         // build promise chain
@@ -613,7 +622,7 @@ export class ObservableOddGiantsApi {
      * Gets the skills for a given user
      * @param userId 
      */
-    public userSkills(userId: number, _options?: Configuration): Observable<Array<UserSkill>> {
+    public userSkills(userId: number, _options?: Configuration): Observable<GetUserSkillsResponse> {
         const requestContextPromise = this.requestFactory.userSkills(userId, _options);
 
         // build promise chain
@@ -636,7 +645,7 @@ export class ObservableOddGiantsApi {
      * Gets the upgrades for a given user
      * @param userId 
      */
-    public userUpgrades(userId: number, _options?: Configuration): Observable<Array<UserUpgrade>> {
+    public userUpgrades(userId: number, _options?: Configuration): Observable<GetUserUpgradesResponse> {
         const requestContextPromise = this.requestFactory.userUpgrades(userId, _options);
 
         // build promise chain

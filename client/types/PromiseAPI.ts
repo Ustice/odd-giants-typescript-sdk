@@ -26,6 +26,15 @@ import { CategoryLocations } from '../models/CategoryLocations';
 import { CategorySkills } from '../models/CategorySkills';
 import { CategoryUpgrades } from '../models/CategoryUpgrades';
 import { ErrorResponse } from '../models/ErrorResponse';
+import { GetAchievementsByCategoryResponse } from '../models/GetAchievementsByCategoryResponse';
+import { GetInhabitantsByCategoryResponse } from '../models/GetInhabitantsByCategoryResponse';
+import { GetItemsByCategoryResponse } from '../models/GetItemsByCategoryResponse';
+import { GetSkillsByCategoryResponse } from '../models/GetSkillsByCategoryResponse';
+import { GetUpgradeResponse } from '../models/GetUpgradeResponse';
+import { GetUpgradesByCategoryResponse } from '../models/GetUpgradesByCategoryResponse';
+import { GetUserAchievementsResponse } from '../models/GetUserAchievementsResponse';
+import { GetUserSkillsResponse } from '../models/GetUserSkillsResponse';
+import { GetUserUpgradesResponse } from '../models/GetUserUpgradesResponse';
 import { Giant } from '../models/Giant';
 import { GiantConnections } from '../models/GiantConnections';
 import { GiantDetails } from '../models/GiantDetails';
@@ -52,6 +61,7 @@ import { ItemInhabitantConnection } from '../models/ItemInhabitantConnection';
 import { Location } from '../models/Location';
 import { LocationConnection } from '../models/LocationConnection';
 import { LocationConnections } from '../models/LocationConnections';
+import { LocationContents } from '../models/LocationContents';
 import { LocationContentsValue } from '../models/LocationContentsValue';
 import { LocationDetails } from '../models/LocationDetails';
 import { LocationInhabitant } from '../models/LocationInhabitant';
@@ -60,7 +70,6 @@ import { LocationInhabitantPivot } from '../models/LocationInhabitantPivot';
 import { LocationItem } from '../models/LocationItem';
 import { LocationItemConnection } from '../models/LocationItemConnection';
 import { LocationItemPivot } from '../models/LocationItemPivot';
-import { LocationLocation } from '../models/LocationLocation';
 import { LocationLocationPivot } from '../models/LocationLocationPivot';
 import { Recipe } from '../models/Recipe';
 import { RecipeItem } from '../models/RecipeItem';
@@ -138,7 +147,7 @@ export class PromiseOddGiantsApi {
      * Get Achievements by category
      * @param categoryId 
      */
-    public achievementsByCategory(categoryId: string, _options?: Configuration): Promise<Array<Achievement>> {
+    public achievementsByCategory(categoryId: string, _options?: Configuration): Promise<GetAchievementsByCategoryResponse> {
         const result = this.api.achievementsByCategory(categoryId, _options);
         return result.toPromise();
     }
@@ -170,7 +179,7 @@ export class PromiseOddGiantsApi {
     /**
      * @param categoryId 
      */
-    public inhabitantsByCategory(categoryId: string, _options?: Configuration): Promise<Array<Inhabitant>> {
+    public inhabitantsByCategory(categoryId: string, _options?: Configuration): Promise<GetInhabitantsByCategoryResponse> {
         const result = this.api.inhabitantsByCategory(categoryId, _options);
         return result.toPromise();
     }
@@ -188,7 +197,7 @@ export class PromiseOddGiantsApi {
      * List items by category
      * @param categoryId 
      */
-    public itemsByCategory(categoryId: string, _options?: Configuration): Promise<Array<Item>> {
+    public itemsByCategory(categoryId: string, _options?: Configuration): Promise<GetItemsByCategoryResponse> {
         const result = this.api.itemsByCategory(categoryId, _options);
         return result.toPromise();
     }
@@ -270,7 +279,7 @@ export class PromiseOddGiantsApi {
      * Get Skill by category
      * @param categoryId 
      */
-    public skillsByCategory(categoryId: string, _options?: Configuration): Promise<Array<Skill>> {
+    public skillsByCategory(categoryId: string, _options?: Configuration): Promise<GetSkillsByCategoryResponse> {
         const result = this.api.skillsByCategory(categoryId, _options);
         return result.toPromise();
     }
@@ -279,7 +288,7 @@ export class PromiseOddGiantsApi {
      * Gets the details of an Upgrade
      * @param upgradeId 
      */
-    public upgrade(upgradeId: string, _options?: Configuration): Promise<Array<UpgradeDetails>> {
+    public upgrade(upgradeId: string, _options?: Configuration): Promise<GetUpgradeResponse> {
         const result = this.api.upgrade(upgradeId, _options);
         return result.toPromise();
     }
@@ -288,7 +297,7 @@ export class PromiseOddGiantsApi {
      * Get Upgradse by category
      * @param categoryId 
      */
-    public upgradesByCategory(categoryId: string, _options?: Configuration): Promise<Array<Upgrade>> {
+    public upgradesByCategory(categoryId: string, _options?: Configuration): Promise<GetUpgradesByCategoryResponse> {
         const result = this.api.upgradesByCategory(categoryId, _options);
         return result.toPromise();
     }
@@ -306,7 +315,7 @@ export class PromiseOddGiantsApi {
      * Gets the achievments for a given user
      * @param userId 
      */
-    public userAchievements(userId: number, _options?: Configuration): Promise<Array<UserAchievment>> {
+    public userAchievements(userId: number, _options?: Configuration): Promise<GetUserAchievementsResponse> {
         const result = this.api.userAchievements(userId, _options);
         return result.toPromise();
     }
@@ -315,7 +324,7 @@ export class PromiseOddGiantsApi {
      * Gets the skills for a given user
      * @param userId 
      */
-    public userSkills(userId: number, _options?: Configuration): Promise<Array<UserSkill>> {
+    public userSkills(userId: number, _options?: Configuration): Promise<GetUserSkillsResponse> {
         const result = this.api.userSkills(userId, _options);
         return result.toPromise();
     }
@@ -324,7 +333,7 @@ export class PromiseOddGiantsApi {
      * Gets the upgrades for a given user
      * @param userId 
      */
-    public userUpgrades(userId: number, _options?: Configuration): Promise<Array<UserUpgrade>> {
+    public userUpgrades(userId: number, _options?: Configuration): Promise<GetUserUpgradesResponse> {
         const result = this.api.userUpgrades(userId, _options);
         return result.toPromise();
     }

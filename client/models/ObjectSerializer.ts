@@ -22,6 +22,15 @@ export * from './CategoryLocations';
 export * from './CategorySkills';
 export * from './CategoryUpgrades';
 export * from './ErrorResponse';
+export * from './GetAchievementsByCategoryResponse';
+export * from './GetInhabitantsByCategoryResponse';
+export * from './GetItemsByCategoryResponse';
+export * from './GetSkillsByCategoryResponse';
+export * from './GetUpgradeResponse';
+export * from './GetUpgradesByCategoryResponse';
+export * from './GetUserAchievementsResponse';
+export * from './GetUserSkillsResponse';
+export * from './GetUserUpgradesResponse';
 export * from './Giant';
 export * from './GiantConnections';
 export * from './GiantDetails';
@@ -48,6 +57,7 @@ export * from './ItemInhabitantConnection';
 export * from './Location';
 export * from './LocationConnection';
 export * from './LocationConnections';
+export * from './LocationContents';
 export * from './LocationContentsValue';
 export * from './LocationDetails';
 export * from './LocationInhabitant';
@@ -56,7 +66,6 @@ export * from './LocationInhabitantPivot';
 export * from './LocationItem';
 export * from './LocationItemConnection';
 export * from './LocationItemPivot';
-export * from './LocationLocation';
 export * from './LocationLocationPivot';
 export * from './Recipe';
 export * from './RecipeItem';
@@ -132,6 +141,15 @@ import { CategoryLocations } from './CategoryLocations';
 import { CategorySkills } from './CategorySkills';
 import { CategoryUpgrades } from './CategoryUpgrades';
 import { ErrorResponse } from './ErrorResponse';
+import { GetAchievementsByCategoryResponse } from './GetAchievementsByCategoryResponse';
+import { GetInhabitantsByCategoryResponse } from './GetInhabitantsByCategoryResponse';
+import { GetItemsByCategoryResponse } from './GetItemsByCategoryResponse';
+import { GetSkillsByCategoryResponse } from './GetSkillsByCategoryResponse';
+import { GetUpgradeResponse } from './GetUpgradeResponse';
+import { GetUpgradesByCategoryResponse } from './GetUpgradesByCategoryResponse';
+import { GetUserAchievementsResponse } from './GetUserAchievementsResponse';
+import { GetUserSkillsResponse } from './GetUserSkillsResponse';
+import { GetUserUpgradesResponse } from './GetUserUpgradesResponse';
 import { Giant } from './Giant';
 import { GiantConnections } from './GiantConnections';
 import { GiantDetails } from './GiantDetails';
@@ -158,6 +176,7 @@ import { ItemInhabitantConnection } from './ItemInhabitantConnection';
 import { Location } from './Location';
 import { LocationConnection } from './LocationConnection';
 import { LocationConnections } from './LocationConnections';
+import { LocationContents } from './LocationContents';
 import { LocationContentsValue } from './LocationContentsValue';
 import { LocationDetails } from './LocationDetails';
 import { LocationInhabitant } from './LocationInhabitant';
@@ -166,7 +185,6 @@ import { LocationInhabitantPivot } from './LocationInhabitantPivot';
 import { LocationItem , LocationItemArticleEnum                    } from './LocationItem';
 import { LocationItemConnection } from './LocationItemConnection';
 import { LocationItemPivot } from './LocationItemPivot';
-import { LocationLocation } from './LocationLocation';
 import { LocationLocationPivot } from './LocationLocationPivot';
 import { Recipe      , RecipeLearntEnum             } from './Recipe';
 import { RecipeItem , RecipeItemArticleEnum                    } from './RecipeItem';
@@ -187,7 +205,7 @@ import { Upgrade } from './Upgrade';
 import { UpgradeAchievement } from './UpgradeAchievement';
 import { UpgradeAchievementConnection } from './UpgradeAchievementConnection';
 import { UpgradeCondition, UpgradeConditionTypeEnum         } from './UpgradeCondition';
-import { UpgradeConditionAchievement , UpgradeConditionAchievementTypeEnum   } from './UpgradeConditionAchievement';
+import { UpgradeConditionAchievement } from './UpgradeConditionAchievement';
 import { UpgradeConditionLevel , UpgradeConditionLevelTypeEnum   } from './UpgradeConditionLevel';
 import { UpgradeConditionMaxEnergy , UpgradeConditionMaxEnergyTypeEnum   } from './UpgradeConditionMaxEnergy';
 import { UpgradeConditionNull, UpgradeConditionNullTypeEnum   } from './UpgradeConditionNull';
@@ -252,7 +270,6 @@ let enumsMap: Set<string> = new Set<string>([
     "RecipeItemPivotTypeEnum",
     "SkillGiantPivotPrimaryEnum",
     "UpgradeConditionTypeEnum",
-    "UpgradeConditionAchievementTypeEnum",
     "UpgradeConditionLevelTypeEnum",
     "UpgradeConditionMaxEnergyTypeEnum",
     "UpgradeConditionNullTypeEnum",
@@ -291,6 +308,15 @@ let typeMap: {[index: string]: any} = {
     "CategorySkills": CategorySkills,
     "CategoryUpgrades": CategoryUpgrades,
     "ErrorResponse": ErrorResponse,
+    "GetAchievementsByCategoryResponse": GetAchievementsByCategoryResponse,
+    "GetInhabitantsByCategoryResponse": GetInhabitantsByCategoryResponse,
+    "GetItemsByCategoryResponse": GetItemsByCategoryResponse,
+    "GetSkillsByCategoryResponse": GetSkillsByCategoryResponse,
+    "GetUpgradeResponse": GetUpgradeResponse,
+    "GetUpgradesByCategoryResponse": GetUpgradesByCategoryResponse,
+    "GetUserAchievementsResponse": GetUserAchievementsResponse,
+    "GetUserSkillsResponse": GetUserSkillsResponse,
+    "GetUserUpgradesResponse": GetUserUpgradesResponse,
     "Giant": Giant,
     "GiantConnections": GiantConnections,
     "GiantDetails": GiantDetails,
@@ -316,6 +342,7 @@ let typeMap: {[index: string]: any} = {
     "Location": Location,
     "LocationConnection": LocationConnection,
     "LocationConnections": LocationConnections,
+    "LocationContents": LocationContents,
     "LocationContentsValue": LocationContentsValue,
     "LocationDetails": LocationDetails,
     "LocationInhabitant": LocationInhabitant,
@@ -324,7 +351,6 @@ let typeMap: {[index: string]: any} = {
     "LocationItem": LocationItem,
     "LocationItemConnection": LocationItemConnection,
     "LocationItemPivot": LocationItemPivot,
-    "LocationLocation": LocationLocation,
     "LocationLocationPivot": LocationLocationPivot,
     "Recipe": Recipe,
     "RecipeItem": RecipeItem,

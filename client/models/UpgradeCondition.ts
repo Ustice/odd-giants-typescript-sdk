@@ -24,11 +24,11 @@ export class UpgradeCondition {
     'level'?: number;
     'imaginationId'?: string;
     'skillId'?: string;
-    'achievementId'?: string;
+    'achievementId'?: number;
     'questId'?: string;
     'maxEnergy'?: string;
 
-    static readonly discriminator: string | undefined = "type";
+    static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
@@ -58,7 +58,7 @@ export class UpgradeCondition {
         {
             "name": "achievementId",
             "baseName": "achievement_id",
-            "type": "string",
+            "type": "number",
             "format": ""
         },
         {
@@ -79,7 +79,6 @@ export class UpgradeCondition {
     }
 
     public constructor() {
-        this.type = "UpgradeCondition";
     }
 }
 

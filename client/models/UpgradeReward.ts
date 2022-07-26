@@ -32,7 +32,7 @@ export class UpgradeReward {
     */
     'num': number;
 
-    static readonly discriminator: string | undefined = "type";
+    static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
@@ -95,7 +95,6 @@ export class UpgradeReward {
     }
 
     public constructor() {
-        this.type = "UpgradeReward";
     }
 }
 

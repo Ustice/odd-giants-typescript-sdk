@@ -10,14 +10,13 @@
  * Do not edit the class manually.
  */
 
-import { LocationContentsValue } from './LocationContentsValue';
+import { LocationContents } from './LocationContents';
 import { LocationInhabitant } from './LocationInhabitant';
 import { LocationItem } from './LocationItem';
-import { LocationLocation } from './LocationLocation';
 import { HttpFile } from '../http/http';
 
 export class LocationDetails {
-    'contents': { [key: string]: LocationContentsValue; };
+    'contents': LocationContents;
     'createdAt'?: string;
     /**
     * Identifier for the Location Model
@@ -33,8 +32,8 @@ export class LocationDetails {
     * Identifier for the User Model
     */
     'userId': number;
-    'connectionsFrom': LocationLocation;
-    'connectionsTo': LocationLocation;
+    'connectionsFrom': Array<LocationDetails>;
+    'connectionsTo': Array<LocationDetails>;
     'items': Array<LocationItem>;
     'npcs': Array<LocationInhabitant>;
 
@@ -44,7 +43,7 @@ export class LocationDetails {
         {
             "name": "contents",
             "baseName": "contents",
-            "type": "{ [key: string]: LocationContentsValue; }",
+            "type": "LocationContents",
             "format": ""
         },
         {
@@ -86,13 +85,13 @@ export class LocationDetails {
         {
             "name": "connectionsFrom",
             "baseName": "connections_from",
-            "type": "LocationLocation",
+            "type": "Array<LocationDetails>",
             "format": ""
         },
         {
             "name": "connectionsTo",
             "baseName": "connections_to",
-            "type": "LocationLocation",
+            "type": "Array<LocationDetails>",
             "format": ""
         },
         {

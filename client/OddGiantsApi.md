@@ -84,7 +84,7 @@ Name | Type | Description  | Notes
 # **achievementsByCategory**
 
 ```typescript
-declare function achievementsByCategory(categoryId: string, options?: Configuration): Array<Achievement>
+declare function achievementsByCategory(categoryId: string, options?: Configuration): GetAchievementsByCategoryResponse
 ```
 
 Get Achievements by category
@@ -114,7 +114,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-`Array<Achievement>`
+`GetAchievementsByCategoryResponse`
 
 ### Authorization
 
@@ -281,7 +281,7 @@ Name | Type | Description  | Notes
 # **inhabitantsByCategory**
 
 ```typescript
-declare function inhabitantsByCategory(categoryId: string, options?: Configuration): Array<Inhabitant>
+declare function inhabitantsByCategory(categoryId: string, options?: Configuration): GetInhabitantsByCategoryResponse
 ```
 
 
@@ -310,7 +310,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-`Array<Inhabitant>`
+`GetInhabitantsByCategoryResponse`
 
 ### Authorization
 
@@ -384,7 +384,7 @@ Name | Type | Description  | Notes
 # **itemsByCategory**
 
 ```typescript
-declare function itemsByCategory(categoryId: string, options?: Configuration): Array<Item>
+declare function itemsByCategory(categoryId: string, options?: Configuration): GetItemsByCategoryResponse
 ```
 
 List items by category
@@ -414,7 +414,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-`Array<Item>`
+`GetItemsByCategoryResponse`
 
 ### Authorization
 
@@ -526,7 +526,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[BearerAuth](README.md#BearerAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -831,7 +831,7 @@ Name | Type | Description  | Notes
 # **skillsByCategory**
 
 ```typescript
-declare function skillsByCategory(categoryId: string, options?: Configuration): Array<Skill>
+declare function skillsByCategory(categoryId: string, options?: Configuration): GetSkillsByCategoryResponse
 ```
 
 Get Skill by category
@@ -861,7 +861,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-`Array<Skill>`
+`GetSkillsByCategoryResponse`
 
 ### Authorization
 
@@ -883,7 +883,7 @@ Name | Type | Description  | Notes
 # **upgrade**
 
 ```typescript
-declare function upgrade(upgradeId: string, options?: Configuration): Array<UpgradeDetails>
+declare function upgrade(upgradeId: string, options?: Configuration): GetUpgradeResponse
 ```
 
 Gets the details of an Upgrade
@@ -913,7 +913,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-`Array<UpgradeDetails>`
+`GetUpgradeResponse`
 
 ### Authorization
 
@@ -935,7 +935,7 @@ Name | Type | Description  | Notes
 # **upgradesByCategory**
 
 ```typescript
-declare function upgradesByCategory(categoryId: string, options?: Configuration): Array<Upgrade>
+declare function upgradesByCategory(categoryId: string, options?: Configuration): GetUpgradesByCategoryResponse
 ```
 
 Get Upgradse by category
@@ -965,7 +965,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-`Array<Upgrade>`
+`GetUpgradesByCategoryResponse`
 
 ### Authorization
 
@@ -1039,7 +1039,7 @@ Name | Type | Description  | Notes
 # **userAchievements**
 
 ```typescript
-declare function userAchievements(userId: number, options?: Configuration): Array<UserAchievment>
+declare function userAchievements(userId: number, options?: Configuration): GetUserAchievementsResponse
 ```
 
 Gets the achievments for a given user
@@ -1069,7 +1069,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-`Array<UserAchievment>`
+`GetUserAchievementsResponse`
 
 ### Authorization
 
@@ -1091,7 +1091,7 @@ Name | Type | Description  | Notes
 # **userSkills**
 
 ```typescript
-declare function userSkills(userId: number, options?: Configuration): Array<UserSkill>
+declare function userSkills(userId: number, options?: Configuration): GetUserSkillsResponse
 ```
 
 Gets the skills for a given user
@@ -1121,7 +1121,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-`Array<UserSkill>`
+`GetUserSkillsResponse`
 
 ### Authorization
 
@@ -1143,7 +1143,7 @@ Name | Type | Description  | Notes
 # **userUpgrades**
 
 ```typescript
-declare function userUpgrades(userId: number, options?: Configuration): Array<UserUpgrade>
+declare function userUpgrades(userId: number, options?: Configuration): GetUserUpgradesResponse
 ```
 
 Gets the upgrades for a given user
@@ -1173,7 +1173,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-`Array<UserUpgrade>`
+`GetUserUpgradesResponse`
 
 ### Authorization
 

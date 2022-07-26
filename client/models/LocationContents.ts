@@ -10,30 +10,18 @@
  * Do not edit the class manually.
  */
 
+import { LocationContentsValue } from './LocationContentsValue';
 import { HttpFile } from '../http/http';
 
-export class UpgradeConditionAchievement {
-    'achievementId'?: number;
-    'type': number;
+export class LocationContents {
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
-        {
-            "name": "achievementId",
-            "baseName": "achievement_id",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "type",
-            "baseName": "type",
-            "type": "number",
-            "format": ""
-        }    ];
+    ];
 
     static getAttributeTypeMap() {
-        return UpgradeConditionAchievement.attributeTypeMap;
+        return LocationContents.attributeTypeMap;
     }
 
     public constructor() {
