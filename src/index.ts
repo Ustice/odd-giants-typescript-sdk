@@ -54,7 +54,7 @@ const hasNPC = (npcId: string, location: LocationDetails) => {
 
 async function main () {
   // const targetId = 'npc_shrine_alph'
-  const targetId = 'npc_shrine_cosma'
+  const targetId = 'npc_shrine_zille'
   const user = await oddGiants.me()
   // const location = await oddGiants.location({ locationId: user.locationId })
 
