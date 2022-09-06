@@ -23,7 +23,7 @@ await $`
     openapitools/openapi-generator-cli generate \\
         -i /out/api.yml \\
         -g typescript \\
-        -o /out/client \\
+        -o /out/src/client \\
         -t /out/templates \\
         --artifact-id ${ tsName } \\
         --global-property apiDocs=true \\

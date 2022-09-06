@@ -4,11 +4,11 @@
   "description": "Utilities for interacting with the Odd Giants public API.",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "build": "webpack"
+    "test": "npm run esbuild && node dist/index.js",
+    "build": "webpack",
+    "esbuild": "esbuild src/index.ts --outfile=dist/index.js --bundle --sourcemap"
   },
   "type": "module",
-  "target": "Node16",
   "author": "Jason Kleinberg",
   "license": "ISC",
   "devDependencies": {
@@ -20,13 +20,14 @@
     "@jest/types": "^28.1.1",
     "@types/aws-lambda": "^8.10.89",
     "@types/jest": "^28.1.1",
-    "@types/node": "^17.0.42",
+    "@types/node": "^17.0.45",
     "@types/webpack-env": "^1.17.0",
     "@typescript-eslint/eslint-plugin": "^5.27.1",
     "@typescript-eslint/parser": "^5.27.1",
     "babel": "^6.23.0",
     "babel-cli": "^6.26.0",
     "clean-webpack-plugin": "^4.0.0",
+    "esbuild": "^0.15.7",
     "eslint": "^8.17.0",
     "jest": "^28.1.1",
     "node-fetch": "^3.2.6",
@@ -39,7 +40,9 @@
     "webpack-node-externals": "^3.0.0"
   },
   "dependencies": {
+    "@types/node-fetch": "^2.6.2",
     "@types/url-parse": "^1.4.8",
+    "p-queue": "^7.3.0",
     "url-parse": "^1.5.10",
     "whatwg-fetch": "^3.6.2"
   }

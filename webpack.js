@@ -24,10 +24,11 @@ module.exports = {
       },
     ],
   },
-  output: {
-    filename: 'api.ts',
-    path: path.resolve(__dirname, 'dist'),
-  },
+  outDir: 'dist',
+  // output: {
+  //   filename: 'api.ts',
+  //   path: path.resolve(__dirname, 'dist'),
+  // },
   plugins: [
     new webpack.HotModuleReplacementPlugin() 
 
@@ -36,7 +37,8 @@ module.exports = {
   resolve: {
     extensions: [ '.ts' ],
     alias: {
-      '@': path.resolve(__dirname, './src/'),
+      '@': path.resolve(__dirname, 'src'),
+      '@root': __dirname
     },
   },
   target: 'node',
