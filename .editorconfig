@@ -1,34 +1,10 @@
 # EditorConfig is awesome: http://EditorConfig.org
-
-# top-most EditorConfig file
 root = true
 
-# Matches multiple files with brace expansion notation
-# Set default charset
-[*.{js,pl,pm}]
+[*]
 charset = utf-8
-
-# 2 space indentation
-[*.{pl,pm,t}]
+insert_final_newline = true
+end_of_line = lf
 indent_style = space
 indent_size = 2
-
-#for the css files
-[*.{css}]
-indent_style = space
-indent_size = 2
-
-# Tab indentation (no size specified)
-[*.{js,ts}]
-indent_style = space
-indent_size = 2
-
-# Tab indentation (no size specified)
-[*.txt]
-indent_style = space
-indent_size = 2
-
-# GraphQL files
-[*.{gql,graphql}]
-indent_size = space
-indent_size = 2
+max_line_length = 80

@@ -1,0 +1,15 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "start",
+      "type": "shell",
+      "command": "docker-compose up"
+    },
+    {
+      "label": "stop",
+      "type": "shell",
+      "command": "docker-compose down"
+    }
+  ]
+}
