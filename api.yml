@@ -56,7 +56,7 @@ components:
         $ref: '#/components/schemas/region_id'
     search_query:
       in: query
-      name: search_query
+      name: q
       required: true
       schema:
         format: uri-encoded
@@ -479,6 +479,8 @@ components:
               type: array
           title: CategoryLocations
           type: object
+          required:
+            - categories
         skills:
           properties:
             categories:
@@ -677,7 +679,7 @@ components:
         - description
         - has_infopage
         - id
-        - items
+        # - items
         - name
         - name_plural
         - updated_at
@@ -868,7 +870,8 @@ components:
         contents:
           $ref: '#/components/schemas/LocationContents'
         created_at:
-          $ref: '#/components/schemas/datetime'
+          format: date-time
+          type: string
         id:
           $ref: '#/components/schemas/location_id'
         label:
@@ -922,21 +925,26 @@ components:
           items:
             $ref: '#/components/schemas/LocationInhabitant'
           type: array
-      required:
-        - items
-        - npcs
-        - connections_from
-        - connections_to
+      # required:
+      #   - items
+      #   - npcs
+      # - connections_from
+      # - connections_to
       type: object
     LocationContents:
       additionalProperties:
-        oneOf:
-          - description: Permenant resident population
-            type: number
-          - description: Current resident population
-            pattern: ^[0-9]+$
-            type: string
+        # oneOf:
+        #   - description: Permenant resident population
+        #     $ref: '#/components/schemas/LocationContentsTypeString'
+        #   - description: Current resident population
+        #     $ref: '#/components/schemas/LocationContentsTypeNumber'
+        type: number
       type: object
+    LocationContentsTypeString:
+      type: string
+      pattern: ^[0-9]+$
+    LocationContentsTypeNumber:
+      type: number
     LocationDetails:
       allOf:
         - $ref: '#/components/schemas/Location'
@@ -1240,7 +1248,7 @@ components:
             $ref: '#/components/schemas/SkillGiant'
           type: array
         learned:
-          example: 'With Light Green Thumb, you''ve just taken a step into a bigger world. A world where you grok plants, and they grok you right back. Armed with your trusty Watering Can, you will now enjoy some modest rewards now that you know how to water and pet the veg properly, and at twice the speed to boot. '
+          example: "With Light Green Thumb, you've just taken a step into a bigger world. A world where you grok plants, and they grok you right back. Armed with your trusty Watering Can, you will now enjoy some modest rewards now that you know how to water and pet the veg properly, and at twice the speed to boot. "
           type: string
         required_achievements:
           items:
@@ -1323,10 +1331,10 @@ components:
           format: date-time
           type: string
         desc:
-          example: 'Life''s a lot less fun on an empty tank: make yours bigger!'
+          example: "Life's a lot less fun on an empty tank: make yours bigger!"
           type: string
         description:
-          example: 'Life''s a lot less fun on an empty tank: make yours bigger!'
+          example: "Life's a lot less fun on an empty tank: make yours bigger!"
           type: string
         display_name:
           example: Energy Tank Increase
@@ -1999,6 +2007,8 @@ paths:
           $ref: '#/components/responses/GetSearch'
       tags:
         - OddGiants
+      security:
+        - BearerAuth: []
     parameters:
       - $ref: '#/components/parameters/search_query'
   /encyclopedia/skill/{skill_id}:

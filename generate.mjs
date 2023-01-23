@@ -13,36 +13,51 @@ const tsName = nameSlug
 
 const projectRoot = resolve(__dirname)
 
-const generatedDir = resolve(projectRoot, 'client')
+const generatedDir = resolve(projectRoot, 'generated', 'odd-giants-api')
+const linkPath = resolve(projectRoot, 'node_modules', '@odd', 'api')
 const openApiSpecPath = resolve('/out', 'api.yml')
 // const templatesPath = resolve(projectRoot, 'templates', 'typescript')
 
-await $`mkdir -p ${generatedDir} && rm -rf ${generatedDir}/*`
+await $`rm -rf ${generatedDir} && mkdir -p ${generatedDir}/*`
+await $`docker run --rm openapitools/openapi-generator-cli version`
 await $`
-  docker run --rm -v "${ projectRoot }":/out \\
+  docker run --rm \\
+    -v "${projectRoot}":/in \\
+    -v "${generatedDir}":/out \\
     openapitools/openapi-generator-cli generate \\
-        -i /out/api.yml \\
-        -g typescript \\
-        -o /out/src/client \\
-        -t /out/templates \\
-        --artifact-id ${ tsName } \\
+        -i /in/api.yml \\
+        -g typescript-fetch \\
+        -o /out \\
+        -t /in/templates \\
+        --enable-post-process-file \\
+        --artifact-id ${tsName} \\
         --global-property apiDocs=true \\
-        --global-property modelDocs=true \\
         --global-property apiTests=true \\
+        --global-property modelDocs=true \\
         --global-property modelTests=true \\
         --global-property platform=node \\
-        -p generateAliasAsModel=true \\
-        -p projectName=${ nameSlug } \\
-        -p moduleName=${ tsName } \\
-        -p classname=${ tsName } \\
+        --global-property generateAliasAsModel=true \\
+        -p ensureUniqueParams=true \\
+        -p withInterfaces=true \\
+        -p classname=${tsName} \\
         -p framework=fetch-api \\
+        -p generateAliasAsModel=true \\
+        -p legacyDiscriminatorBehavior=true \\
+        -p moduleName=${tsName} \\
+        -p npmName="@odd/api" \\
+        -p npmVersion=${pkg.version} \\
+        -p projectName=${nameSlug} \\
         -p supportsES6=true \\
         -p useObjectParameters=true \\
-        -p npmName=odd-giants-sdk \\
-        -p npmVersion=${ pkg.version } \\
-        -p legacyDiscriminatorBehavior=true \\
       ;
 `
-  .then(() => { console.log('✅  Odd Giants SDK generated!') })
-  .catch((error) => { console.log('❌  Failed to generate Odd Giants SDK:', error); throw error })
-
+await $`mkdir -p ${resolve(linkPath, '..')}`
+await $`ln -s ${linkPath} ${generatedDir}`
+await $`cd ${generatedDir} && npm install`
+  .then(() => {
+    console.log('✅  Odd Giants SDK generated!')
+  })
+  .catch((error) => {
+    console.log('❌  Failed to generate Odd Giants SDK:', error)
+    throw error
+  })

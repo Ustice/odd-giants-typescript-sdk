@@ -5,4 +5,8 @@ dist
 # don't lint nyc coverage output
 coverage
 # dont lint babel.config.js
-babel.config.js
+*.config.js
+*.config.mjs
+*.config.cjs
+generated
+

@@ -1,3 +1,7 @@
 node_modules
 credentials.ts
 dist
+# src/client
+.jest-cache
+coverage
+generated
