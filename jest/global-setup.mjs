@@ -1,4 +1,3 @@
-import { randomUUID } from 'node:crypto'
 import { $ } from 'zx'
 
 // const mockServerName = `Odd-Giants-Mock-API-${ randomUUID() }`
@@ -8,6 +7,15 @@ async function setupJest(globalConfig, projectConfig) {
   console.log(`Starting ${mockServerName}`)
 
   globalThis.mockServerName = mockServerName
+
+  const containerStatus = await $`
+    docker ps -a --filter name=${mockServerName} --format '{{.Status}}'
+  `
+
+  if (containerStatus.stdout.match('Up')) {
+    console.log('Mock server already running')
+    return
+  }
 
   const server = $`
     docker run \\

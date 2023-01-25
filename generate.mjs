@@ -26,6 +26,7 @@ await $`
   docker run --rm \\
     -v ${projectRoot}:/in \\
     -v ${generatedDir}:/out \\
+    --name ${nameSlug}-code-generator \\
     openapitools/openapi-generator-cli generate \\
         -i /in/api.yml \\
         -g typescript-fetch \\
@@ -63,6 +64,3 @@ if (generated.status === 'rejected') {
 }
 
 console.log('✅  Odd Giants SDK generated!')
-
-// await $`mkdir -p ${resolve(linkPath, '..')}`
-// await $`ln -s ${generatedDir} ${linkPath}`

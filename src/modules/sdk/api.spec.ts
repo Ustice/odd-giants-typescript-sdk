@@ -24,7 +24,6 @@ describe('OddGiantsApi', () => {
   it('should get my credentials', async () => {
     const { api, me } = t.context
 
-    console.log({ me })
     expect(me).toBeTruthy()
   })
 })

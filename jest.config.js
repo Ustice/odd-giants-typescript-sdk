@@ -32,7 +32,8 @@ const config = {
   globalSetup: '<rootDir>/jest/global-setup.mjs',
   globalTeardown: '<rootDir>/jest/global-teardown.mjs',
   moduleNameMapper: {
-    // '@odd/api/(.*)$': '<rootDir>/generated/odd-giants-api/$1',
+    '@odd/api': '<rootDir>/node_modules/@odd/api',
+    '@odd/api/(.*)$': '<rootDir>/node_modules/@odd/api/$1',
     '@root/(.*)$': '<rootDir>/$1',
     '@test/(.*)$': '<rootDir>/test/$1',
     '@test': '<rootDir>/test/index.ts',
@@ -47,12 +48,12 @@ const config = {
   ],
   testTimeout: 60000,
   transform: {
-    '\\.ts$': [
-      'ts-jest',
+    '^.+\\.tsx?$': [
+      'esbuild-jest',
       {
-        babelConfig: true,
-        tsconfig: true,
-        useESM: true,
+        format: 'esm',
+        sourcemap: 'inline',
+        target: 'esnext',
       },
     ],
   },
