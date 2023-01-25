@@ -1,7 +1,8 @@
 #!/usr/bin/env zx
 
-import { resolve } from 'path'
-import { $ } from 'zx'
+// Developer note: This script is run with zx. Because this generates the SDK,
+// before dependencies can be installed, it can not use any dependencies.
+import { resolve } from 'node:path'
 
 import pkg from './package.json' assert { type: 'json' }
 
@@ -13,17 +14,18 @@ const tsName = nameSlug
 
 const projectRoot = resolve(__dirname)
 
-const generatedDir = resolve(projectRoot, 'generated', 'odd-giants-api')
-const linkPath = resolve(projectRoot, 'node_modules', '@odd', 'api')
+const linkPath = resolve(projectRoot, 'node_modules', '@odd/api')
+// const generatedDir = resolve(projectRoot, 'generated', 'odd-giants-api')
+const generatedDir = linkPath
 const openApiSpecPath = resolve('/out', 'api.yml')
 // const templatesPath = resolve(projectRoot, 'templates', 'typescript')
 
-await $`rm -rf ${generatedDir} && mkdir -p ${generatedDir}/*`
+await $`rm -rf ${generatedDir} && mkdir -p ${generatedDir}`
 await $`docker run --rm openapitools/openapi-generator-cli version`
 await $`
   docker run --rm \\
-    -v "${projectRoot}":/in \\
-    -v "${generatedDir}":/out \\
+    -v ${projectRoot}:/in \\
+    -v ${generatedDir}:/out \\
     openapitools/openapi-generator-cli generate \\
         -i /in/api.yml \\
         -g typescript-fetch \\
@@ -51,13 +53,16 @@ await $`
         -p useObjectParameters=true \\
       ;
 `
-await $`mkdir -p ${resolve(linkPath, '..')}`
-await $`ln -s ${linkPath} ${generatedDir}`
-await $`cd ${generatedDir} && npm install`
-  .then(() => {
-    console.log('✅  Odd Giants SDK generated!')
-  })
-  .catch((error) => {
-    console.log('❌  Failed to generate Odd Giants SDK:', error)
-    throw error
-  })
+const [generated] = await Promise.allSettled([
+  $`cd ${generatedDir} && npm install`,
+])
+
+if (generated.status === 'rejected') {
+  console.log('❌  Failed to generate Odd Giants SDK:', generated.reason)
+  throw generated.reason
+}
+
+console.log('✅  Odd Giants SDK generated!')
+
+// await $`mkdir -p ${resolve(linkPath, '..')}`
+// await $`ln -s ${generatedDir} ${linkPath}`

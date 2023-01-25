@@ -31,6 +31,13 @@ function hasPromiseLikeProperties<T extends object>(
   return Object.values(input).some(isPromiseLike)
 }
 
+/**
+ * # awaitProperties
+ *
+ * Takes an object with properties that may be promises and returns a promise
+ * which once all on the properties in the original object have been resolved,
+ * returns an object with the same properties but with the resolved values.
+ */
 async function awaitProperties<
   T extends object,
   K extends keyof T,
@@ -47,8 +54,6 @@ async function awaitProperties<
 }
 
 export function wrapHook(hook: Hook) {
-  console.log(`Wrapping hook ${hook.name}`)
-
   function wrappedHook<T extends object>(
     setupFunction: () => PromiseLike<T>,
   ): ContextOf<T>
@@ -61,18 +66,12 @@ export function wrapHook(hook: Hook) {
     R extends HookReturn<Awaited<T>>,
   >(setupFunction: Fn): ContextOf<R> {
     let context: R
-    console.log(`Before hook ${hook.name}`)
     hook(async () => {
-      console.log(`~~~ Triggered: ${hook.name}`)
       const result = setupFunction() ?? {}
-
-      console.log(`~~~ Result: ${hook.name}`, result)
 
       context = (await awaitProperties(result)) as R
       return context
     })
-
-    console.log(`After hook ${hook.name}`)
 
     return {
       get context() {

@@ -29,7 +29,10 @@ const config = {
     './src/*.ts': fullCoverage,
     global: fullCoverage,
   },
+  globalSetup: '<rootDir>/jest/global-setup.mjs',
+  globalTeardown: '<rootDir>/jest/global-teardown.mjs',
   moduleNameMapper: {
+    // '@odd/api/(.*)$': '<rootDir>/generated/odd-giants-api/$1',
     '@root/(.*)$': '<rootDir>/$1',
     '@test/(.*)$': '<rootDir>/test/$1',
     '@test': '<rootDir>/test/index.ts',

@@ -4,6 +4,13 @@ This is a work-in-progress fully-typed SDK for the API for the game [Odd Giants]
 
 ## Building
 
+## Initialization
+
+For easy initialization, run the `init` script. This will generate the API, and
+install dependencies.
+
+    npm run init
+
 ### Build SDK
 
 To build the OddGiants SDK, run

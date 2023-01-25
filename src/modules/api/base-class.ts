@@ -1,11 +1,10 @@
-import {
-  type Configuration,
-  type SessionInfo,
-  type AuthenticationCredentials,
-} from '@odd/api'
 import * as Dependencies from '@/modules/api/dependencies'
 import { type PromiseQueue } from '@/modules/api/dependencies'
-
+import {
+  type AuthenticationCredentials,
+  type Configuration,
+  type SessionInfo,
+} from '@odd/api'
 export class OddGiantsApi extends Dependencies.OddGiantsApiGenerated {
   #authToken?: Promise<string>
   #credentials: AuthenticationCredentials
@@ -15,7 +14,7 @@ export class OddGiantsApi extends Dependencies.OddGiantsApiGenerated {
 
   constructor(
     { credentials, Configuration, logger, PromiseQueue }: typeof Dependencies,
-    configuration?: Configuration,
+    configuration?: ConstructorParameters<typeof Configuration>[0],
   ) {
     super(
       new Configuration({

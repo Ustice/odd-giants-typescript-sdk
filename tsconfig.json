@@ -13,6 +13,8 @@
     "outDir": "dist",
     "paths": {
       "@/*": ["src/*", "src/*.ts", "src/*/index.ts"],
+      "@odd/api/*": ["node_modules/@odd/api/dist/esm/*"],
+      // "@odd/api": ["node_modules/@odd/api/dist/esm", "node_modules/@odd/api/dist/esm/index.js", "node_modules/@odd/api/dist/esm/index.d.ts"],
       "@root/*": ["*", "*.ts", "*/index.ts"],
       "@test/*": ["test/*", "test/*.ts", "test/*/index.ts"],
       "@test": ["test/index.ts"]
@@ -23,14 +25,16 @@
     "target": "ESNext",
     "typeRoots": [
       "node_modules/@types",
-      "generated/odd-giants-api/dist/esm/index.d.ts"
+      "node_modules/**/@types",
+      "node_modules/@odd/api/dist/esm"
+      // "node_modules/odd-giants-api/dist/esm/index.d.ts"
     ]
   },
   "exclude": [
     "node_modules/",
-    "dist/",
-    "generated/**/node_modules/*",
-    "generated/**/dist/*"
+    "dist/"
+    // "generated/**/node_modules/*",
+    // "generated/**/dist/*"
   ],
-  "include": ["src/**/*.ts", "test/**/*.ts", "*.ts", "generated/**/*.d.ts"]
+  "include": ["src/**/*.ts", "test/**/*.ts", "*.ts", "jest/*.mjs"]
 }

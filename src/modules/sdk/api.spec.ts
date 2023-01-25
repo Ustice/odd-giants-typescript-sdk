@@ -1,15 +1,19 @@
-import { beforeEach, silentLogger } from '@test'
+import { beforeEach, silentLogger, mockServerBaseUrl } from '@test'
 
-import { generateOddGiantsApi } from '@/modules/api'
+import { OddGiantsApi } from '@/modules/api'
+import * as DefaultDependencies from '@/modules/api/dependencies'
 
 describe('OddGiantsApi', () => {
-  const t = beforeEach(() => {
-    console.log('Inside beforeEach')
-
-    const dependencies = {
+  const t = beforeEach(async () => {
+    const dependencies: typeof DefaultDependencies = {
+      ...DefaultDependencies,
+      Configuration: DefaultDependencies.Configuration,
       logger: silentLogger,
     }
-    const api = generateOddGiantsApi()
+
+    const api = new OddGiantsApi(dependencies, {
+      basePath: mockServerBaseUrl,
+    })
 
     return {
       api,
@@ -20,6 +24,7 @@ describe('OddGiantsApi', () => {
   it('should get my credentials', async () => {
     const { api, me } = t.context
 
-    console.log('~~~ Running test with context', me)
+    console.log({ me })
+    expect(me).toBeTruthy()
   })
 })
