@@ -24,6 +24,8 @@ describe('OddGiantsApi', () => {
   it('should get my credentials', async () => {
     const { api, me } = t.context
 
+    // Not a real test
     expect(me).toBeTruthy()
+    expect(api).toBeTruthy()
   })
 })

@@ -74,7 +74,7 @@ export class MeModule extends OddGiantsSDKModule<User> {
 type PropertyUnion<
   Options extends object,
   Kinds extends keyof Options = keyof Options,
-> = Kinds extends any
+> = Kinds extends unknown
   ? { [K in Kinds]: K extends Exclude<keyof Options, K> ? never : Options[K] }
   : never
 

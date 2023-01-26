@@ -1,10 +1,6 @@
 import * as Dependencies from '@/modules/api/dependencies'
 import { type PromiseQueue } from '@/modules/api/dependencies'
-import {
-  type AuthenticationCredentials,
-  type Configuration,
-  type SessionInfo,
-} from '@odd/api'
+import { type AuthenticationCredentials, type SessionInfo } from '@odd/api'
 export class OddGiantsApi extends Dependencies.OddGiantsApiGenerated {
   #authToken?: Promise<string>
   #credentials: AuthenticationCredentials
